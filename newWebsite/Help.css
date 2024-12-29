@@ -63,6 +63,7 @@ text-align: center;
 color:brown;
 
 }
-label{
-    text-align:center;
+contactform{
+    margin: auto;
+    width: 43%;
 }
