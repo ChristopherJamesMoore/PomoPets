@@ -37,31 +37,28 @@ p {
 .navigation li {
     float: left;
     list-style: none;
+
 }
 
 .navigation ul {
     overflow: auto;
-    padding:15px;
+    padding:12px;
     margin: 0;
 }
 
 .navigation ul li a {
     color: whitesmoke;
     text-decoration: none;
-    padding: 25px;
+    padding: 27px;
     font-weight: bold;
-    margin:10px;
+    margin:0px;
+    
 }
 .navigation ul li a:hover {
     background-color:firebrick;
 }
 body {
     margin:0;
-}
-h2{
-text-align: center;
-color:brown;
-
 }
 contactform{
     margin: auto;

@@ -20,21 +20,13 @@ p {
 
 h1 {
     color: lightcoral;
-    font-family: Verdana, Tahoma, sans-serif;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
     font-size: 200%;
-}
-h2{
-    color:brown;
-    font-family: Verdana, Tahoma, sans-serif;
-    font-size:90%;
-    text-align:left;
-    float:left;
-    
 }
 
 p {
     color: coral;
-    font-family: Verdana, Tahoma, sans-serif;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
     font-size: 100%;
 }
 
@@ -45,20 +37,22 @@ p {
 .navigation li {
     float: left;
     list-style: none;
+
 }
 
 .navigation ul {
     overflow: auto;
-    padding:15px;
+    padding:12px;
     margin: 0;
 }
 
 .navigation ul li a {
     color: whitesmoke;
     text-decoration: none;
-    padding: 25px;
+    padding: 27px;
     font-weight: bold;
-    margin:10px;
+    margin:0px;
+    
 }
 .navigation ul li a:hover {
     background-color:firebrick;
