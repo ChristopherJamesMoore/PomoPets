@@ -58,9 +58,10 @@ p {
 .navigation ul li a:hover {
     background-color:firebrick;
 }
+
 body {
-    margin:0;
     justify-content: center;
+    background:antiquewhite;
 }
 .row{
     margin: auto;
