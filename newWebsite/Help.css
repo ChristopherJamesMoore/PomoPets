@@ -52,6 +52,7 @@ p {
     padding: 27px;
     font-weight: bold;
     margin:0px;
+    justify-content: center;
     
 }
 .navigation ul li a:hover {
@@ -59,8 +60,14 @@ p {
 }
 body {
     margin:0;
+    justify-content: center;
 }
-contactform{
+.row{
     margin: auto;
     width: 43%;
+    justify-content: center;
+    text-align: center;
+}
+h2 {
+    text-align: center;
 }
