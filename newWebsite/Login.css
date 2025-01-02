@@ -26,6 +26,7 @@ body {
     height: 50px;
     margin: 30px 0;
     background:brown;
+    border-radius: 30px;
 }
 .input-box input {
     width: 100%;
@@ -46,4 +47,6 @@ body {
 .wrapper .remember-forget{
 display: flex;
 justify-content: space-between;
+font-size: 14.5px;
+margin: -15px 0 15px;
 }
