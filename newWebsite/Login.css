@@ -43,3 +43,7 @@ body {
     font-size: 100%;
     text-align: center;
 }
+.wrapper .remember-forget{
+display: flex;
+justify-content: space-between;
+}
