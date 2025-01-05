@@ -59,6 +59,7 @@ body {
     color: white;
     position: relative;
     left: -15px;
+    bottom: 10px;
 }
 
 .space {
@@ -91,10 +92,12 @@ body {
     text-align: center;
 }
 .register-link {
+    position: relative;
     display: flex;
     justify-content: center;
     font-size: 14.5px;
     margin-top: 20px 0 15px;
+    top: 10px;
 }
 .register-link p a{
     color: white;
