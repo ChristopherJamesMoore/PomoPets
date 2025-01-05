@@ -60,3 +60,9 @@ p {
 body {
     margin:0;
 }
+p2 {
+    text-decoration: none;
+    text-align: center;
+    font-weight: bold;
+    color: brown;
+}
