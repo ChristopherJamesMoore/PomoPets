@@ -85,7 +85,7 @@ h2 {
     width: 350px;
 }
 .btn-primary {
-    color: darksalmon;
+    color: white;
     text-decoration: none;
     background: coral;
     border-radius: 30px;
@@ -103,10 +103,13 @@ h2 {
 }
 
 input {
-    background-color: transparent;
-    border: 2px solid pink;
-    height: 30px;
-    width: 200px;
-    color: darksalmon;
+    background-color: White;
+    border: 2px solid transparent;
+    margin: 6px;
+    height: 50px;
+    width: 280px;
+    color: white;
     border-radius: 30px;
+    font-size: 40px;
+    color: black;
 }
