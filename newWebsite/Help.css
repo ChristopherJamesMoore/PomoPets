@@ -42,6 +42,8 @@ p {
     font-weight: bold;
     margin:0px;
     justify-content: center;
+    font-family: verdana;
+    font-size: 14px;
     
 }
 .navigation ul li a:hover {

@@ -7,7 +7,7 @@
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 16px;
+    font-size: 14spx;
 }
 
 h1 {
@@ -31,32 +31,104 @@ p {
 }
 
 .navigation {
-    background-color: darksalmon;
+    background-color: rgba(255, 255, 255, 0.5);
+    padding: 10px;
+    margin: 0;
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+    opacity: 0.8;
 }
 
 .navigation li {
-    float: left;
     list-style: none;
-
+    padding: 0 15px; /* Adds spacing between items */
 }
 
 .navigation ul {
-    overflow: auto;
-    padding:12px;
+    display: flex;
+    justify-content: center; /* Centers items horizontally */
+    align-items: center; /* Aligns items vertically */
+    padding: 10px;
     margin: 0;
 }
 
 .navigation ul li a {
-    color: whitesmoke;
+    color: navy;
     text-decoration: none;
-    padding: 27px;
+    padding: 15px;
     font-weight: bold;
     margin:0px;
+    font-size: 16px;
+    display: inline-block;
+    font-family: verdana;
+    transition: transform 0.5s;
     
 }
-.navigation ul li a:hover {
-    background-color:firebrick;
-}
+ .navigation ul li a:hover {
+    transform: scale(.85);
+    color: whitesmoke;
+ }
 body {
     margin:0;
+    background: url("night-sky-with-stars-and-clouds-cartoon-animation-relaxing-dark-skies-4k-motion-graphic-cloudy-evening-heaven-2d-animated-background-full-frame-after-hours-aesthetic-lofi-live-wallpaper-video.jpg");
+    background-size: cover;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: pink;
+    background-size: cover;
+    height: 100vh;
+}
+.games-select{
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+    padding: 50px;
+    align-items: center;
+    display:flex;
+    justify-content: center;
+    flex-direction: column;
+    height: 70vh;
+    gap: 40px;
+    margin-top: 20px;
+   
+}
+  /* space between the games */
+  .games-select section { 
+    display: flex;
+    margin-bottom: 1px;
+    justify-content: center;
+    align-items: center;
+    gap: 100px;
+  }
+  .games-select section span {
+    display: flex;
+    height: 150px;
+    width: 150px;
+    margin: 2px;
+    font-size: 40px;
+    line-height: 80px;
+    text-align: center;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.5);
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+.games-select section .box1 a {
+    display: flex;  /* Ensures full clickable area */
+    width: 100%;
+    height: 100%;
+}
+
+.games-select section .box1 img {
+    width: 100%;  
+    height: 100%;
+    object-fit: cover; 
+    border-radius: 10px; 
+    transition: transform 0.3s ease; 
+}
+
+.games-select section .box1 a:hover img {
+    transform: scale(.85); 
 }

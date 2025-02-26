@@ -52,6 +52,8 @@ p {
     padding: 27px;
     font-weight: bold;
     margin:0px;
+    font-family: verdana;
+    font-size: 14px;
     
 }
 .navigation ul li a:hover {

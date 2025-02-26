@@ -19,46 +19,66 @@ p {
 }
 
 h1 {
-    color: lightcoral;
+    color: plum;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     font-size: 200%;
 }
 
 p {
-    color: coral;
+    color: white;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     font-size: 100%;
 }
 
+
 .navigation {
-    background-color: darksalmon;
+    background-color: rgba(255, 255, 255, 0.5);
+    padding: 10px;
+    margin: 0;
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+    opacity: 0.8;
 }
 
 .navigation li {
-    float: left;
     list-style: none;
-
+    padding: 0 15px; /* Adds spacing between items */
 }
+
 
 .navigation ul {
-    overflow: auto;
-    padding:12px;
+    display: flex;
+    justify-content: center; /* Centers items horizontally */
+    align-items: center; /* Aligns items vertically */
+    padding: 10px;
     margin: 0;
+    font-weight: bold;
+    font-size: 20px;
 }
 
+
 .navigation ul li a {
-    color: whitesmoke;
+    color: navy;
     text-decoration: none;
-    padding: 27px;
+    padding: 15px;
     font-weight: bold;
     margin:0px;
+    font-size: 16px;
+    display: inline-block;
+    font-family: verdana;
+    transition: transform 0.5s;
     
 }
-.navigation ul li a:hover {
-    background-color:firebrick;
-}
+
 body {
     margin:0;
+    background: url("night-sky-with-stars-and-clouds-cartoon-animation-relaxing-dark-skies-4k-motion-graphic-cloudy-evening-heaven-2d-animated-background-full-frame-after-hours-aesthetic-lofi-live-wallpaper-video.jpg");
+    background-size: cover;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: pink;
+    background-size: cover;
+    height: 100vh;
 }
 p2 {
     text-decoration: none;
@@ -66,4 +86,9 @@ p2 {
     font-weight: bold;
     color: brown;
     float: center;
+}
+
+.navigation ul li a:hover {
+   transform: scale(.85);
+   color: whitesmoke;
 }
