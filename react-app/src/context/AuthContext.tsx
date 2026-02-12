@@ -69,25 +69,36 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       } else {
         setLoading(false);
       }
+    }).catch((err) => {
+      console.error('getSession failed:', err);
+      if (mounted) setLoading(false);
     });
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      async (_event, session) => {
+      (_event, session) => {
         if (!mounted) return;
         const u = session?.user ?? null;
         setUser(u);
         if (u) {
-          await fetchProfile(u.id);
+          fetchProfile(u.id).finally(() => {
+            if (mounted) setLoading(false);
+          });
         } else {
           setProfile(null);
+          setLoading(false);
         }
-        setLoading(false);
       }
     );
+
+    // Safety timeout — never stay stuck on loading
+    const timeout = setTimeout(() => {
+      if (mounted) setLoading(false);
+    }, 5000);
 
     return () => {
       mounted = false;
       subscription.unsubscribe();
+      clearTimeout(timeout);
     };
   }, [fetchProfile]);
 
