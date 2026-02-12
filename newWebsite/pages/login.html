@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/login.css">
+    <title>PomoPets - Login</title>
+</head>
+<body>
+    <div class="login-page">
+        <div class="glass-card wrapper">
+
+            <!-- Login Form (default) -->
+            <form id="login-form">
+                <h1>Login</h1>
+                <div id="login-error" class="form-error" style="display:none;"></div>
+                <div class="input-box">
+                    <input type="email" id="login-email" placeholder="Email" required>
+                </div>
+                <div class="input-box">
+                    <input type="password" id="login-password" placeholder="Password" required>
+                </div>
+                <div class="remember-forget">
+                    <span></span>
+                    <a href="#" id="show-forgot">Forgot Password?</a>
+                </div>
+                <button type="submit" class="btn-login" id="login-btn">Login!</button>
+                <div class="divider"><span>or</span></div>
+                <button type="button" class="btn-login btn-google" id="google-btn">
+                    <svg width="18" height="18" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59a14.5 14.5 0 0 1 0-9.18l-7.98-6.19a24.08 24.08 0 0 0 0 21.56l7.98-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
+                    Continue with Google
+                </button>
+                <div class="register-link">
+                    <p>Don't have an account? <a href="#" id="show-register">Register</a></p>
+                </div>
+            </form>
+
+            <!-- Register Form -->
+            <form id="register-form" style="display:none;">
+                <h1>Register</h1>
+                <div id="register-error" class="form-error" style="display:none;"></div>
+                <div id="register-success" class="form-success" style="display:none;"></div>
+                <div class="input-box">
+                    <input type="email" id="register-email" placeholder="Email" required>
+                </div>
+                <div class="input-box">
+                    <input type="password" id="register-password" placeholder="Password" required minlength="6">
+                </div>
+                <div class="input-box">
+                    <input type="password" id="register-confirm" placeholder="Confirm Password" required minlength="6">
+                </div>
+                <button type="submit" class="btn-login" id="register-btn">Create Account</button>
+                <div class="register-link">
+                    <p>Already have an account? <a href="#" id="show-login-from-register">Login</a></p>
+                </div>
+            </form>
+
+            <!-- Forgot Password Form -->
+            <form id="forgot-form" style="display:none;">
+                <h1>Reset Password</h1>
+                <div id="forgot-error" class="form-error" style="display:none;"></div>
+                <div id="forgot-success" class="form-success" style="display:none;"></div>
+                <div class="input-box">
+                    <input type="email" id="forgot-email" placeholder="Email" required>
+                </div>
+                <button type="submit" class="btn-login" id="forgot-btn">Send Reset Link</button>
+                <div class="register-link">
+                    <p>Remember your password? <a href="#" id="show-login-from-forgot">Login</a></p>
+                </div>
+            </form>
+
+        </div>
+        <a href="../index.html" class="skip-link">Skip</a>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../js/auth.js"></script>
+    <script>
+        // ── Form toggling ──
+        const loginForm = document.getElementById('login-form');
+        const registerForm = document.getElementById('register-form');
+        const forgotForm = document.getElementById('forgot-form');
+
+        function showForm(form) {
+            [loginForm, registerForm, forgotForm].forEach(f => f.style.display = 'none');
+            form.style.display = 'block';
+        }
+
+        document.getElementById('show-register').addEventListener('click', (e) => { e.preventDefault(); showForm(registerForm); });
+        document.getElementById('show-forgot').addEventListener('click', (e) => { e.preventDefault(); showForm(forgotForm); });
+        document.getElementById('show-login-from-register').addEventListener('click', (e) => { e.preventDefault(); showForm(loginForm); });
+        document.getElementById('show-login-from-forgot').addEventListener('click', (e) => { e.preventDefault(); showForm(loginForm); });
+
+        function showError(id, msg) {
+            const el = document.getElementById(id);
+            el.textContent = msg;
+            el.style.display = 'block';
+        }
+        function hideErrors() {
+            document.querySelectorAll('.form-error, .form-success').forEach(el => el.style.display = 'none');
+        }
+
+        // ── On load: redirect if already authed ──
+        (async () => {
+            const user = await getCurrentUser();
+            if (user) {
+                const complete = await isProfileComplete(user.id);
+                window.location.href = complete ? '../index.html' : 'profile-setup.html';
+            }
+        })();
+
+        // ── Login ──
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            hideErrors();
+            const btn = document.getElementById('login-btn');
+            btn.disabled = true;
+            btn.textContent = 'Logging in...';
+
+            const { error } = await _supabase.auth.signInWithPassword({
+                email: document.getElementById('login-email').value.trim(),
+                password: document.getElementById('login-password').value,
+            });
+
+            if (error) {
+                showError('login-error', error.message);
+                btn.disabled = false;
+                btn.textContent = 'Login!';
+                return;
+            }
+
+            const user = await getCurrentUser();
+            const complete = await isProfileComplete(user.id);
+            window.location.href = complete ? '../index.html' : 'profile-setup.html';
+        });
+
+        // ── Register ──
+        registerForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            hideErrors();
+            const pw = document.getElementById('register-password').value;
+            const confirm = document.getElementById('register-confirm').value;
+
+            if (pw !== confirm) {
+                showError('register-error', 'Passwords do not match.');
+                return;
+            }
+
+            const btn = document.getElementById('register-btn');
+            btn.disabled = true;
+            btn.textContent = 'Creating account...';
+
+            const { data, error } = await _supabase.auth.signUp({
+                email: document.getElementById('register-email').value.trim(),
+                password: pw,
+            });
+
+            if (error) {
+                showError('register-error', error.message);
+                btn.disabled = false;
+                btn.textContent = 'Create Account';
+                return;
+            }
+
+            // If email confirmation is required
+            if (data.user && !data.session) {
+                const successEl = document.getElementById('register-success');
+                successEl.textContent = 'Check your email to confirm your account!';
+                successEl.style.display = 'block';
+                btn.disabled = false;
+                btn.textContent = 'Create Account';
+                return;
+            }
+
+            // Auto-confirmed — redirect to profile setup
+            window.location.href = 'profile-setup.html';
+        });
+
+        // ── Forgot Password ──
+        forgotForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            hideErrors();
+            const btn = document.getElementById('forgot-btn');
+            btn.disabled = true;
+            btn.textContent = 'Sending...';
+
+            const { error } = await _supabase.auth.resetPasswordForEmail(
+                document.getElementById('forgot-email').value.trim()
+            );
+
+            if (error) {
+                showError('forgot-error', error.message);
+            } else {
+                const successEl = document.getElementById('forgot-success');
+                successEl.textContent = 'If that email exists, a reset link has been sent.';
+                successEl.style.display = 'block';
+            }
+            btn.disabled = false;
+            btn.textContent = 'Send Reset Link';
+        });
+
+        // ── Google OAuth ──
+        document.getElementById('google-btn').addEventListener('click', async () => {
+            await _supabase.auth.signInWithOAuth({
+                provider: 'google',
+                options: { redirectTo: window.location.origin + '/pages/login.html' }
+            });
+        });
+    </script>
+</body>
+</html>

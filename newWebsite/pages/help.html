@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/help.css">
+    <title>PomoPets - Help</title>
+</head>
+<body>
+    <nav class="navigation">
+        <ul>
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="shop.html">Shop</a></li>
+            <li><a href="study.html">Study</a></li>
+            <li><a href="pets.html">Pets</a></li>
+            <li><a href="games.html">Games</a></li>
+            <li><a href="help.html">Contact</a></li>
+        </ul>
+    </nav>
+    <div class="page-content">
+        <h1>Help!</h1>
+        <p>Please be patient and expect an email back soon!</p>
+    </div>
+    <div class="help-form-wrapper">
+        <div class="glass-card help-form">
+            <h2>Fill out the form below:</h2>
+            <p>Create a support ticket!</p>
+            <form name="contactForm" id="contactForm" method="POST" action="">
+                <div class="form-field">
+                    <input type="text" placeholder="First Name" required>
+                </div>
+                <div class="form-field">
+                    <input type="text" placeholder="Username" required>
+                </div>
+                <div class="form-field">
+                    <input type="email" placeholder="yourname@domain.com" required>
+                </div>
+                <div class="form-field">
+                    <label for="help-topic">I need help with:</label>
+                    <select id="help-topic">
+                        <option value="">Select a service..</option>
+                        <option value="bug">A bug</option>
+                        <option value="general">General Help</option>
+                        <option value="transactions">Transactions</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn-submit">Contact Us</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../js/auth.js"></script>
+    <script>requireAuth();</script>
+</body>
+</html>

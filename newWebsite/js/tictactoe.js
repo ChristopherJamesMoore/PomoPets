@@ -11,8 +11,8 @@ const selectBox = document.querySelector(".select-box"),
 	wonText = resultBox.querySelector(".won-text"),
 	replayBtn = resultBox.querySelector("button");
 // Variables for game state
-let playerXIcon = "fas fa-sun"; 
-let playerOIcon = "fas fa-moon"; 
+let playerXIcon = "fas fa-sun";
+let playerOIcon = "fas fa-moon";
 let playerSign = "X";
 let runBot = true;
 // Initialize the game
@@ -44,7 +44,7 @@ function clickedBox(element) {
         players.classList.add("active");
     }
     element.setAttribute("id", playerSign); // Set ID to player sign
-    element.style.pointerEvents = "none"; 
+    element.style.pointerEvents = "none";
     playBoard.style.pointerEvents = "none";
     selectWinner(); // Check for a winner
     // Random delay for bot's move
@@ -72,7 +72,7 @@ function bot() {
             randomBox.style.pointerEvents = "none";
             selectWinner(); // Check for a winner
             playBoard.style.pointerEvents = "auto";
-            playerSign = "X"; 
+            playerSign = "X";
         }
     }
 }
@@ -91,7 +91,7 @@ function selectWinner() {
         [1, 4, 7], [2, 5, 8], [3, 6, 9],
         [1, 5, 9], [3, 5, 7]
     ];
-    
+
     let winner = null;
 
     // Check for "X" win
@@ -104,7 +104,7 @@ function selectWinner() {
     }
 
     if (winner) {
-        runBot = false; 
+        runBot = false;
         setTimeout(() => {
             resultBox.classList.add("show");
             playBoard.classList.remove("show");
@@ -112,9 +112,9 @@ function selectWinner() {
                 wonText.innerHTML = `<p><i class="fas fa-sun" style="color: #fbc531;"></i> <br> Wins!</p>`;
             } else if (winner === "O") {
                 wonText.innerHTML = `<p><i class="fas fa-moon" style="color: #40739e;"></i> <br> Wins!</p>`;
-            } 
+            }
         }, 700);
-    } else if ([...allBox].every(box => box.id)) { 
+    } else if ([...allBox].every(box => box.id)) {
         runBot = false;
         setTimeout(() => {
             resultBox.classList.add("show");
@@ -126,5 +126,5 @@ function selectWinner() {
 
 // Replay button click event
 replayBtn.onclick = () => {
-    window.location.reload(); 
+    window.location.reload();
 };

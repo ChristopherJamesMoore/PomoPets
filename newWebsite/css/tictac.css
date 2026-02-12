@@ -1,0 +1,252 @@
+.select-box,
+.play-board,
+.result-box {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: all 0.3s ease;
+}
+
+.select-box {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    padding: 20px 25px 25px;
+    border-radius: 16px;
+    max-width: 400px;
+    width: 100%;
+}
+
+.select-box.hide {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.select-box header {
+    font-size: 28px;
+    font-weight: 600;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    color: plum;
+    text-align: center;
+}
+
+.select-box .title {
+    font-size: 18px;
+    margin: 20px 0;
+    color: white;
+    font-weight: 600;
+    text-align: center;
+}
+
+.select-box .options {
+    display: flex;
+    width: 100%;
+    gap: 10px;
+}
+
+.options button {
+    width: 100%;
+    font-size: 20px;
+    font-weight: 600;
+    padding: 10px 0;
+    border: none;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    color: white;
+    outline: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.options button:hover,
+.btn button:hover {
+    background: rgba(255, 255, 255, 0.25);
+    transform: scale(0.95);
+}
+
+.play-board {
+    opacity: 0;
+    pointer-events: none;
+    transform: translate(-50%, -50%) scale(0.9);
+}
+
+.play-board.show {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.play-board .details {
+    padding: 7px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.play-board .players {
+    width: 100%;
+    display: flex;
+    position: relative;
+    justify-content: space-between;
+}
+
+.players span {
+    position: relative;
+    z-index: 2;
+    color: rgba(255, 255, 255, 0.3);
+    font-size: 20px;
+    font-weight: 500;
+    padding: 10px 0;
+    width: 100%;
+    text-align: center;
+    cursor: default;
+    user-select: none;
+    transition: all 0.3s ease;
+}
+
+.players span:first-child {
+    color: gold;
+}
+
+.players.active span:first-child {
+    color: white;
+}
+
+.players.active span:nth-child(2) {
+    color: navy;
+}
+
+.players .slider {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.players.active .slider {
+    left: 50%;
+}
+
+.play-area {
+    margin-top: 12px;
+}
+
+.play-area section {
+    display: flex;
+    margin-bottom: 1px;
+}
+
+.play-area section span {
+    display: block;
+    height: 90px;
+    width: 90px;
+    margin: 2px;
+    color: plum;
+    font-size: 40px;
+    line-height: 80px;
+    text-align: center;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+}
+
+.result-box {
+    padding: 25px 20px;
+    border-radius: 16px;
+    max-width: 400px;
+    width: 100%;
+    opacity: 0;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    pointer-events: none;
+    transform: translate(-50%, -50%) scale(0.9);
+}
+
+.result-box.show {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.result-box .won-text {
+    font-size: 28px;
+    display: flex;
+    justify-content: center;
+    font-weight: 600;
+    color: plum;
+}
+
+.result-box .won-text p {
+    font-weight: 600;
+    margin: 0 5px;
+}
+
+.result-box .btn {
+    width: 100%;
+    margin-top: 25px;
+    display: flex;
+    justify-content: center;
+}
+
+.btn button {
+    font-size: 16px;
+    font-weight: 600;
+    padding: 10px 28px;
+    border: none;
+    background: plum;
+    border-radius: 30px;
+    color: navy;
+    outline: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.btn button:hover {
+    background: white;
+    transform: scale(0.95);
+}
+
+.play-board i.fa-sun {
+    color: gold;
+}
+
+.play-board i.fa-moon {
+    color: navy;
+}
+
+.home-button {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 30px;
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 10px 24px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.home-button:hover {
+    background: plum;
+    color: navy;
+}

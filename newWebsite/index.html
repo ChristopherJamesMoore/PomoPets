@@ -3,25 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
-    <title>New website</title>
+    <link rel="stylesheet" href="css/global.css">
+    <title>PomoPets</title>
 </head>
-<header> 
+<body>
     <nav class="navigation">
         <ul>
-            <li><a href="#"><b>Home</b></a></1i>
-            <li><a href="Shop.html"><b>Shop</b></a></1i>
-            <li><a href="Study.html"><b>Study</b></a></1i>
-            <li><a href="Pets.html"><b>Pets</b></a></1i>
-            <li><a href="Games.html"><b>Games</b></a></li>
-            <li><a href="Help.html"><b>Contact</b></a></li>
+            <li><a href="#">Home</a></li>
+            <li><a href="pages/shop.html">Shop</a></li>
+            <li><a href="pages/study.html">Study</a></li>
+            <li><a href="pages/pets.html">Pets</a></li>
+            <li><a href="pages/games.html">Games</a></li>
+            <li><a href="pages/help.html">Contact</a></li>
         </ul>
     </nav>
-</header>
-<body>
-    <h1>Welcome To PomoPets!</h1>
-    <p><b>A interactive study pet game!</b></p>
-    <p2> Don't forget to<a href= login.html> Login! </a></p2>
-<blockquote class="pix-embed-wrap"><div class="pix-embed-activity" data-id="sr2ce501ec909aws3" data-width="50" data-height="50" data-type="art" data-theme="light" data-show-edit="1">Pixilart Embed</div></blockquote><script async="async" src="https://www.pixilart.com/js/embed.js?v=1.0.4"></script> 
+    <div class="page-content">
+        <h1>Welcome To PomoPets!</h1>
+        <p>An interactive study pet game!</p>
+        <p class="login-prompt" id="login-prompt">Don't forget to <a href="pages/login.html">Login!</a></p>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/auth.js"></script>
+    <script>
+        (async () => {
+            const user = await getCurrentUser();
+            if (user) {
+                const profile = await getProfile(user.id);
+                const name = profile?.display_name || 'User';
+                const el = document.getElementById('login-prompt');
+                if (el) el.innerHTML = 'Welcome back, ' + escapeHtml(name) + '!';
+            }
+        })();
+    </script>
 </body>
 </html>

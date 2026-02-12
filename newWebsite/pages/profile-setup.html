@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/login.css">
+    <link rel="stylesheet" href="../css/profile-setup.css">
+    <title>PomoPets - Profile Setup</title>
+</head>
+<body>
+    <div class="login-page">
+        <div class="glass-card wrapper">
+            <h1>Set Up Your Profile</h1>
+            <div id="profile-error" class="form-error" style="display:none;"></div>
+
+            <!-- Avatar upload -->
+            <div class="avatar-upload" id="avatar-upload">
+                <div class="avatar-preview" id="avatar-preview">
+                    <span id="avatar-placeholder">+</span>
+                    <img id="avatar-img" src="" alt="Avatar" style="display:none;">
+                </div>
+                <p class="avatar-label">Upload Avatar</p>
+                <input type="file" id="avatar-input" accept="image/*" style="display:none;">
+            </div>
+
+            <form id="profile-form">
+                <div class="input-box">
+                    <input type="text" id="display-name" placeholder="Display Name" required maxlength="30">
+                </div>
+                <div class="input-box">
+                    <input type="number" id="user-age" placeholder="Age" min="5" max="120">
+                </div>
+                <button type="submit" class="btn-login" id="save-btn">Save & Continue</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../js/auth.js"></script>
+    <script>
+        let avatarFile = null;
+
+        // ── Auth guard: must be logged in ──
+        (async () => {
+            const user = await getCurrentUser();
+            if (!user) {
+                window.location.href = 'login.html';
+                return;
+            }
+            // If profile already complete, go home
+            const complete = await isProfileComplete(user.id);
+            if (complete) {
+                window.location.href = '../index.html';
+                return;
+            }
+        })();
+
+        // ── Avatar click/select ──
+        document.getElementById('avatar-upload').addEventListener('click', () => {
+            document.getElementById('avatar-input').click();
+        });
+
+        document.getElementById('avatar-input').addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+            if (file.size > 2 * 1024 * 1024) {
+                document.getElementById('profile-error').textContent = 'Image must be under 2MB.';
+                document.getElementById('profile-error').style.display = 'block';
+                return;
+            }
+            avatarFile = file;
+            const reader = new FileReader();
+            reader.onload = (ev) => {
+                const img = document.getElementById('avatar-img');
+                img.src = ev.target.result;
+                img.style.display = 'block';
+                document.getElementById('avatar-placeholder').style.display = 'none';
+            };
+            reader.readAsDataURL(file);
+        });
+
+        // ── Save profile ──
+        document.getElementById('profile-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const errorEl = document.getElementById('profile-error');
+            errorEl.style.display = 'none';
+
+            const btn = document.getElementById('save-btn');
+            btn.disabled = true;
+            btn.textContent = 'Saving...';
+
+            const user = await getCurrentUser();
+            if (!user) { window.location.href = 'login.html'; return; }
+
+            const displayName = document.getElementById('display-name').value.trim();
+            const age = document.getElementById('user-age').value ? parseInt(document.getElementById('user-age').value) : null;
+
+            if (!displayName) {
+                errorEl.textContent = 'Display name is required.';
+                errorEl.style.display = 'block';
+                btn.disabled = false;
+                btn.textContent = 'Save & Continue';
+                return;
+            }
+
+            let avatarUrl = null;
+
+            // Upload avatar if selected
+            if (avatarFile) {
+                const ext = avatarFile.name.split('.').pop();
+                const filePath = `${user.id}/avatar.${ext}`;
+                const { error: uploadError } = await _supabase.storage
+                    .from('avatars')
+                    .upload(filePath, avatarFile, { upsert: true });
+
+                if (uploadError) {
+                    errorEl.textContent = 'Avatar upload failed: ' + uploadError.message;
+                    errorEl.style.display = 'block';
+                    btn.disabled = false;
+                    btn.textContent = 'Save & Continue';
+                    return;
+                }
+
+                const { data: urlData } = _supabase.storage
+                    .from('avatars')
+                    .getPublicUrl(filePath);
+                avatarUrl = urlData.publicUrl;
+            }
+
+            // Upsert profile
+            const profileData = {
+                id: user.id,
+                display_name: displayName,
+                age: age,
+            };
+            if (avatarUrl) profileData.avatar_url = avatarUrl;
+
+            const { error: profileError } = await _supabase
+                .from('profiles')
+                .upsert(profileData);
+
+            if (profileError) {
+                errorEl.textContent = 'Failed to save profile: ' + profileError.message;
+                errorEl.style.display = 'block';
+                btn.disabled = false;
+                btn.textContent = 'Save & Continue';
+                return;
+            }
+
+            window.location.href = '../index.html';
+        });
+    </script>
+</body>
+</html>
