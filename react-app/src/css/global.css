@@ -15,13 +15,13 @@ body {
 h1 {
     text-align: center;
     color: #c084a0;
-    font-size: 2em;
+    font-size: clamp(1.4em, 5vw, 2em);
 }
 
 h2 {
     text-align: center;
     color: #c084a0;
-    font-size: 1.4em;
+    font-size: clamp(1.1em, 4vw, 1.4em);
 }
 
 p {

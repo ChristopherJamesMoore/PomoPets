@@ -43,3 +43,25 @@
     object-fit: cover;
     border-radius: 16px;
 }
+
+/* --- Mobile --- */
+@media (max-width: 640px) {
+    .games-select {
+        padding: 30px 12px;
+        gap: 12px;
+    }
+
+    .games-select section {
+        gap: 12px;
+    }
+
+    .game-tile {
+        width: 90px;
+        height: 90px;
+        border-radius: 12px;
+    }
+
+    .game-tile img {
+        border-radius: 12px;
+    }
+}

@@ -246,3 +246,27 @@
     background: #c084a0;
     color: #faf5ff;
 }
+
+/* --- Mobile --- */
+@media (max-width: 640px) {
+    .select-box {
+        max-width: 90vw;
+        padding: 16px 18px 20px;
+    }
+
+    .play-area section span {
+        width: 70px;
+        height: 70px;
+        line-height: 62px;
+        font-size: 30px;
+    }
+
+    .result-box {
+        max-width: 90vw;
+    }
+
+    .home-button {
+        font-size: 13px;
+        padding: 8px 20px;
+    }
+}

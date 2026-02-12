@@ -5,11 +5,12 @@
     border-bottom: 1px solid #d8c4e8;
     padding: 0;
     margin: 0;
+    position: relative;
+    z-index: 1000;
 }
 
 .navigation ul {
     display: flex;
-    justify-content: center;
     align-items: center;
     padding: 0;
     margin: 0;
@@ -35,12 +36,13 @@
     color: #c084a0;
 }
 
-/* PFP button */
+/* Push profile button to far right */
 .nav-user {
     position: relative;
     display: flex;
     align-items: center;
     padding: 0 16px;
+    margin-left: auto;
 }
 
 .nav-pfp-button {
@@ -72,4 +74,22 @@
     color: #c084a0;
     font-weight: bold;
     font-size: 14px;
+}
+
+/* --- Mobile --- */
+@media (max-width: 640px) {
+    .navigation ul {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .navigation ul li a {
+        padding: 12px 14px;
+        font-size: 13px;
+    }
+
+    .nav-user {
+        margin-left: auto;
+        padding: 8px 12px;
+    }
 }

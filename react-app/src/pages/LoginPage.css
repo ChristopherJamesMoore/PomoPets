@@ -131,3 +131,21 @@
     font-size: 13px;
     margin-bottom: 12px;
 }
+
+/* --- Mobile --- */
+@media (max-width: 640px) {
+    .login-page {
+        padding: 20px 12px;
+        min-height: 100dvh;
+    }
+
+    .wrapper {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .btn-login {
+        height: 42px;
+        font-size: 15px;
+    }
+}

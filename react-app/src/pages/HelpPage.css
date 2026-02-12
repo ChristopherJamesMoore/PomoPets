@@ -77,3 +77,21 @@
     transform: scale(0.97);
     background: #a06080;
 }
+
+/* --- Mobile --- */
+@media (max-width: 640px) {
+    .help-form-wrapper {
+        padding: 12px;
+    }
+
+    .form-field input,
+    .form-field select {
+        height: 42px;
+        font-size: 13px;
+    }
+
+    .btn-submit {
+        height: 42px;
+        font-size: 14px;
+    }
+}
