@@ -49,16 +49,17 @@ export default function ProfileSetupPage() {
     if (avatarFile) {
       const ext = avatarFile.name.split('.').pop();
       const filePath = `${user.id}/avatar.${ext}`;
+      const buffer = await avatarFile.arrayBuffer();
       const { error: uploadError } = await supabase.storage
         .from('avatars')
-        .upload(filePath, avatarFile, { upsert: true });
+        .upload(filePath, buffer, { upsert: true, contentType: avatarFile.type });
       if (uploadError) {
-        setError('Avatar upload failed: ' + uploadError.message);
-        setSaving(false);
-        return;
+        console.error('Avatar upload error:', uploadError);
+        // Don't block profile creation — save without avatar
+      } else {
+        const { data: urlData } = supabase.storage.from('avatars').getPublicUrl(filePath);
+        avatarUrl = urlData.publicUrl;
       }
-      const { data: urlData } = supabase.storage.from('avatars').getPublicUrl(filePath);
-      avatarUrl = urlData.publicUrl;
     }
 
     const profileData: Record<string, unknown> = {

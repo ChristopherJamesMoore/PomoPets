@@ -70,9 +70,10 @@ export default function SettingsPage() {
     if (avatarFile) {
       const ext = avatarFile.name.split('.').pop();
       const filePath = `${user.id}/avatar.${ext}`;
+      const buffer = await avatarFile.arrayBuffer();
       const { error: uploadError } = await supabase.storage
         .from('avatars')
-        .upload(filePath, avatarFile, { upsert: true });
+        .upload(filePath, buffer, { upsert: true, contentType: avatarFile.type });
       if (uploadError) {
         setError('Avatar upload failed: ' + uploadError.message);
         setSaving(false);
