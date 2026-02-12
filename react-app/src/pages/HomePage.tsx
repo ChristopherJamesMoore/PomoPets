@@ -1,20 +1,34 @@
 import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import DashboardCard from '../components/DashboardCard';
+import './HomePage.css';
 
 export default function HomePage() {
-  const { user, profile } = useAuth();
+  const { user, profile, loading } = useAuth();
+
+  if (loading) return null;
+
+  if (!user) {
+    return (
+      <div className="landing">
+        <h1>PomoPets</h1>
+        <p>An interactive study pet game!</p>
+        <Link to="/login" className="landing-btn">Get Started</Link>
+      </div>
+    );
+  }
 
   return (
-    <div className="page-content">
-      <h1>Welcome To PomoPets!</h1>
-      <p>An interactive study pet game!</p>
-      {user ? (
-        <p className="login-prompt">Welcome back, {profile?.display_name || 'User'}!</p>
-      ) : (
-        <p className="login-prompt">
-          Don't forget to <Link to="/login">Login!</Link>
-        </p>
-      )}
+    <div className="dashboard">
+      <h1>Welcome back, {profile?.display_name || 'User'}!</h1>
+      <p className="dashboard-subtitle">What would you like to do today?</p>
+
+      <div className="dashboard-grid">
+        <DashboardCard to="/pets" icon="paw" label="My Pets" />
+        <DashboardCard to="/study" icon="book" label="Study" />
+        <DashboardCard to="/shop" icon="store" label="Shop" />
+        <DashboardCard to="/games" icon="gamepad" label="Games" />
+      </div>
     </div>
   );
 }

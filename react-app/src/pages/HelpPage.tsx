@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import GlassCard from '../components/GlassCard';
+import Button from '../components/Button';
+import FormField from '../components/FormField';
 import './HelpPage.css';
 
 export default function HelpPage() {
@@ -10,7 +12,6 @@ export default function HelpPage() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Submit logic placeholder
   };
 
   return (
@@ -24,7 +25,7 @@ export default function HelpPage() {
           <h2>Fill out the form below:</h2>
           <p>Create a support ticket!</p>
           <form onSubmit={handleSubmit}>
-            <div className="form-field">
+            <FormField>
               <input
                 type="text"
                 placeholder="First Name"
@@ -32,8 +33,8 @@ export default function HelpPage() {
                 onChange={e => setFirstName(e.target.value)}
                 required
               />
-            </div>
-            <div className="form-field">
+            </FormField>
+            <FormField>
               <input
                 type="text"
                 placeholder="Username"
@@ -41,8 +42,8 @@ export default function HelpPage() {
                 onChange={e => setUsername(e.target.value)}
                 required
               />
-            </div>
-            <div className="form-field">
+            </FormField>
+            <FormField>
               <input
                 type="email"
                 placeholder="yourname@domain.com"
@@ -50,9 +51,8 @@ export default function HelpPage() {
                 onChange={e => setEmail(e.target.value)}
                 required
               />
-            </div>
-            <div className="form-field">
-              <label htmlFor="help-topic">I need help with:</label>
+            </FormField>
+            <FormField label="I need help with:" htmlFor="help-topic">
               <select
                 id="help-topic"
                 value={topic}
@@ -64,8 +64,8 @@ export default function HelpPage() {
                 <option value="transactions">Transactions</option>
                 <option value="other">Other</option>
               </select>
-            </div>
-            <button type="submit" className="btn-submit">Contact Us</button>
+            </FormField>
+            <Button type="submit" variant="submit">Contact Us</Button>
           </form>
         </GlassCard>
       </div>

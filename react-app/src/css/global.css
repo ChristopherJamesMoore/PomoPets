@@ -5,37 +5,37 @@
 }
 
 body {
-    background: url("/images/night-sky-bg.jpg") no-repeat center center;
-    background-size: cover;
+    background: linear-gradient(135deg, #e8d5f5, #fce4d6);
+    background-attachment: fixed;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
-    color: white;
+    color: #3d3250;
     min-height: 100vh;
 }
 
 h1 {
     text-align: center;
-    color: plum;
+    color: #c084a0;
     font-size: 2em;
 }
 
 h2 {
     text-align: center;
-    color: plum;
+    color: #c084a0;
     font-size: 1.4em;
 }
 
 p {
     text-align: center;
-    color: white;
+    color: #3d3250;
 }
 
 a {
-    color: plum;
+    color: #c084a0;
     text-decoration: none;
 }
 
 a:hover {
-    color: whitesmoke;
+    color: #a06080;
 }
 
 /* --- Shared Components --- */

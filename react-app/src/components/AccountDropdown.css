@@ -8,7 +8,7 @@
 }
 
 .account-dropdown h3 {
-    color: plum;
+    color: #c084a0;
     margin-bottom: 12px;
     font-size: 16px;
     text-align: center;
@@ -21,8 +21,8 @@
     margin: 0 auto 12px;
     overflow: hidden;
     cursor: pointer;
-    background: rgba(255, 255, 255, 0.1);
-    border: 2px solid rgba(255, 255, 255, 0.2);
+    background: rgba(216, 196, 232, 0.2);
+    border: 2px solid #d8c4e8;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -30,7 +30,7 @@
 }
 
 .dropdown-avatar:hover {
-    border-color: plum;
+    border-color: #c084a0;
 }
 
 .dropdown-avatar img {
@@ -40,7 +40,7 @@
 }
 
 .dropdown-avatar span {
-    color: rgba(255, 255, 255, 0.5);
+    color: #8a7a9a;
     font-size: 24px;
 }
 
@@ -58,10 +58,10 @@
     width: 100%;
     margin-top: 10px;
     height: 36px;
-    background: rgba(220, 50, 50, 0.3);
-    border: 1px solid rgba(220, 50, 50, 0.4);
+    background: rgba(220, 100, 100, 0.15);
+    border: 1px solid rgba(220, 100, 100, 0.3);
     border-radius: 30px;
-    color: #ff9999;
+    color: #c05050;
     font-size: 13px;
     cursor: pointer;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
@@ -69,5 +69,5 @@
 }
 
 .btn-logout:hover {
-    background: rgba(220, 50, 50, 0.5);
+    background: rgba(220, 100, 100, 0.25);
 }

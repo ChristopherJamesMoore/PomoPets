@@ -20,10 +20,9 @@
     height: 150px;
     width: 150px;
     border-radius: 16px;
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: #faf5ff;
+    border: 1px solid #d8c4e8;
+    box-shadow: 0 2px 12px rgba(60, 50, 80, 0.08);
     overflow: hidden;
     transition: transform 0.3s ease;
 }

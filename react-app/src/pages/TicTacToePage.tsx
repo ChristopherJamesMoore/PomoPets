@@ -1,5 +1,6 @@
 import { useState, useCallback, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import Icon from '../components/Icon';
 import './TicTacToePage.css';
 
 type CellValue = '' | 'X' | 'O';
@@ -43,7 +44,6 @@ export default function TicTacToePage() {
   const [game, setGame] = useState<GameState>(initialState);
   const botTimerRef = useRef<number | null>(null);
 
-  // Cleanup bot timer on unmount
   useEffect(() => {
     return () => {
       if (botTimerRef.current) clearTimeout(botTimerRef.current);
@@ -60,7 +60,6 @@ export default function TicTacToePage() {
     };
     setGame(newState);
 
-    // If player chose O, bot (X) goes first
     if (choice === 'O') {
       const delay = Math.floor(Math.random() * 1000) + 200;
       botTimerRef.current = window.setTimeout(() => {
@@ -86,20 +85,17 @@ export default function TicTacToePage() {
       const playerSign = prev.playerChoice;
       const botSign: CellValue = playerSign === 'X' ? 'O' : 'X';
 
-      // Player move
       const boardAfterPlayer = [...prev.board];
       boardAfterPlayer[index] = playerSign;
 
       const winner = checkWinner(boardAfterPlayer);
       if (winner) {
-        // Delay showing result
         botTimerRef.current = window.setTimeout(() => {
           setGame(g => ({ ...g, phase: 'result' }));
         }, 700);
         return { ...prev, board: boardAfterPlayer, winner, botThinking: false };
       }
 
-      // Schedule bot move
       const delay = Math.floor(Math.random() * 1000) + 200;
       botTimerRef.current = window.setTimeout(() => {
         setGame(g => {
@@ -134,8 +130,8 @@ export default function TicTacToePage() {
   };
 
   const renderIcon = (value: CellValue) => {
-    if (value === 'X') return <i className="fas fa-sun" />;
-    if (value === 'O') return <i className="fas fa-moon" />;
+    if (value === 'X') return <Icon name="sun" />;
+    if (value === 'O') return <Icon name="moon" />;
     return null;
   };
 
@@ -148,10 +144,10 @@ export default function TicTacToePage() {
           <div className="title">Choose Your Side:</div>
           <div className="options">
             <button className="playerX" onClick={() => handleSelectSide('X')}>
-              <i className="fas fa-sun" style={{ color: 'gold', fontSize: 24 }} />
+              <Icon name="sun" style={{ color: '#d4a017', fontSize: 24 }} />
             </button>
             <button className="playerO" onClick={() => handleSelectSide('O')}>
-              <i className="fas fa-moon" style={{ color: '#40739e', fontSize: 24 }} />
+              <Icon name="moon" style={{ color: '#7a6ea0', fontSize: 24 }} />
             </button>
           </div>
         </div>
@@ -161,8 +157,8 @@ export default function TicTacToePage() {
       <div className={`play-board ${game.phase === 'playing' ? 'show' : ''}`}>
         <div className="details">
           <div className={`players ${game.currentTurn === 'O' ? 'active' : ''}`}>
-            <span className="Xturn"><i className="fas fa-sun" /> Turn</span>
-            <span className="Oturn"><i className="fas fa-moon" /> Turn</span>
+            <span className="Xturn"><Icon name="sun" /> Turn</span>
+            <span className="Oturn"><Icon name="moon" /> Turn</span>
             <div className="slider" />
           </div>
         </div>
@@ -194,10 +190,10 @@ export default function TicTacToePage() {
       <div className={`result-box ${game.phase === 'result' ? 'show' : ''}`}>
         <div className="won-text">
           {game.winner === 'X' && (
-            <p><i className="fas fa-sun" style={{ color: '#fbc531' }} /><br />Wins!</p>
+            <p><Icon name="sun" style={{ color: '#d4a017' }} /><br />Wins!</p>
           )}
           {game.winner === 'O' && (
-            <p><i className="fas fa-moon" style={{ color: '#40739e' }} /><br />Wins!</p>
+            <p><Icon name="moon" style={{ color: '#7a6ea0' }} /><br />Wins!</p>
           )}
           {game.winner === 'draw' && <p>Draw!</p>}
         </div>

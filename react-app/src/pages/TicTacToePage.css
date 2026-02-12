@@ -9,10 +9,9 @@
 }
 
 .select-box {
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.15);
+    background: #faf5ff;
+    border: 1px solid #d8c4e8;
+    box-shadow: 0 2px 16px rgba(60, 50, 80, 0.08);
     padding: 20px 25px 25px;
     border-radius: 16px;
     max-width: 400px;
@@ -28,15 +27,15 @@
     font-size: 28px;
     font-weight: 600;
     padding-bottom: 10px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-    color: plum;
+    border-bottom: 1px solid #d8c4e8;
+    color: #c084a0;
     text-align: center;
 }
 
 .select-box .title {
     font-size: 18px;
     margin: 20px 0;
-    color: white;
+    color: #3d3250;
     font-weight: 600;
     text-align: center;
 }
@@ -52,10 +51,10 @@
     font-size: 20px;
     font-weight: 600;
     padding: 10px 0;
-    border: none;
-    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid #d8c4e8;
+    background: rgba(216, 196, 232, 0.2);
     border-radius: 10px;
-    color: white;
+    color: #3d3250;
     outline: none;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -63,7 +62,7 @@
 
 .options button:hover,
 .btn button:hover {
-    background: rgba(255, 255, 255, 0.25);
+    background: rgba(216, 196, 232, 0.45);
     transform: scale(0.95);
 }
 
@@ -82,9 +81,9 @@
 .play-board .details {
     padding: 7px;
     border-radius: 10px;
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    background: #faf5ff;
+    border: 1px solid #d8c4e8;
+    box-shadow: 0 2px 12px rgba(60, 50, 80, 0.08);
 }
 
 .play-board .players {
@@ -97,7 +96,7 @@
 .players span {
     position: relative;
     z-index: 2;
-    color: rgba(255, 255, 255, 0.3);
+    color: #8a7a9a;
     font-size: 20px;
     font-weight: 500;
     padding: 10px 0;
@@ -109,15 +108,15 @@
 }
 
 .players span:first-child {
-    color: gold;
+    color: #d4a017;
 }
 
 .players.active span:first-child {
-    color: white;
+    color: #8a7a9a;
 }
 
 .players.active span:nth-child(2) {
-    color: navy;
+    color: #7a6ea0;
 }
 
 .players .slider {
@@ -126,7 +125,7 @@
     left: 0;
     width: 50%;
     height: 100%;
-    background: rgba(255, 255, 255, 0.15);
+    background: rgba(216, 196, 232, 0.3);
     border-radius: 8px;
     transition: all 0.3s ease;
 }
@@ -149,14 +148,13 @@
     height: 90px;
     width: 90px;
     margin: 2px;
-    color: plum;
+    color: #c084a0;
     font-size: 40px;
     line-height: 80px;
     text-align: center;
     border-radius: 10px;
-    background: rgba(255, 255, 255, 0.12);
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
+    background: #faf5ff;
+    border: 1px solid #d8c4e8;
 }
 
 .result-box {
@@ -166,10 +164,9 @@
     width: 100%;
     opacity: 0;
     text-align: center;
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.15);
+    background: #faf5ff;
+    border: 1px solid #d8c4e8;
+    box-shadow: 0 2px 16px rgba(60, 50, 80, 0.08);
     pointer-events: none;
     transform: translate(-50%, -50%) scale(0.9);
 }
@@ -185,7 +182,7 @@
     display: flex;
     justify-content: center;
     font-weight: 600;
-    color: plum;
+    color: #c084a0;
 }
 
 .result-box .won-text p {
@@ -205,9 +202,9 @@
     font-weight: 600;
     padding: 10px 28px;
     border: none;
-    background: plum;
+    background: #c084a0;
     border-radius: 30px;
-    color: navy;
+    color: #faf5ff;
     outline: none;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -215,16 +212,16 @@
 }
 
 .btn button:hover {
-    background: white;
+    background: #a06080;
     transform: scale(0.95);
 }
 
 .play-board i.fa-sun {
-    color: gold;
+    color: #d4a017;
 }
 
 .play-board i.fa-moon {
-    color: navy;
+    color: #7a6ea0;
 }
 
 .home-button {
@@ -232,12 +229,11 @@
     bottom: 20px;
     left: 50%;
     transform: translateX(-50%);
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
-    border: 1px solid rgba(255, 255, 255, 0.15);
+    background: #faf5ff;
+    border: 1px solid #d8c4e8;
+    box-shadow: 0 2px 12px rgba(60, 50, 80, 0.08);
     border-radius: 30px;
-    color: white;
+    color: #3d3250;
     font-size: 14px;
     font-weight: 600;
     padding: 10px 24px;
@@ -247,6 +243,6 @@
 }
 
 .home-button:hover {
-    background: plum;
-    color: navy;
+    background: #c084a0;
+    color: #faf5ff;
 }

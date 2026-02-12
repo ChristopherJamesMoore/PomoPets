@@ -4,6 +4,9 @@ import { useAuth } from '../context/AuthContext';
 import { supabase } from '../lib/supabase';
 import GlassCard from '../components/GlassCard';
 import GoogleIcon from '../components/GoogleIcon';
+import Button from '../components/Button';
+import FormMessage from '../components/FormMessage';
+import InputBox from '../components/InputBox';
 import './LoginPage.css';
 
 type FormView = 'login' | 'register' | 'forgot';
@@ -54,7 +57,6 @@ export default function LoginPage() {
       setLoginError(error.message);
       setLoginSubmitting(false);
     }
-    // Auth state change will trigger the redirect via useEffect
   };
 
   const handleRegister = async (e: React.FormEvent) => {
@@ -80,14 +82,11 @@ export default function LoginPage() {
       return;
     }
 
-    // Email confirmation required
     if (data.user && !data.session) {
       setRegSuccess('Check your email to confirm your account!');
       setRegSubmitting(false);
       return;
     }
-
-    // Auto-confirmed — auth state change will redirect
   };
 
   const handleForgot = async (e: React.FormEvent) => {
@@ -120,37 +119,33 @@ export default function LoginPage() {
         {view === 'login' && (
           <form onSubmit={handleLogin}>
             <h1>Login</h1>
-            {loginError && <div className="form-error">{loginError}</div>}
-            <div className="input-box">
-              <input
-                type="email"
-                placeholder="Email"
-                value={loginEmail}
-                onChange={e => setLoginEmail(e.target.value)}
-                required
-              />
-            </div>
-            <div className="input-box">
-              <input
-                type="password"
-                placeholder="Password"
-                value={loginPassword}
-                onChange={e => setLoginPassword(e.target.value)}
-                required
-              />
-            </div>
+            <FormMessage type="error" message={loginError} />
+            <InputBox
+              type="email"
+              placeholder="Email"
+              value={loginEmail}
+              onChange={e => setLoginEmail(e.target.value)}
+              required
+            />
+            <InputBox
+              type="password"
+              placeholder="Password"
+              value={loginPassword}
+              onChange={e => setLoginPassword(e.target.value)}
+              required
+            />
             <div className="remember-forget">
               <span></span>
               <a href="#" onClick={e => { e.preventDefault(); setView('forgot'); }}>Forgot Password?</a>
             </div>
-            <button type="submit" className="btn-login" disabled={loginSubmitting}>
+            <Button type="submit" disabled={loginSubmitting}>
               {loginSubmitting ? 'Logging in...' : 'Login!'}
-            </button>
+            </Button>
             <div className="divider"><span>or</span></div>
-            <button type="button" className="btn-login btn-google" onClick={handleGoogle}>
+            <Button type="button" variant="google" onClick={handleGoogle}>
               <GoogleIcon />
               Continue with Google
-            </button>
+            </Button>
             <div className="register-link">
               <p>Don't have an account? <a href="#" onClick={e => { e.preventDefault(); setView('register'); }}>Register</a></p>
             </div>
@@ -161,40 +156,34 @@ export default function LoginPage() {
         {view === 'register' && (
           <form onSubmit={handleRegister}>
             <h1>Register</h1>
-            {regError && <div className="form-error">{regError}</div>}
-            {regSuccess && <div className="form-success">{regSuccess}</div>}
-            <div className="input-box">
-              <input
-                type="email"
-                placeholder="Email"
-                value={regEmail}
-                onChange={e => setRegEmail(e.target.value)}
-                required
-              />
-            </div>
-            <div className="input-box">
-              <input
-                type="password"
-                placeholder="Password"
-                value={regPassword}
-                onChange={e => setRegPassword(e.target.value)}
-                required
-                minLength={6}
-              />
-            </div>
-            <div className="input-box">
-              <input
-                type="password"
-                placeholder="Confirm Password"
-                value={regConfirm}
-                onChange={e => setRegConfirm(e.target.value)}
-                required
-                minLength={6}
-              />
-            </div>
-            <button type="submit" className="btn-login" disabled={regSubmitting}>
+            <FormMessage type="error" message={regError} />
+            <FormMessage type="success" message={regSuccess} />
+            <InputBox
+              type="email"
+              placeholder="Email"
+              value={regEmail}
+              onChange={e => setRegEmail(e.target.value)}
+              required
+            />
+            <InputBox
+              type="password"
+              placeholder="Password"
+              value={regPassword}
+              onChange={e => setRegPassword(e.target.value)}
+              required
+              minLength={6}
+            />
+            <InputBox
+              type="password"
+              placeholder="Confirm Password"
+              value={regConfirm}
+              onChange={e => setRegConfirm(e.target.value)}
+              required
+              minLength={6}
+            />
+            <Button type="submit" disabled={regSubmitting}>
               {regSubmitting ? 'Creating account...' : 'Create Account'}
-            </button>
+            </Button>
             <div className="register-link">
               <p>Already have an account? <a href="#" onClick={e => { e.preventDefault(); setView('login'); }}>Login</a></p>
             </div>
@@ -205,20 +194,18 @@ export default function LoginPage() {
         {view === 'forgot' && (
           <form onSubmit={handleForgot}>
             <h1>Reset Password</h1>
-            {forgotError && <div className="form-error">{forgotError}</div>}
-            {forgotSuccess && <div className="form-success">{forgotSuccess}</div>}
-            <div className="input-box">
-              <input
-                type="email"
-                placeholder="Email"
-                value={forgotEmail}
-                onChange={e => setForgotEmail(e.target.value)}
-                required
-              />
-            </div>
-            <button type="submit" className="btn-login" disabled={forgotSubmitting}>
+            <FormMessage type="error" message={forgotError} />
+            <FormMessage type="success" message={forgotSuccess} />
+            <InputBox
+              type="email"
+              placeholder="Email"
+              value={forgotEmail}
+              onChange={e => setForgotEmail(e.target.value)}
+              required
+            />
+            <Button type="submit" disabled={forgotSubmitting}>
               {forgotSubmitting ? 'Sending...' : 'Send Reset Link'}
-            </button>
+            </Button>
             <div className="register-link">
               <p>Remember your password? <a href="#" onClick={e => { e.preventDefault(); setView('login'); }}>Login</a></p>
             </div>
