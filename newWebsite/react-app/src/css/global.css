@@ -1,0 +1,54 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: url("/images/night-sky-bg.jpg") no-repeat center center;
+    background-size: cover;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: white;
+    min-height: 100vh;
+}
+
+h1 {
+    text-align: center;
+    color: plum;
+    font-size: 2em;
+}
+
+h2 {
+    text-align: center;
+    color: plum;
+    font-size: 1.4em;
+}
+
+p {
+    text-align: center;
+    color: white;
+}
+
+a {
+    color: plum;
+    text-decoration: none;
+}
+
+a:hover {
+    color: whitesmoke;
+}
+
+/* --- Shared Components --- */
+
+.page-content {
+    padding: 40px 20px;
+    text-align: center;
+}
+
+.page-content h1 {
+    margin-bottom: 12px;
+}
+
+.page-content p {
+    margin-bottom: 8px;
+}

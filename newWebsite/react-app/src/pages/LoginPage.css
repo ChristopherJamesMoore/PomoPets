@@ -1,0 +1,133 @@
+.login-page {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    gap: 16px;
+}
+
+.wrapper {
+    width: 420px;
+    max-width: 90%;
+}
+
+.wrapper h1 {
+    margin-bottom: 20px;
+}
+
+.remember-forget {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 13px;
+    margin-bottom: 20px;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.remember-forget a {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.remember-forget a:hover {
+    color: plum;
+}
+
+.btn-login {
+    width: 100%;
+    height: 45px;
+    background: plum;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 30px;
+    color: navy;
+    cursor: pointer;
+    transition: transform 0.3s ease, background 0.3s ease;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.btn-login:hover {
+    transform: scale(0.97);
+    background: white;
+}
+
+.btn-login:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.btn-google {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: rgba(255, 255, 255, 0.15);
+    color: white;
+    font-weight: normal;
+}
+
+.btn-google:hover {
+    background: rgba(255, 255, 255, 0.25);
+}
+
+.btn-google svg {
+    flex-shrink: 0;
+}
+
+.divider {
+    text-align: center;
+    margin: 16px 0;
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 13px;
+}
+
+.register-link {
+    text-align: center;
+    font-size: 13px;
+    margin-top: 20px;
+}
+
+.register-link p {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.register-link a {
+    color: plum;
+    font-weight: 600;
+}
+
+.register-link a:hover {
+    color: white;
+}
+
+.skip-link {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 14px;
+}
+
+.skip-link:hover {
+    color: plum;
+}
+
+.form-error {
+    background: rgba(220, 50, 50, 0.2);
+    border: 1px solid rgba(220, 50, 50, 0.4);
+    color: #ff9999;
+    padding: 10px 16px;
+    border-radius: 10px;
+    font-size: 13px;
+    margin-bottom: 12px;
+}
+
+.form-success {
+    background: rgba(50, 180, 50, 0.2);
+    border: 1px solid rgba(50, 180, 50, 0.4);
+    color: #99ff99;
+    padding: 10px 16px;
+    border-radius: 10px;
+    font-size: 13px;
+    margin-bottom: 12px;
+}

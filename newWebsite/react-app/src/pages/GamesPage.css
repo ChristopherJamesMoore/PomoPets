@@ -1,0 +1,46 @@
+.games-select {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 50px 20px;
+    min-height: calc(100vh - 52px);
+    gap: 20px;
+}
+
+.games-select section {
+    display: flex;
+    gap: 20px;
+}
+
+.game-tile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 150px;
+    width: 150px;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease;
+}
+
+.game-tile:hover {
+    transform: scale(0.95);
+}
+
+.game-tile a {
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+
+.game-tile img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 16px;
+}
