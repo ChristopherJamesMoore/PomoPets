@@ -13,7 +13,6 @@ export default function ProfileSetupPage() {
   const { user, refreshProfile } = useAuth();
   const navigate = useNavigate();
   const [displayName, setDisplayName] = useState('');
-  const [age, setAge] = useState('');
   const [avatarFile, setAvatarFile] = useState<File | null>(null);
   const [error, setError] = useState('');
   const [saving, setSaving] = useState(false);
@@ -26,7 +25,21 @@ export default function ProfileSetupPage() {
 
     const trimmedName = displayName.trim();
     if (!trimmedName) {
-      setError('Display name is required.');
+      setError('Username is required.');
+      setSaving(false);
+      return;
+    }
+
+    // Check uniqueness
+    const { data: existing } = await supabase
+      .from('profiles')
+      .select('id')
+      .ilike('display_name', trimmedName)
+      .neq('id', user.id)
+      .limit(1);
+
+    if (existing && existing.length > 0) {
+      setError('That username is already taken.');
       setSaving(false);
       return;
     }
@@ -51,7 +64,7 @@ export default function ProfileSetupPage() {
     const profileData: Record<string, unknown> = {
       id: user.id,
       display_name: trimmedName,
-      age: age ? parseInt(age) : null,
+      display_name_changed_at: new Date().toISOString(),
     };
     if (avatarUrl) profileData.avatar_url = avatarUrl;
 
@@ -83,17 +96,9 @@ export default function ProfileSetupPage() {
             type="text"
             value={displayName}
             onChange={e => setDisplayName(e.target.value)}
-            placeholder="Display Name"
+            placeholder="Choose a username"
             required
             maxLength={30}
-          />
-          <InputBox
-            type="number"
-            value={age}
-            onChange={e => setAge(e.target.value)}
-            placeholder="Age"
-            min={5}
-            max={120}
           />
           <Button type="submit" disabled={saving}>
             {saving ? 'Saving...' : 'Save & Continue'}

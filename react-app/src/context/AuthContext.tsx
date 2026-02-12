@@ -27,16 +27,22 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [loading, setLoading] = useState(true);
 
   const fetchProfile = useCallback(async (userId: string) => {
-    const { data, error } = await supabase
-      .from('profiles')
-      .select('*')
-      .eq('id', userId)
-      .single();
-    if (error && error.code !== 'PGRST116') {
-      console.error('Profile fetch error:', error);
+    try {
+      const { data, error } = await supabase
+        .from('profiles')
+        .select('*')
+        .eq('id', userId)
+        .single();
+      if (error && error.code !== 'PGRST116') {
+        console.error('Profile fetch error:', error);
+      }
+      setProfile((data as Profile) ?? null);
+      return (data as Profile) ?? null;
+    } catch (err) {
+      console.error('Profile fetch exception:', err);
+      setProfile(null);
+      return null;
     }
-    setProfile((data as Profile) ?? null);
-    return (data as Profile) ?? null;
   }, []);
 
   const refreshProfile = useCallback(async () => {
@@ -44,17 +50,22 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, [user, fetchProfile]);
 
   const handleSignOut = useCallback(async () => {
-    await supabase.auth.signOut();
     setUser(null);
     setProfile(null);
+    await supabase.auth.signOut();
   }, []);
 
   useEffect(() => {
+    let mounted = true;
+
     supabase.auth.getSession().then(({ data: { session } }) => {
+      if (!mounted) return;
       const u = session?.user ?? null;
       setUser(u);
       if (u) {
-        fetchProfile(u.id).finally(() => setLoading(false));
+        fetchProfile(u.id).finally(() => {
+          if (mounted) setLoading(false);
+        });
       } else {
         setLoading(false);
       }
@@ -62,6 +73,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       async (_event, session) => {
+        if (!mounted) return;
         const u = session?.user ?? null;
         setUser(u);
         if (u) {
@@ -69,10 +81,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         } else {
           setProfile(null);
         }
+        setLoading(false);
       }
     );
 
-    return () => subscription.unsubscribe();
+    return () => {
+      mounted = false;
+      subscription.unsubscribe();
+    };
   }, [fetchProfile]);
 
   const isProfileComplete = !!(profile?.display_name?.trim());

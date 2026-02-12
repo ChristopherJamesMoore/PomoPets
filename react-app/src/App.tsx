@@ -4,6 +4,7 @@ import ProtectedRoute from './components/ProtectedRoute';
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
 import ProfileSetupPage from './pages/ProfileSetupPage';
+import SettingsPage from './pages/SettingsPage';
 import ShopPage from './pages/ShopPage';
 import StudyPage from './pages/StudyPage';
 import PetsPage from './pages/PetsPage';
@@ -23,6 +24,7 @@ export default function App() {
         </Route>
 
         <Route element={<ProtectedRoute />}>
+          <Route path="/settings" element={<SettingsPage />} />
           <Route path="/shop" element={<ShopPage />} />
           <Route path="/study" element={<StudyPage />} />
           <Route path="/pets" element={<PetsPage />} />

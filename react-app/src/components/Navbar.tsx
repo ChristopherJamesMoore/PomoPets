@@ -1,7 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink, Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import AccountDropdown from './AccountDropdown';
 import './Navbar.css';
 
 export default function Navbar() {
@@ -20,10 +19,10 @@ export default function Navbar() {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  const handleSignOut = async () => {
-    await signOut();
+  const handleSignOut = () => {
     setDropdownOpen(false);
     navigate('/');
+    signOut();
   };
 
   return (
@@ -51,10 +50,19 @@ export default function Navbar() {
               )}
             </button>
             {dropdownOpen && (
-              <AccountDropdown
-                onClose={() => setDropdownOpen(false)}
-                onSignOut={handleSignOut}
-              />
+              <div className="account-dropdown glass-card">
+                <p className="dropdown-name">{profile?.display_name || 'User'}</p>
+                <Link
+                  to="/settings"
+                  className="dropdown-link"
+                  onClick={() => setDropdownOpen(false)}
+                >
+                  Settings
+                </Link>
+                <button className="btn-logout" onClick={handleSignOut}>
+                  Logout
+                </button>
+              </div>
             )}
           </li>
         ) : (
