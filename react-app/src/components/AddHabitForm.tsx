@@ -32,8 +32,8 @@ export default function AddHabitForm({ onAdd, onCancel }: AddHabitFormProps) {
     setSaving(true);
     try {
       await onAdd(trimmed, icon);
-    } catch {
-      setError('Failed to create habit.');
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Failed to create habit.');
     }
     setSaving(false);
   };

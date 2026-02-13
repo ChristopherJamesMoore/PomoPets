@@ -111,7 +111,10 @@ export default function HabitsPage() {
       is_default: false,
       sort_order: habits.length + 1,
     });
-    if (err) throw err;
+    if (err) {
+      console.error('Add habit error:', err);
+      throw new Error(err.message);
+    }
     await fetchHabits();
     setShowAddForm(false);
   };
