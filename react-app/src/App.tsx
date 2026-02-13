@@ -11,6 +11,7 @@ import PetsPage from './pages/PetsPage';
 import GamesPage from './pages/GamesPage';
 import TicTacToePage from './pages/TicTacToePage';
 import HelpPage from './pages/HelpPage';
+import HabitsPage from './pages/HabitsPage';
 
 export default function App() {
   return (
@@ -30,6 +31,7 @@ export default function App() {
           <Route path="/pets" element={<PetsPage />} />
           <Route path="/games" element={<GamesPage />} />
           <Route path="/games/tictactoe" element={<TicTacToePage />} />
+          <Route path="/habits" element={<HabitsPage />} />
           <Route path="/help" element={<HelpPage />} />
         </Route>
       </Route>

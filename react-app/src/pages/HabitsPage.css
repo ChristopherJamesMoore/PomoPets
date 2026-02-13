@@ -1,0 +1,261 @@
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(16px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.habits-page {
+    padding: 40px 20px;
+    max-width: 720px;
+    margin: 0 auto;
+    animation: fadeIn 0.6s ease both;
+}
+
+.habits-header {
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+.habits-subtitle {
+    color: #8a7a9a;
+    font-size: 15px;
+    margin-bottom: 20px;
+}
+
+.habits-section {
+    margin-bottom: 32px;
+}
+
+.habits-section h2 {
+    text-align: left;
+    margin-bottom: 16px;
+}
+
+.habits-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.habits-empty {
+    color: #8a7a9a;
+    font-size: 14px;
+    text-align: center;
+    padding: 24px;
+}
+
+/* --- Habit Card --- */
+.habit-card {
+    padding: 20px 24px;
+}
+
+.habit-card-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.habit-card-header > i {
+    font-size: 20px;
+    color: #c084a0;
+    width: 24px;
+    text-align: center;
+}
+
+.habit-name {
+    font-weight: 600;
+    font-size: 15px;
+    color: #3d3250;
+    flex: 1;
+}
+
+/* --- Streak badge --- */
+.habit-streak {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 12px;
+    font-weight: 700;
+    color: #b8860b;
+    background: rgba(255, 215, 0, 0.12);
+    border: 1px solid rgba(255, 215, 0, 0.3);
+    border-radius: 12px;
+    padding: 2px 10px;
+}
+
+.habit-streak i {
+    font-size: 11px;
+}
+
+/* --- Check button --- */
+.habit-check-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 2px solid #d8c4e8;
+    background: transparent;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.habit-check-btn.completed {
+    background: #c084a0;
+    border-color: #c084a0;
+    color: #faf5ff;
+}
+
+.habit-check-btn:not(.completed) {
+    color: #d8c4e8;
+}
+
+.habit-check-btn:hover {
+    transform: scale(1.1);
+}
+
+/* --- Delete button --- */
+.habit-delete-btn {
+    background: none;
+    border: none;
+    color: #8a7a9a;
+    cursor: pointer;
+    font-size: 14px;
+    padding: 4px;
+    opacity: 0.4;
+    transition: opacity 0.3s ease, color 0.3s ease;
+}
+
+.habit-delete-btn:hover {
+    opacity: 1;
+    color: #c05050;
+}
+
+/* --- Add habit button --- */
+.btn-add-habit {
+    display: inline-block;
+    padding: 10px 24px;
+    background: #c084a0;
+    color: #faf5ff;
+    font-size: 14px;
+    font-weight: 600;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.btn-add-habit:hover {
+    transform: scale(0.97);
+    background: #a06080;
+}
+
+/* --- Add habit form --- */
+.add-habit-form {
+    margin-bottom: 24px;
+    padding: 24px;
+}
+
+.add-habit-form h2 {
+    text-align: left;
+    margin-bottom: 16px;
+}
+
+.icon-picker {
+    margin: 16px 0;
+}
+
+.icon-picker label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: #8a7a9a;
+    margin-bottom: 8px;
+}
+
+.icon-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.icon-option {
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    border: 2px solid #d8c4e8;
+    background: transparent;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    color: #8a7a9a;
+    transition: all 0.2s ease;
+}
+
+.icon-option.selected {
+    border-color: #c084a0;
+    background: rgba(192, 132, 160, 0.12);
+    color: #c084a0;
+}
+
+.icon-option:hover {
+    border-color: #c084a0;
+}
+
+.add-habit-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 16px;
+}
+
+.btn-cancel {
+    background: none;
+    border: none;
+    color: #8a7a9a;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    transition: color 0.3s ease;
+}
+
+.btn-cancel:hover {
+    color: #3d3250;
+}
+
+/* --- Mobile --- */
+@media (max-width: 640px) {
+    .habits-page {
+        padding: 24px 12px;
+    }
+
+    .habit-card {
+        padding: 16px;
+    }
+
+    .habit-card-header > i {
+        font-size: 16px;
+        width: 20px;
+    }
+
+    .habit-name {
+        font-size: 14px;
+    }
+
+    .icon-option {
+        width: 36px;
+        height: 36px;
+        font-size: 14px;
+    }
+}

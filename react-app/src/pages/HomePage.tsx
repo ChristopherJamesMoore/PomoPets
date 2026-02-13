@@ -28,6 +28,7 @@ export default function HomePage() {
         <DashboardCard to="/study" icon="book" label="Study" />
         <DashboardCard to="/shop" icon="store" label="Shop" />
         <DashboardCard to="/games" icon="gamepad" label="Games" />
+        <DashboardCard to="/habits" icon="list-check" label="Habits" />
       </div>
     </div>
   );

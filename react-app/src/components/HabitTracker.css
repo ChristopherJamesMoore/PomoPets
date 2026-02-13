@@ -1,0 +1,55 @@
+.habit-tracker {
+    margin-top: 12px;
+    overflow-x: auto;
+}
+
+.tracker-grid {
+    display: flex;
+    gap: 3px;
+}
+
+.tracker-week {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.tracker-cell {
+    width: 12px;
+    height: 12px;
+    border-radius: 3px;
+    transition: opacity 0.2s ease;
+}
+
+.tracker-cell.completed {
+    background: #c084a0;
+}
+
+.tracker-cell.missed {
+    background: rgba(216, 196, 232, 0.3);
+}
+
+.tracker-cell.future {
+    background: transparent;
+}
+
+.tracker-cell:not(.future):hover {
+    opacity: 0.75;
+    outline: 1px solid #8a7a9a;
+}
+
+/* --- Mobile --- */
+@media (max-width: 640px) {
+    .tracker-cell {
+        width: 10px;
+        height: 10px;
+    }
+
+    .tracker-grid {
+        gap: 2px;
+    }
+
+    .tracker-week {
+        gap: 2px;
+    }
+}
