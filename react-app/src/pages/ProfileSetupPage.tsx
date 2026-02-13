@@ -66,6 +66,7 @@ export default function ProfileSetupPage() {
       id: user.id,
       display_name: trimmedName,
       display_name_changed_at: new Date().toISOString(),
+      coins: 200,
     };
     if (avatarUrl) profileData.avatar_url = avatarUrl;
 
