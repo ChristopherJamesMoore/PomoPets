@@ -31,6 +31,20 @@
     margin-bottom: 20px;
 }
 
+.mascot-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    margin-bottom: 20px;
+}
+
+.mascot-image {
+    width: 84px;
+    height: 84px;
+    object-fit: contain;
+}
+
 .landing-btn {
     display: inline-block;
     padding: 14px 40px;
@@ -114,6 +128,16 @@
 
     .dashboard {
         padding: 40px 16px;
+    }
+
+    .mascot-row {
+        gap: 12px;
+        margin-bottom: 16px;
+    }
+
+    .mascot-image {
+        width: 64px;
+        height: 64px;
     }
 
     .dashboard-grid {

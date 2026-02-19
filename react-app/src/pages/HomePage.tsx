@@ -13,6 +13,10 @@ export default function HomePage() {
       <div className="landing">
         <h1>PomoPets</h1>
         <p>An interactive study pet game!</p>
+        <div className="mascot-row" aria-hidden="true">
+          <img src="/bunny.png" alt="" className="mascot-image" />
+          <img src="/turtle.png" alt="" className="mascot-image" />
+        </div>
         <Link to="/login" className="landing-btn">Get Started</Link>
       </div>
     );
@@ -22,6 +26,10 @@ export default function HomePage() {
     <div className="dashboard">
       <h1>Welcome back, {profile?.display_name || 'User'}!</h1>
       <p className="dashboard-subtitle">What would you like to do today?</p>
+      <div className="mascot-row" aria-hidden="true">
+        <img src="/bunny.png" alt="" className="mascot-image" />
+        <img src="/turtle.png" alt="" className="mascot-image" />
+      </div>
 
       <div className="dashboard-grid">
         <DashboardCard to="/pets" icon="paw" label="My Pets" />
