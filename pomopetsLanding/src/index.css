@@ -1,0 +1,61 @@
+@font-face {
+  font-family: 'More Sugar';
+  src:
+    url('/fonts/MoreSugar-Regular.otf') format('opentype'),
+    url('/fonts/MoreSugar-Regular.ttf') format('truetype'),
+    local('More Sugar'),
+    local('MoreSugar'),
+    local('More Sugar Regular');
+  font-style: normal;
+  font-weight: 400 900;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'More Sugar Thin';
+  src:
+    url('/fonts/MoreSugar-Thin.otf') format('opentype'),
+    url('/fonts/MoreSugar-Thin.ttf') format('truetype'),
+    local('More Sugar Thin'),
+    local('MoreSugar-Thin'),
+    local('More Sugar Light');
+  font-style: normal;
+  font-weight: 100 500;
+  font-display: swap;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --font-display: 'More Sugar', 'Comic Sans MS', cursive, sans-serif;
+  --font-body: 'More Sugar Thin', 'More Sugar', 'Comic Sans MS', cursive, sans-serif;
+  font-family: var(--font-body);
+  line-height: 1.5;
+  font-weight: 400;
+  color: #2d2d2d;
+  background-color: #fdf6ee;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+#root {
+  display: contents;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
