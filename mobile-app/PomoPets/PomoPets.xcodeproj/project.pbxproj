@@ -6,6 +6,11 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		03CC894C2F59F4CD00C49523 /* Supabase in Frameworks */ = {isa = PBXBuildFile; productRef = AA0000000000000000000001 /* Supabase */; };
+		03CC894D2F59F4CD00C49523 /* Auth in Frameworks */ = {isa = PBXBuildFile; productRef = AA0000000000000000000002 /* Auth */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		0390ADA32F3FAFA7008E2905 /* PomoPets.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PomoPets.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -23,6 +28,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				03CC894D2F59F4CD00C49523 /* Auth in Frameworks */,
+				03CC894C2F59F4CD00C49523 /* Supabase in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -96,13 +103,13 @@
 			);
 			mainGroup = 0390AD9A2F3FAFA7008E2905;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				AA0000000000000000000010 /* XCRemoteSwiftPackageReference "supabase-swift" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 0390ADA42F3FAFA7008E2905 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
-			packageReferences = (
-				AA0000000000000000000010 /* XCRemoteSwiftPackageReference "supabase-swift" */,
-			);
 			targets = (
 				0390ADA22F3FAFA7008E2905 /* PomoPets */,
 			);
