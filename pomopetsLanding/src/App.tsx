@@ -43,11 +43,11 @@ export default function App() {
             <span>Grow Your Pets</span>
           </h1>
           <p className="hero-subtitle">
-            PomoPets turns your study sessions into adventures. Stay focused with the Pomodoro technique and watch your virtual pets grow with every session you complete!
+            Take back control of your time and energy. Track those lost spoons and missed deadlines with PomoPets Now!
           </p>
           <div className="hero-ctas">
             <button className="btn-primary">Get Started</button>
-            <button className="btn-outline">See How It Works</button>
+            <button className="btn-outline">Discord!</button>
           </div>
         </section>
 
@@ -67,14 +67,32 @@ export default function App() {
           <img src="/aboutUs.png" alt="About PomoPets" />
         </div>
         <div className="about-content">
-          <span className="hero-eyebrow">Our Story</span>
+          <span className="hero-eyebrow">Our Story!</span>
           <p className="about-body">
-            PomoPets was born from late nights, missed breaks, and the desire to make studying feel less like a chore. We combined the proven Pomodoro technique with the joy of virtual pets to create something that actually keeps you coming back to your desk.
-          </p>
+           PomoPets was forged through sleepless nights and missed breaks, driven by the desire to make self-care and studying feel less like a chore.
+
+By combining our degrees in psychology and computer science, we crafted a game that uses both to help you finally take back control.
+
+Every task, no matter how small, can help you achieve more and take care of yourself and your very own PomoPet!
+
           <p className="about-body">
-            Every focus session feeds your pet, every break helps it grow. Your productivity becomes their story.
+            Earn coins, hatch and grow your pet. Trade or decorate them to stay productive, whilst tracking your health!
           </p>
         </div>
+      </section>
+
+      <section className="how-it-started">
+        <div> className="para">
+          <p> I struggle with chronic conditions and neurodiversity; more specifically, I struggle to manage my own social battery with studying and taking care of myself.
+
+            So  I designed something that combines my psychology degree, my love of animals, and coding and drawing. 
+
+            The idea bloomed from looking up to my dad, as a software developer and role model for many years.  Despite managing chronic conditions himself, he always pushed through and showed up with so much love and passion. 
+
+            This game is dedicated to my dad, but also to everyone out there like me who hasn’t quite found a solution. Even if you aren’t like me, I hope this game brings you enjoyment and helps you stay motivated!
+
+          </p>
+        </div>  
       </section>
 
     </div>
