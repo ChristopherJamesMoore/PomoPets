@@ -34,6 +34,7 @@ export default function Navbar() {
         <li><NavLink to="/pets">Pets</NavLink></li>
         <li><NavLink to="/games">Games</NavLink></li>
         <li><NavLink to="/habits">Habits</NavLink></li>
+        <li><NavLink to="/health">Health</NavLink></li>
         <li><NavLink to="/help">Contact</NavLink></li>
         {!user && <li><NavLink to="/login">Login</NavLink></li>}
       </ul>

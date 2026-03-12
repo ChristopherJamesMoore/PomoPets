@@ -20,13 +20,14 @@ struct LoginView: View {
                     .frame(height: 80)
 
                 // App branding
-                Image(systemName: "pawprint.fill")
-                    .font(.system(size: 48))
-                    .foregroundColor(.pomoPrimary)
+                Image("logo")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 80, height: 80)
                     .padding(.bottom, 8)
 
                 Text("PomoPets")
-                    .font(.system(size: 32, weight: .bold))
+                    .font(.moreSugar(size: 32))
                     .foregroundColor(.pomoPrimary)
                     .padding(.bottom, 40)
 
@@ -50,7 +51,7 @@ struct LoginView: View {
                 Spacer()
             }
         }
-        .background(Color.white)
+        .background(Color.pomoBackground)
         .onChange(of: currentView) {
             clearForm()
         }
@@ -60,7 +61,7 @@ struct LoginView: View {
     private var loginForm: some View {
         VStack(spacing: 16) {
             Text("Login")
-                .font(.system(size: 24, weight: .bold))
+                .font(.moreSugar(size: 24))
                 .foregroundColor(.pomoPrimary)
 
             messageBanners
@@ -79,7 +80,7 @@ struct LoginView: View {
                 Button("Forgot Password?") {
                     currentView = .forgot
                 }
-                .font(.system(size: 13))
+                .font(.moreSugarThin(size: 13))
                 .foregroundColor(.pomoMuted)
             }
             .padding(.bottom, 4)
@@ -119,7 +120,7 @@ struct LoginView: View {
     private var registerForm: some View {
         VStack(spacing: 16) {
             Text("Register")
-                .font(.system(size: 24, weight: .bold))
+                .font(.moreSugar(size: 24))
                 .foregroundColor(.pomoPrimary)
 
             messageBanners
@@ -162,7 +163,7 @@ struct LoginView: View {
     private var forgotForm: some View {
         VStack(spacing: 16) {
             Text("Reset Password")
-                .font(.system(size: 24, weight: .bold))
+                .font(.moreSugar(size: 24))
                 .foregroundColor(.pomoPrimary)
 
             messageBanners
@@ -204,7 +205,7 @@ struct LoginView: View {
 
     private func messageBanner(text: String, color: Color, bgColor: Color) -> some View {
         Text(text)
-            .font(.system(size: 13))
+            .font(.moreSugarThin(size: 13))
             .foregroundColor(color)
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(12)
@@ -216,7 +217,7 @@ struct LoginView: View {
         HStack {
             Rectangle().frame(height: 1).foregroundColor(Color(.systemGray4))
             Text("or")
-                .font(.system(size: 13))
+                .font(.moreSugarThin(size: 13))
                 .foregroundColor(.pomoMuted)
             Rectangle().frame(height: 1).foregroundColor(Color(.systemGray4))
         }
@@ -225,12 +226,12 @@ struct LoginView: View {
     private func switchLink(text: String, action: String, target: AuthFormView) -> some View {
         HStack(spacing: 4) {
             Text(text)
-                .font(.system(size: 13))
+                .font(.moreSugarThin(size: 13))
                 .foregroundColor(.pomoMuted)
             Button(action) {
                 currentView = target
             }
-            .font(.system(size: 13, weight: .semibold))
+            .font(.moreSugar(size: 13))
             .foregroundColor(.pomoPrimary)
         }
         .padding(.top, 4)
@@ -257,9 +258,10 @@ struct LoginView: View {
 extension View {
     func pomoPillField() -> some View {
         self
+            .font(.moreSugarThin(size: 16))
             .padding(.horizontal, 16)
-            .frame(height: 48)
-            .background(Color(.systemGray6))
+            .frame(height: 56)
+            .background(Color.pomoChip.opacity(0.35))
             .clipShape(Capsule())
             .foregroundColor(.pomoText)
     }

@@ -1,17 +1,15 @@
-import { useRef } from 'react'
-import './App.css'
+import { Routes, Route } from 'react-router-dom'
+import ProtectedRoute from './components/ProtectedRoute'
+import GameLayout from './components/GameLayout'
+import LandingPage from './pages/LandingPage'
+import LoginPage from './pages/LoginPage'
+import GameHomePage from './pages/GameHomePage'
+import ShopPage from './pages/ShopPage'
+import HealthPage from './pages/HealthPage'
+import HabitsPage from './pages/HabitsPage'
+import SettingsPage from './pages/SettingsPage'
 
 export default function App() {
-  const titleSectionRef = useRef<HTMLElement>(null)
-  const bodySectionRef  = useRef<HTMLElement>(null)
-
-  const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
-    const top = e.currentTarget.scrollTop
-    const vh  = e.currentTarget.clientHeight
-    if (top > 0)        titleSectionRef.current?.classList.add('animate')
-    if (top > vh * 1.2) bodySectionRef.current?.classList.add('animate')
-  }
-
   return (
     <div className="page" onScroll={handleScroll}>
 
