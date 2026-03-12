@@ -49,6 +49,7 @@ export default function SessionSetup({ onStart, loading }: SessionSetupProps) {
                 max={120}
                 value={workMin}
                 onChange={e => setWorkMin(Number(e.target.value))}
+                onFocus={e => e.target.select()}
               />
               <span className="duration-unit">min</span>
             </div>
@@ -64,6 +65,7 @@ export default function SessionSetup({ onStart, loading }: SessionSetupProps) {
                 max={60}
                 value={breakMin}
                 onChange={e => setBreakMin(Number(e.target.value))}
+                onFocus={e => e.target.select()}
               />
               <span className="duration-unit">min</span>
             </div>
