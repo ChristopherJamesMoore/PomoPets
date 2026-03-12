@@ -50,7 +50,9 @@ export default function LandingPage() {
             <Link to="/login" className="btn-primary" style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}>
               Get Started
             </Link>
-            <button className="btn-outline">Discord!</button>
+            <Link to="/waitlist" className="btn-outline" style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}>
+              Join Waitlist
+            </Link>
           </div>
         </section>
 

@@ -10,13 +10,19 @@ import HealthPage from './pages/HealthPage'
 import HabitsPage from './pages/HabitsPage'
 import PomodoroPage from './pages/PomodoroPage'
 import SettingsPage from './pages/SettingsPage'
+import WaitlistPage from './pages/WaitlistPage'
+import VipJoinPage  from './pages/VipJoinPage'
+import AdminPage    from './pages/AdminPage'
 
 export default function App() {
   return (
     <Routes>
       {/* Public */}
-      <Route path="/"      element={<LandingPage />} />
-      <Route path="/login" element={<LoginPage />} />
+      <Route path="/"               element={<LandingPage />} />
+      <Route path="/login"          element={<LoginPage />} />
+      <Route path="/waitlist"       element={<WaitlistPage />} />
+      <Route path="/join/:token"    element={<VipJoinPage />} />
+      <Route path="/studio/:secret" element={<AdminPage />} />
 
       {/* Profile setup — protected but outside GameLayout (no nav) */}
       <Route element={<ProtectedRoute />}>
