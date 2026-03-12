@@ -7,7 +7,7 @@ import './LoginPage.css'
 type FormView = 'login' | 'register' | 'forgot'
 
 export default function LoginPage() {
-  const { user, loading } = useAuth()
+  const { user, loading, isProfileComplete } = useAuth()
   const navigate = useNavigate()
   const [view, setView] = useState<FormView>('login')
 
@@ -19,8 +19,10 @@ export default function LoginPage() {
   const [submitting, setSubmitting] = useState(false)
 
   useEffect(() => {
-    if (!loading && user) navigate('/home', { replace: true })
-  }, [loading, user, navigate])
+    if (!loading && user) {
+      navigate(isProfileComplete ? '/home' : '/profile-setup', { replace: true })
+    }
+  }, [loading, user, isProfileComplete, navigate])
 
   const clearMessages = () => { setError(''); setSuccess('') }
 

@@ -1,8 +1,14 @@
-import { Navigate, Outlet } from 'react-router-dom'
+import { Navigate, Outlet, useLocation } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 
 export default function ProtectedRoute() {
-  const { user, loading } = useAuth()
+  const { user, loading, isProfileComplete } = useAuth()
+  const location = useLocation()
+
   if (loading) return <div className="app-loading"><div className="loading-paw">🐾</div></div>
-  return user ? <Outlet /> : <Navigate to="/login" replace />
+  if (!user) return <Navigate to="/login" replace />
+  if (!isProfileComplete && location.pathname !== '/profile-setup') {
+    return <Navigate to="/profile-setup" replace />
+  }
+  return <Outlet />
 }

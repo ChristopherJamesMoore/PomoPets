@@ -3,6 +3,7 @@ import ProtectedRoute from './components/ProtectedRoute'
 import GameLayout from './components/GameLayout'
 import LandingPage from './pages/LandingPage'
 import LoginPage from './pages/LoginPage'
+import ProfileSetupPage from './pages/ProfileSetupPage'
 import GameHomePage from './pages/GameHomePage'
 import ShopPage from './pages/ShopPage'
 import HealthPage from './pages/HealthPage'
@@ -16,8 +17,11 @@ export default function App() {
       <Route path="/"      element={<LandingPage />} />
       <Route path="/login" element={<LoginPage />} />
 
-      {/* Protected — game pages share the GameLayout (nav + main) */}
+      {/* Profile setup — protected but outside GameLayout (no nav) */}
       <Route element={<ProtectedRoute />}>
+        <Route path="/profile-setup" element={<ProfileSetupPage />} />
+
+        {/* Game pages share the GameLayout (nav + main) */}
         <Route element={<GameLayout />}>
           <Route path="/home"     element={<GameHomePage />} />
           <Route path="/shop"     element={<ShopPage />} />

@@ -2,17 +2,22 @@ import { createContext, useContext, useEffect, useState, useCallback, type React
 import type { User } from '@supabase/supabase-js'
 import { supabase } from '../lib/supabase'
 
-interface Profile {
+export interface Profile {
   id: string
   display_name: string
   avatar_url: string | null
   coins: number
+  created_at: string
+  updated_at: string
+  display_name_changed_at: string | null
 }
 
 interface AuthContextValue {
   user: User | null
   profile: Profile | null
   loading: boolean
+  isProfileComplete: boolean
+  refreshProfile: () => Promise<void>
   signOut: () => Promise<void>
 }
 
@@ -20,6 +25,8 @@ const AuthContext = createContext<AuthContextValue>({
   user: null,
   profile: null,
   loading: true,
+  isProfileComplete: false,
+  refreshProfile: async () => {},
   signOut: async () => {},
 })
 
@@ -31,11 +38,15 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const fetchProfile = useCallback(async (userId: string) => {
     const { data } = await supabase
       .from('profiles')
-      .select('id, display_name, avatar_url, coins')
+      .select('id, display_name, avatar_url, coins, created_at, updated_at, display_name_changed_at')
       .eq('id', userId)
       .single()
     setProfile((data as Profile) ?? null)
   }, [])
+
+  const refreshProfile = useCallback(async () => {
+    if (user) await fetchProfile(user.id)
+  }, [user, fetchProfile])
 
   const signOut = useCallback(async () => {
     setUser(null)
@@ -78,8 +89,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   }, [fetchProfile])
 
+  const isProfileComplete = !!(profile?.display_name?.trim())
+
   return (
-    <AuthContext.Provider value={{ user, profile, loading, signOut }}>
+    <AuthContext.Provider value={{ user, profile, loading, isProfileComplete, refreshProfile, signOut }}>
       {children}
     </AuthContext.Provider>
   )
