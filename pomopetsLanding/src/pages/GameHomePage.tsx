@@ -49,7 +49,7 @@ export default function GameHomePage() {
       .select('id, nickname, level, hunger, happiness, energy, catalog_pet:catalog_pet_id(name, species, asset_key)')
       .eq('is_selected', true)
       .maybeSingle()
-      .then(({ data }) => setPet((data as ActivePet) ?? null))
+      .then(({ data }) => setPet((data as unknown as ActivePet) ?? null))
   }, [])
 
   const petName = pet?.nickname ?? pet?.catalog_pet?.name ?? 'Unknown'
