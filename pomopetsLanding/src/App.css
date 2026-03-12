@@ -49,6 +49,23 @@
   color: #3C0008;
 }
 
+.nav-login-btn {
+  display: inline-block;
+  background: #3C0008;
+  color: #fff4e6 !important;
+  padding: 8px 22px;
+  border-radius: 100px;
+  font-size: 18px !important;
+  font-weight: 700 !important;
+  transition: opacity 0.2s, transform 0.1s;
+}
+
+.nav-login-btn:hover {
+  color: #fff4e6 !important;
+  opacity: 0.85;
+  transform: translateY(1px);
+}
+
 .nav-logo {
   display: flex;
   flex-direction: column;

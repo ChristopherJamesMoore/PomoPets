@@ -5,15 +5,17 @@ struct ContentView: View {
 
     var body: some View {
         VStack(spacing: 24) {
-            Image(systemName: "pawprint.fill")
-                .font(.system(size: 48))
-                .foregroundColor(.pomoPrimary)
+            Image("logo")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 72, height: 72)
 
             Text("Welcome to PomoPets!")
-                .font(.system(size: 24, weight: .bold))
+                .font(.moreSugar(size: 24))
                 .foregroundColor(.pomoText)
 
             Text("You're signed in.")
+                .font(.moreSugarThin(size: 16))
                 .foregroundColor(.pomoMuted)
 
             Button("Sign Out") {
@@ -25,7 +27,7 @@ struct ContentView: View {
             .frame(width: 200)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color.white)
+        .background(Color.pomoBackground)
     }
 }
 

@@ -32,7 +32,14 @@ export default function App() {
           <ul className="nav-links">
             <li><a href="#">Download</a></li>
             <li><a href="#">Pricing</a></li>
-            <li><a href="#">Contact</a></li>
+            <li>
+              <a
+                href={`${import.meta.env.VITE_APP_URL ?? ''}/login`}
+                className="nav-login-btn"
+              >
+                Login
+              </a>
+            </li>
           </ul>
         </nav>
 

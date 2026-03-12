@@ -4,6 +4,10 @@ import SwiftUI
 struct PomoPetsApp: App {
     @State private var authVM = AuthViewModel()
 
+    init() {
+        registerPomoPetsFonts()
+    }
+
     var body: some Scene {
         WindowGroup {
             Group {
