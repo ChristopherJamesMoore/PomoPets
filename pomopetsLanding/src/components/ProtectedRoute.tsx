@@ -2,7 +2,7 @@ import { Navigate, Outlet, useLocation } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 
 export default function ProtectedRoute() {
-  const { user, loading, isProfileComplete } = useAuth()
+  const { user, profile, loading, isProfileComplete } = useAuth()
   const location = useLocation()
 
   if (loading) return <div className="app-loading"><div className="loading-paw">🐾</div></div>

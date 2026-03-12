@@ -7,7 +7,7 @@ import './LoginPage.css'
 type FormView = 'login' | 'register' | 'forgot'
 
 export default function LoginPage() {
-  const { user, loading, isProfileComplete } = useAuth()
+  const { user, profile, loading, isProfileComplete } = useAuth()
   const navigate = useNavigate()
   const [view, setView] = useState<FormView>('login')
 
