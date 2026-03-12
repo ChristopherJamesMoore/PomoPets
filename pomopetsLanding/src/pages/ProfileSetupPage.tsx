@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { supabase } from '../lib/supabase'
 import { useAuth } from '../context/AuthContext'
+import { logEvent } from '../lib/auditLog'
 import AvatarUpload from '../components/AvatarUpload'
 import './LoginPage.css'
 import './ProfileSetupPage.css'
@@ -42,6 +43,7 @@ export default function ProfileSetupPage() {
       return
     }
 
+    logEvent(user.id, 'profile.setup', { display_name: trimmed })
     await refreshProfile()
     navigate('/home', { replace: true })
   }

@@ -1,5 +1,6 @@
 import { useState, useCallback } from 'react'
 import { supabase } from '../lib/supabase'
+import { logEvent } from '../lib/auditLog'
 import type { StudySession, StudyTask } from '../types/pomodoro'
 
 const SNAPSHOT_KEY = 'pomopets_pomodoro_snapshot'
@@ -57,6 +58,7 @@ export function usePomodoroSession(userId: string | undefined) {
       .single()
     if (error || !data) return null
     const session = data as StudySession
+    logEvent(userId, 'study.session_started', { session_id: session.id, title: session.title })
     setActiveSession(session)
     setTasks([])
     return session
@@ -79,6 +81,7 @@ export function usePomodoroSession(userId: string | undefined) {
         coins_earned: coinsEarned,
       })
       .eq('id', sessionId)
+    if (userId) logEvent(userId, 'study.session_finished', { session_id: sessionId, total_work_seconds: totalWorkSeconds, rounds_completed: roundsCompleted, coins_earned: coinsEarned })
     localStorage.removeItem(SNAPSHOT_KEY)
     setActiveSession(null)
     setTasks([])

@@ -3,14 +3,16 @@ interface StatsProps {
   general: number
   vip:     number
   tokens:  number
+  users:   number
 }
 
-export default function AdminStats({ total, general, vip, tokens }: StatsProps) {
+export default function AdminStats({ total, general, vip, tokens, users }: StatsProps) {
   const stats = [
-    { label: 'Total Signups',   value: total,   },
-    { label: 'General',         value: general, },
-    { label: 'VIP',             value: vip,     },
-    { label: 'Active Tokens',   value: tokens,  },
+    { label: 'Total Users',      value: users   },
+    { label: 'Waitlist Total',   value: total   },
+    { label: 'General',          value: general },
+    { label: 'VIP',              value: vip     },
+    { label: 'Active Tokens',    value: tokens  },
   ]
 
   return (

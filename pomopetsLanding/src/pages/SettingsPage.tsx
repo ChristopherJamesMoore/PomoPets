@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useAuth } from '../context/AuthContext'
 import { supabase } from '../lib/supabase'
+import { logEvent } from '../lib/auditLog'
 import AvatarUpload from '../components/AvatarUpload'
 import './SettingsPage.css'
 
@@ -66,6 +67,7 @@ export default function SettingsPage() {
     if (updateError) {
       setError(updateError.message)
     } else {
+      logEvent(profile.id, 'profile.updated', { name_changed: nameChanged })
       await refreshProfile()
       setSuccess('Profile updated!')
     }

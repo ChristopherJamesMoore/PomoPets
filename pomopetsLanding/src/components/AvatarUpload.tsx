@@ -1,5 +1,6 @@
 import { useRef, useState } from 'react'
 import { supabase } from '../lib/supabase'
+import { logEvent } from '../lib/auditLog'
 import './AvatarUpload.css'
 
 interface AvatarUploadProps {
@@ -43,6 +44,7 @@ export default function AvatarUpload({ userId, currentUrl, onUploaded }: AvatarU
     }
 
     const { data } = supabase.storage.from('avatars').getPublicUrl(path)
+    logEvent(userId, 'avatar.uploaded')
     onUploaded(data.publicUrl)
     setUploading(false)
   }

@@ -1,10 +1,12 @@
 import { createContext, useContext, useEffect, useState, useCallback, type ReactNode } from 'react'
 import type { User } from '@supabase/supabase-js'
 import { supabase } from '../lib/supabase'
+import { logEvent } from '../lib/auditLog'
 
 export interface Profile {
   id: string
   display_name: string
+  email: string | null
   avatar_url: string | null
   coins: number
   created_at: string
@@ -38,7 +40,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const fetchProfile = useCallback(async (userId: string) => {
     const { data } = await supabase
       .from('profiles')
-      .select('id, display_name, avatar_url, coins, created_at, updated_at, display_name_changed_at')
+      .select('id, display_name, email, avatar_url, coins, created_at, updated_at, display_name_changed_at')
       .eq('id', userId)
       .single()
     setProfile((data as Profile) ?? null)
@@ -49,10 +51,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, [user, fetchProfile])
 
   const signOut = useCallback(async () => {
+    if (user) logEvent(user.id, 'user.logout')
     setUser(null)
     setProfile(null)
     await supabase.auth.signOut()
-  }, [])
+  }, [user])
 
   useEffect(() => {
     let mounted = true
@@ -68,11 +71,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       }
     })
 
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
       if (!mounted) return
       const u = session?.user ?? null
       setUser(u)
       if (u) {
+        if (event === 'SIGNED_IN') logEvent(u.id, 'user.login')
         fetchProfile(u.id).finally(() => { if (mounted) setLoading(false) })
       } else {
         setProfile(null)

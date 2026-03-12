@@ -496,9 +496,233 @@
 .admin-create-btn:hover    { background: #333; }
 .admin-create-btn:disabled { opacity: 0.5; pointer-events: none; }
 
+/* ── Stats grid (5 cards) ── */
+.admin-stats {
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+}
+
+/* ── User cells ── */
+.admin-user-cell {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.admin-user-name { font-weight: 600; font-size: 13px; }
+
+.admin-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #e0e0e0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  font-size: 13px;
+  font-weight: 700;
+  color: #555;
+  flex-shrink: 0;
+}
+
+.admin-avatar--lg {
+  width: 48px;
+  height: 48px;
+  font-size: 20px;
+}
+
+.admin-avatar img { width: 100%; height: 100%; object-fit: cover; }
+
+.admin-row--selected td { background: #f0f4ff !important; }
+
+.admin-toolbar-note {
+  font-size: 12px;
+  color: #aaa;
+  margin-left: 4px;
+}
+
+/* ── User edit panel ── */
+.admin-panel-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 200;
+}
+
+.admin-panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 480px;
+  background: #fff;
+  border-left: 1px solid #e0e0e0;
+  box-shadow: -4px 0 24px rgba(0, 0, 0, 0.12);
+  z-index: 201;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.admin-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 20px;
+  border-bottom: 1px solid #e8e8e8;
+  background: #fafafa;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.admin-panel-user {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.admin-panel-username {
+  font-size: 15px;
+  font-weight: 700;
+  color: #111;
+}
+
+.admin-panel-email {
+  font-size: 12px;
+  color: #888;
+  margin-top: 2px;
+}
+
+.admin-panel-close {
+  width: 32px;
+  height: 32px;
+  border: 1px solid #ddd;
+  background: #fff;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  color: #888;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.12s, color 0.12s;
+}
+
+.admin-panel-close:hover { background: #f5f5f5; color: #111; }
+
+.admin-panel-section {
+  padding: 18px 20px;
+  border-top: 1px solid #f0f0f0;
+}
+
+.admin-panel-section-title {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: #888;
+  margin: 0 0 14px;
+}
+
+.admin-panel-empty {
+  font-size: 13px;
+  color: #bbb;
+  margin: 0;
+}
+
+.admin-inline-msg {
+  font-size: 12px;
+  color: #080;
+  margin-bottom: 8px;
+}
+
+.admin-inline-msg--err { color: #c00; }
+
+/* Coin adjustment row */
+.admin-coin-adj-row {
+  display: flex;
+  gap: 8px;
+}
+
+.admin-coin-dir {
+  height: 36px;
+  padding: 0 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  background: #fff;
+  outline: none;
+  cursor: pointer;
+}
+
+.admin-coin-input {
+  flex: 1;
+  height: 36px;
+  padding: 0 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 13px;
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+.admin-coin-input:focus { border-color: #111; }
+
+/* Compact table */
+.admin-table--compact td,
+.admin-table--compact th { padding: 7px 10px; font-size: 12px; }
+
+/* ── Audit logs ── */
+.admin-action-select {
+  height: 38px;
+  padding: 0 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 13px;
+  background: #fff;
+  outline: none;
+  cursor: pointer;
+}
+
+.audit-badge {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 600;
+  font-family: monospace;
+  padding: 3px 8px;
+  border-radius: 4px;
+  background: #f0f0f0;
+  color: #555;
+  white-space: nowrap;
+}
+
+.audit-badge--user    { background: #e8f0ff; color: #2040a0; }
+.audit-badge--coins   { background: #fff8e0; color: #806000; }
+.audit-badge--study   { background: #e8f5e8; color: #206020; }
+.audit-badge--profile { background: #f5e8ff; color: #602080; }
+
+.audit-detail-row td {
+  background: #fafafa;
+  padding: 0 14px 10px !important;
+}
+
+.audit-metadata {
+  font-size: 11px;
+  font-family: monospace;
+  background: #f0f0f0;
+  border-radius: 6px;
+  padding: 10px 12px;
+  overflow-x: auto;
+  margin: 0;
+  color: #333;
+}
+
 /* ── Mobile ── */
 @media (max-width: 768px) {
-  .admin-main  { padding: 20px 16px 60px; }
-  .admin-stats { grid-template-columns: repeat(2, 1fr); }
+  .admin-main   { padding: 20px 16px 60px; }
+  .admin-stats  { grid-template-columns: repeat(2, 1fr); }
   .admin-header { padding: 0 16px; }
+  .admin-panel  { width: 100%; }
 }
