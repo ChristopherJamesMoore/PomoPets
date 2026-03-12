@@ -20,9 +20,11 @@ export default function LoginPage() {
 
   useEffect(() => {
     if (!loading && user) {
-      navigate(isProfileComplete ? '/home' : '/profile-setup', { replace: true })
+      // Only send to profile-setup when profile is loaded AND display_name is empty (new signup)
+      const dest = (profile !== null && !isProfileComplete) ? '/profile-setup' : '/home'
+      navigate(dest, { replace: true })
     }
-  }, [loading, user, isProfileComplete, navigate])
+  }, [loading, user, profile, isProfileComplete, navigate])
 
   const clearMessages = () => { setError(''); setSuccess('') }
 

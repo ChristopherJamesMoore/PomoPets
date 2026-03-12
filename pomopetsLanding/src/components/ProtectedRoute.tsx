@@ -7,7 +7,8 @@ export default function ProtectedRoute() {
 
   if (loading) return <div className="app-loading"><div className="loading-paw">🐾</div></div>
   if (!user) return <Navigate to="/login" replace />
-  if (!isProfileComplete && location.pathname !== '/profile-setup') {
+  // Only redirect when profile has loaded AND display_name is genuinely empty (new user)
+  if (profile !== null && !isProfileComplete && location.pathname !== '/profile-setup') {
     return <Navigate to="/profile-setup" replace />
   }
   return <Outlet />
