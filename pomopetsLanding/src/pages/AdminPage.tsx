@@ -17,8 +17,8 @@ type Tab = 'waitlist' | 'tokens'
 export default function AdminPage() {
   const { secret } = useParams<{ secret: string }>()
 
-  // ── Gate 1: secret URL slug ────────────────────────────────────────────────
-  if (!ADMIN_SECRET || secret !== ADMIN_SECRET) {
+  // Gate 1: secret URL slug — only redirect if ADMIN_SECRET is actually configured
+  if (ADMIN_SECRET && secret !== ADMIN_SECRET) {
     return <Navigate to="/" replace />
   }
 
@@ -26,14 +26,29 @@ export default function AdminPage() {
 }
 
 function AdminInner() {
-  const [authed,   setAuthed]   = useState(() => sessionStorage.getItem(SESSION_KEY) === 'true')
-  const [pwInput,  setPwInput]  = useState('')
-  const [pwError,  setPwError]  = useState('')
+  // Gate 2: password
+  const [authed,  setAuthed]  = useState(() => sessionStorage.getItem(SESSION_KEY) === 'true')
+  const [pwInput, setPwInput] = useState('')
+  const [pwError, setPwError] = useState('')
 
-  const [tab,      setTab]      = useState<Tab>('waitlist')
-  const [entries,  setEntries]  = useState<WaitlistEntry[]>([])
-  const [tokens,   setTokens]   = useState<VipToken[]>([])
-  const [loading,  setLoading]  = useState(false)
+  // Gate 3: Supabase login (needed for authenticated RLS)
+  const [sbEmail,    setSbEmail]    = useState('')
+  const [sbPassword, setSbPassword] = useState('')
+  const [sbError,    setSbError]    = useState('')
+  const [sbLoading,  setSbLoading]  = useState(false)
+  const [sbUser,     setSbUser]     = useState<boolean | null>(null) // null = checking
+
+  const [tab,     setTab]     = useState<Tab>('waitlist')
+  const [entries, setEntries] = useState<WaitlistEntry[]>([])
+  const [tokens,  setTokens]  = useState<VipToken[]>([])
+  const [loading, setLoading] = useState(false)
+
+  // Check if already logged in to Supabase
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setSbUser(!!session?.user)
+    })
+  }, [])
 
   const fetchData = useCallback(async () => {
     setLoading(true)
@@ -47,17 +62,34 @@ function AdminInner() {
   }, [])
 
   useEffect(() => {
-    if (authed) fetchData()
-  }, [authed, fetchData])
+    if (authed && sbUser) fetchData()
+  }, [authed, sbUser, fetchData])
 
-  // ── Gate 2: password ────────────────────────────────────────────────────────
-  const handleLogin = (e: React.FormEvent) => {
+  // ── Gate 2: Password ────────────────────────────────────────────────────────
+  const handlePasswordSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    if (pwInput === ADMIN_PASSWORD) {
+    if (!ADMIN_PASSWORD || pwInput === ADMIN_PASSWORD) {
       sessionStorage.setItem(SESSION_KEY, 'true')
       setAuthed(true)
     } else {
       setPwError('Incorrect password.')
+    }
+  }
+
+  // ── Gate 3: Supabase login ──────────────────────────────────────────────────
+  const handleSbLogin = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setSbError('')
+    setSbLoading(true)
+    const { error } = await supabase.auth.signInWithPassword({
+      email: sbEmail.trim(),
+      password: sbPassword,
+    })
+    if (error) {
+      setSbError(error.message)
+      setSbLoading(false)
+    } else {
+      setSbUser(true)
     }
   }
 
@@ -67,16 +99,17 @@ function AdminInner() {
     setPwInput('')
   }
 
+  // ── Gate 2: password screen ─────────────────────────────────────────────────
   if (!authed) {
     return (
       <div className="admin-gate">
-        <form className="admin-gate-form" onSubmit={handleLogin}>
+        <form className="admin-gate-form" onSubmit={handlePasswordSubmit}>
           <h1 className="admin-gate-title">PomoPets Admin</h1>
           {pwError && <p className="admin-gate-error">{pwError}</p>}
           <input
             className="admin-gate-input"
             type="password"
-            placeholder="Password"
+            placeholder="Admin password"
             value={pwInput}
             onChange={e => setPwInput(e.target.value)}
             autoFocus
@@ -87,10 +120,53 @@ function AdminInner() {
     )
   }
 
-  // ── Stats ──────────────────────────────────────────────────────────────────
-  const total   = entries.length
-  const general = entries.filter(e => e.source === 'general').length
-  const vip     = entries.filter(e => e.source === 'vip').length
+  // ── Gate 3: Supabase login screen ───────────────────────────────────────────
+  if (sbUser === null) {
+    return (
+      <div className="admin-gate">
+        <div className="admin-gate-form">
+          <p style={{ color: '#888', fontSize: 14, textAlign: 'center' }}>Checking session…</p>
+        </div>
+      </div>
+    )
+  }
+
+  if (!sbUser) {
+    return (
+      <div className="admin-gate">
+        <form className="admin-gate-form" onSubmit={handleSbLogin}>
+          <h1 className="admin-gate-title">Sign In</h1>
+          <p className="admin-gate-sub">Sign in with your PomoPets account to load data.</p>
+          {sbError && <p className="admin-gate-error">{sbError}</p>}
+          <input
+            className="admin-gate-input"
+            type="email"
+            placeholder="Email"
+            value={sbEmail}
+            onChange={e => setSbEmail(e.target.value)}
+            required
+            autoFocus
+          />
+          <input
+            className="admin-gate-input"
+            type="password"
+            placeholder="Password"
+            value={sbPassword}
+            onChange={e => setSbPassword(e.target.value)}
+            required
+          />
+          <button type="submit" className="admin-gate-btn" disabled={sbLoading}>
+            {sbLoading ? 'Signing in…' : 'Sign In'}
+          </button>
+        </form>
+      </div>
+    )
+  }
+
+  // ── Dashboard ───────────────────────────────────────────────────────────────
+  const total        = entries.length
+  const general      = entries.filter(e => e.source === 'general').length
+  const vip          = entries.filter(e => e.source === 'vip').length
   const activeTokens = tokens.filter(t => t.is_active).length
 
   return (
@@ -100,7 +176,7 @@ function AdminInner() {
           <span className="admin-brand">PomoPets</span>
           <span className="admin-header-sub">Admin Panel</span>
         </div>
-        <button className="admin-logout-btn" onClick={handleLogout}>Sign Out</button>
+        <button className="admin-logout-btn" onClick={handleLogout}>Lock Panel</button>
       </header>
 
       <main className="admin-main">
@@ -124,12 +200,8 @@ function AdminInner() {
           </button>
         </div>
 
-        {tab === 'waitlist' && (
-          <WaitlistTable entries={entries} onRefresh={fetchData} />
-        )}
-        {tab === 'tokens' && (
-          <VipTokenManager tokens={tokens} onRefresh={fetchData} />
-        )}
+        {tab === 'waitlist' && <WaitlistTable entries={entries} onRefresh={fetchData} />}
+        {tab === 'tokens'   && <VipTokenManager tokens={tokens} onRefresh={fetchData} />}
       </main>
     </div>
   )

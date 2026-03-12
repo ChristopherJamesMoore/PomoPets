@@ -33,6 +33,12 @@
   margin: 0 0 4px;
 }
 
+.admin-gate-sub {
+  font-size: 13px;
+  color: #888;
+  margin: 0;
+}
+
 .admin-gate-error {
   font-size: 13px;
   color: #c00;
