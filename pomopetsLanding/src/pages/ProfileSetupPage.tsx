@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { supabase } from '../lib/supabase'
 import { useAuth } from '../context/AuthContext'
+import AvatarUpload from '../components/AvatarUpload'
 import './LoginPage.css'
 import './ProfileSetupPage.css'
 
@@ -10,7 +11,7 @@ export default function ProfileSetupPage() {
   const navigate = useNavigate()
 
   const [displayName, setDisplayName] = useState('')
-  const [avatarUrl, setAvatarUrl]     = useState('')
+  const [avatarUrl, setAvatarUrl]     = useState<string | null>(null)
   const [error, setError]             = useState('')
   const [submitting, setSubmitting]   = useState(false)
 
@@ -31,7 +32,7 @@ export default function ProfileSetupPage() {
       .upsert({
         id: user.id,
         display_name: trimmed,
-        avatar_url: avatarUrl.trim() || null,
+        avatar_url: avatarUrl,
         display_name_changed_at: new Date().toISOString(),
       })
 
@@ -44,6 +45,8 @@ export default function ProfileSetupPage() {
     await refreshProfile()
     navigate('/home', { replace: true })
   }
+
+  if (!user) return null
 
   return (
     <div className="login-page">
@@ -59,6 +62,14 @@ export default function ProfileSetupPage() {
 
           {error && <p className="form-error">{error}</p>}
 
+          <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 20 }}>
+            <AvatarUpload
+              userId={user.id}
+              currentUrl={avatarUrl}
+              onUploaded={setAvatarUrl}
+            />
+          </div>
+
           <label className="field-label">Display Name *</label>
           <input
             className="pill-input"
@@ -72,28 +83,8 @@ export default function ProfileSetupPage() {
           />
           <p className="field-hint">{displayName.trim().length}/30 characters</p>
 
-          <label className="field-label">Avatar URL <span className="optional-tag">optional</span></label>
-          <input
-            className="pill-input"
-            type="url"
-            placeholder="https://example.com/avatar.png"
-            value={avatarUrl}
-            onChange={e => setAvatarUrl(e.target.value)}
-          />
-          <p className="field-hint">Paste a link to an image you'd like to use.</p>
-
-          {avatarUrl.trim() && (
-            <div className="avatar-preview">
-              <img
-                src={avatarUrl.trim()}
-                alt="Avatar preview"
-                onError={e => { (e.target as HTMLImageElement).style.display = 'none' }}
-              />
-            </div>
-          )}
-
           <button type="submit" className="pill-btn primary" disabled={submitting} style={{ marginTop: 8 }}>
-            {submitting ? 'Saving…' : 'Let\'s Go! 🐾'}
+            {submitting ? 'Saving…' : "Let's Go! 🐾"}
           </button>
         </form>
       </div>
