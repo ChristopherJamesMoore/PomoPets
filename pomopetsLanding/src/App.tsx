@@ -8,6 +8,7 @@ import GameHomePage from './pages/GameHomePage'
 import ShopPage from './pages/ShopPage'
 import HealthPage from './pages/HealthPage'
 import HabitsPage from './pages/HabitsPage'
+import PomodoroPage from './pages/PomodoroPage'
 import SettingsPage from './pages/SettingsPage'
 
 export default function App() {
@@ -27,6 +28,7 @@ export default function App() {
           <Route path="/shop"     element={<ShopPage />} />
           <Route path="/health"   element={<HealthPage />} />
           <Route path="/habits"   element={<HabitsPage />} />
+          <Route path="/pomodoro" element={<PomodoroPage />} />
           <Route path="/settings" element={<SettingsPage />} />
         </Route>
       </Route>

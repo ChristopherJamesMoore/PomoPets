@@ -37,6 +37,7 @@ export default function GameNav() {
         <li><NavLink to="/shop">Shop</NavLink></li>
         <li><NavLink to="/health">Health</NavLink></li>
         <li><NavLink to="/habits">Habits</NavLink></li>
+        <li><NavLink to="/pomodoro">Study</NavLink></li>
       </ul>
 
       <div className="game-nav-right" ref={dropdownRef}>

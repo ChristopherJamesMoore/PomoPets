@@ -20,6 +20,7 @@ interface ActivePet {
 
 const TILES = [
   { to: '/shop',     emoji: '🛒', label: 'Buy',     sub: 'Pets & items'   },
+  { to: '/pomodoro', emoji: '⏱️', label: 'Study',   sub: 'Pomodoro timer' },
   { to: '/health',   emoji: '🩺', label: 'Health',  sub: 'Log your stats' },
   { to: '/habits',   emoji: '✅', label: 'Habits',  sub: 'Daily streaks'  },
   { to: '/settings', emoji: '⚙️', label: 'Profile', sub: 'Your account'   },
