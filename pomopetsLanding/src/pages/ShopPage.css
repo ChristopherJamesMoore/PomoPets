@@ -1,0 +1,334 @@
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes eggBob {
+  0%, 100% { transform: translateY(0) rotate(-3deg); }
+  50%       { transform: translateY(-6px) rotate(3deg); }
+}
+
+.shop-page {
+  max-width: 560px;
+  margin: 0 auto;
+  padding: 40px 20px 72px;
+  animation: fadeUp 0.4s ease both;
+}
+
+/* ── Top bar ── */
+
+.shop-topbar {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 28px;
+}
+
+.shop-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 4vw, 2.2rem);
+  font-weight: 900;
+  color: #3C0008;
+  margin: 0 0 4px;
+}
+
+.shop-subtitle {
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: #a08090;
+  margin: 0;
+}
+
+.shop-topbar-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.shop-coins-badge {
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 800;
+  color: #3C0008;
+  background: #fff4e0;
+  border: 1.5px solid #f0d8a0;
+  border-radius: 100px;
+  padding: 5px 14px;
+}
+
+.shop-hatchery-link {
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: #906878;
+  background: #fff;
+  border: 1.5px solid #f0d8da;
+  border-radius: 100px;
+  padding: 4px 12px;
+  text-decoration: none;
+  transition: background 0.15s, color 0.15s;
+}
+.shop-hatchery-link:hover { background: #f5d0d6; color: #3C0008; }
+
+/* ── Alerts ── */
+
+.shop-error {
+  background: #fff0f0;
+  border: 1.5px solid #f5c0c0;
+  border-radius: 12px;
+  padding: 10px 16px;
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: #c00;
+  margin-bottom: 16px;
+}
+
+.shop-slots-warning {
+  background: #fff8e8;
+  border: 1.5px solid #f0d890;
+  border-radius: 12px;
+  padding: 10px 16px;
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: #806020;
+  margin-bottom: 16px;
+  text-align: center;
+}
+.shop-slots-warning a { color: #3C0008; font-weight: 700; }
+
+/* ── Loading / empty ── */
+
+.shop-loading {
+  display: flex;
+  justify-content: center;
+  padding: 60px 0;
+  font-size: 40px;
+  animation: eggBob 1.2s ease-in-out infinite;
+}
+
+.shop-empty {
+  text-align: center;
+  padding: 60px 0;
+  font-family: var(--font-body);
+  color: #b09090;
+  font-size: 15px;
+}
+
+/* ── Pet grid ── */
+
+.shop-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+/* ── Egg card ── */
+
+.shop-card {
+  background: #fff;
+  border: 1.5px solid #f0d8da;
+  border-radius: 24px;
+  box-shadow: 0 4px 20px rgba(60, 0, 8, 0.07);
+  padding: 20px 16px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  position: relative;
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+.shop-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 28px rgba(60, 0, 8, 0.12);
+}
+
+.shop-card--limited {
+  border-color: #d4b0f5;
+  background: linear-gradient(160deg, #fff 70%, #f8f0ff);
+}
+
+.shop-limited-banner {
+  position: absolute;
+  top: -1px;
+  right: 18px;
+  background: #7b3fa0;
+  color: #fff;
+  font-family: var(--font-display);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  padding: 3px 10px;
+  border-radius: 0 0 10px 10px;
+  text-transform: uppercase;
+}
+
+/* Egg image */
+
+.shop-egg-wrap {
+  width: 90px;
+  height: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 4px;
+}
+
+.shop-egg-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  animation: eggBob 3s ease-in-out infinite;
+}
+
+.shop-egg-placeholder {
+  font-size: 64px;
+  line-height: 1;
+  animation: eggBob 3s ease-in-out infinite;
+}
+
+/* Text */
+
+.shop-card-name {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 900;
+  color: #3C0008;
+  text-align: center;
+}
+
+.shop-card-species {
+  font-family: var(--font-body);
+  font-size: 12px;
+  color: #a08090;
+  text-transform: capitalize;
+}
+
+.shop-card-stats {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.shop-stat-chip {
+  font-family: var(--font-body);
+  font-size: 11px;
+  color: #906878;
+  background: #fdf0f2;
+  border: 1px solid #f5d0d6;
+  border-radius: 100px;
+  padding: 2px 10px;
+}
+
+/* Odds toggle */
+
+.shop-odds-toggle {
+  background: none;
+  border: none;
+  font-family: var(--font-body);
+  font-size: 11px;
+  color: #b09090;
+  cursor: pointer;
+  padding: 2px 0;
+  transition: color 0.15s;
+}
+.shop-odds-toggle:hover { color: #3C0008; }
+
+.shop-odds {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  background: #fdf6ee;
+  border-radius: 10px;
+  padding: 8px 10px;
+  border: 1px solid #f5d0d6;
+}
+
+.shop-odds-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-body);
+  font-size: 11px;
+}
+
+.shop-odds-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.shop-odds-name {
+  flex: 1;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.shop-odds-pct {
+  color: #a08090;
+}
+
+/* Footer: cost + buy */
+
+.shop-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 4px;
+  gap: 8px;
+}
+
+.shop-cost {
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 800;
+  color: #3C0008;
+}
+
+.shop-buy-btn {
+  background: #3C0008;
+  color: #fff4e6;
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 700;
+  border: none;
+  border-radius: 100px;
+  padding: 8px 18px;
+  cursor: pointer;
+  transition: opacity 0.15s, transform 0.1s;
+  white-space: nowrap;
+}
+.shop-buy-btn:hover:not(:disabled) { opacity: 0.85; transform: scale(1.03); }
+.shop-buy-btn:disabled             { opacity: 0.4; cursor: default; }
+
+.shop-buy-msg {
+  font-family: var(--font-body);
+  font-size: 12px;
+  color: #2a7d2a;
+  text-align: center;
+  margin: 0;
+}
+
+.shop-buy-hint {
+  font-family: var(--font-body);
+  font-size: 11px;
+  color: #b09090;
+  text-align: center;
+  margin: 0;
+}
+.shop-buy-hint--warn { color: #906010; }
+.shop-buy-hint--warn a { color: #3C0008; font-weight: 700; }
+
+/* ── Mobile ── */
+
+@media (max-width: 480px) {
+  .shop-page       { padding: 28px 16px 56px; }
+  .shop-grid       { grid-template-columns: 1fr; max-width: 320px; margin: 0 auto; }
+  .shop-topbar     { flex-direction: column; }
+  .shop-topbar-right { flex-direction: row; align-items: center; }
+}

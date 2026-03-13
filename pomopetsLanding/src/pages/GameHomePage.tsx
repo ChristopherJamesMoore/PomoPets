@@ -9,17 +9,19 @@ interface ActivePet {
   nickname: string | null
   level: number
   hunger: number
-  happiness: number
+  health: number
   energy: number
+  rarity: string
+  asset_key: string | null
   catalog_pet: {
     name: string
     species: string
-    asset_key: string
   }
 }
 
 const TILES = [
-  { to: '/shop',     emoji: '🛒', label: 'Buy',     sub: 'Pets & items'   },
+  { to: '/shop',     emoji: '🏪', label: 'Shop',     sub: 'Buy eggs'       },
+  { to: '/hatchery', emoji: '🥚', label: 'Hatchery', sub: 'Watch eggs hatch' },
   { to: '/pomodoro', emoji: '⏱️', label: 'Study',   sub: 'Pomodoro timer' },
   { to: '/health',   emoji: '🩺', label: 'Health',  sub: 'Log your stats' },
   { to: '/habits',   emoji: '✅', label: 'Habits',  sub: 'Daily streaks'  },
@@ -47,7 +49,7 @@ export default function GameHomePage() {
   useEffect(() => {
     supabase
       .from('user_pets')
-      .select('id, nickname, level, hunger, happiness, energy, catalog_pet:catalog_pet_id(name, species, asset_key)')
+      .select('id, nickname, level, hunger, health, energy, rarity, asset_key, catalog_pet:catalog_pet_id(name, species)')
       .eq('is_selected', true)
       .maybeSingle()
       .then(({ data }) => setPet((data as unknown as ActivePet) ?? null))
@@ -83,16 +85,19 @@ export default function GameHomePage() {
         {pet && (
           <div className="pet-house-active">
             <div className="pet-display">
-              <span className="pet-house-emoji">🐾</span>
+              {pet.asset_key
+                ? <img src={pet.asset_key} alt={petName} className="pet-sprite" />
+                : <span className="pet-house-emoji">🐾</span>
+              }
               <div>
                 <div className="pet-name">{petName}</div>
-                <div className="pet-meta">Lv. {pet.level} · {pet.catalog_pet.species}</div>
+                <div className="pet-meta">Lv. {pet.level} · {pet.catalog_pet.species} · {pet.rarity}</div>
               </div>
             </div>
             <div className="pet-stats">
-              <StatBar label="Hunger"    value={pet.hunger}    />
-              <StatBar label="Happiness" value={pet.happiness} />
-              <StatBar label="Energy"    value={pet.energy}    />
+              <StatBar label="Hunger" value={pet.hunger} />
+              <StatBar label="Health" value={pet.health} />
+              <StatBar label="Energy" value={pet.energy} />
             </div>
             <Link to="/pets" className="pet-manage-link">Manage Pets →</Link>
           </div>

@@ -80,8 +80,15 @@
   display: block;
 }
 
-.pet-house-emoji.faded   { filter: grayscale(1); opacity: 0.3; }
+.pet-house-emoji.faded    { filter: grayscale(1); opacity: 0.3; }
 .pet-house-emoji.spinning { animation: spin 1.5s linear infinite; font-size: 32px; }
+
+.pet-sprite {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+  image-rendering: pixelated;
+}
 
 /* Active pet */
 
