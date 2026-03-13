@@ -1,12 +1,13 @@
 import { useState, useEffect, useCallback } from 'react'
 import { useParams, Navigate } from 'react-router-dom'
 import { supabase } from '../lib/supabase'
-import AdminStats      from '../components/admin/AdminStats'
-import WaitlistTable   from '../components/admin/WaitlistTable'
-import VipTokenManager from '../components/admin/VipTokenManager'
-import UsersTable      from '../components/admin/UsersTable'
-import UserEditPanel   from '../components/admin/UserEditPanel'
-import AuditLogsTable  from '../components/admin/AuditLogsTable'
+import AdminStats        from '../components/admin/AdminStats'
+import WaitlistTable     from '../components/admin/WaitlistTable'
+import VipTokenManager   from '../components/admin/VipTokenManager'
+import UsersTable        from '../components/admin/UsersTable'
+import UserEditPanel     from '../components/admin/UserEditPanel'
+import AuditLogsTable    from '../components/admin/AuditLogsTable'
+import PetCatalogManager from '../components/admin/PetCatalogManager'
 import type { WaitlistEntry } from '../components/admin/WaitlistTable'
 import type { VipToken }      from '../components/admin/VipTokenManager'
 import type { AdminUser }     from '../components/admin/UsersTable'
@@ -17,7 +18,7 @@ const ADMIN_SECRET   = import.meta.env.VITE_ADMIN_SECRET   ?? ''
 const ADMIN_PASSWORD = import.meta.env.VITE_ADMIN_PASSWORD ?? ''
 const SESSION_KEY    = 'pomopets_admin_auth'
 
-type Tab = 'waitlist' | 'tokens' | 'users' | 'audit'
+type Tab = 'waitlist' | 'tokens' | 'users' | 'audit' | 'pets'
 
 export default function AdminPage() {
   const { secret } = useParams<{ secret: string }>()
@@ -152,12 +153,12 @@ function AdminInner() {
         <AdminStats total={total} general={general} vip={vip} tokens={activeTokens} users={users.length} />
 
         <div className="admin-tabs">
-          {(['waitlist', 'tokens', 'users', 'audit'] as Tab[]).map(t => {
+          {(['waitlist', 'tokens', 'users', 'audit', 'pets'] as Tab[]).map(t => {
             const labels: Record<Tab, string> = {
-              waitlist: 'Waitlist', tokens: 'VIP Tokens', users: 'Users', audit: 'Audit Logs',
+              waitlist: 'Waitlist', tokens: 'VIP Tokens', users: 'Users', audit: 'Audit Logs', pets: 'Pets',
             }
             const counts: Record<Tab, number> = {
-              waitlist: total, tokens: tokens.length, users: users.length, audit: auditLogs.length,
+              waitlist: total, tokens: tokens.length, users: users.length, audit: auditLogs.length, pets: 0,
             }
             return (
               <button
@@ -184,6 +185,7 @@ function AdminInner() {
           />
         )}
         {tab === 'audit'    && <AuditLogsTable logs={auditLogs} onRefresh={fetchData} />}
+        {tab === 'pets'     && <PetCatalogManager />}
       </main>
 
       <UserEditPanel
