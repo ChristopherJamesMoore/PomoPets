@@ -111,7 +111,7 @@ function SlotBar({
 }
 
 // ── Hatch result card ─────────────────────────────────────────────────────────
-function HatchResultCard({ result, petName }: { result: HatchResult; petName: string }) {
+function HatchResultCard({ result }: { result: HatchResult }) {
   const color = RARITY_COLORS[result.rarity]
   const glow  = RARITY_GLOWS[result.rarity]
 
@@ -162,7 +162,7 @@ function EggCard({ egg, now, coins, skipping, hatching, result, onSkip, onHatch 
   const canSkip  = !isReady && coins >= SKIP_COST
 
   if (result) {
-    return <HatchResultCard result={result} petName={egg.catalog_pet.name} />
+    return <HatchResultCard result={result} />
   }
 
   return (
