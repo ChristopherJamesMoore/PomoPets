@@ -996,6 +996,177 @@
   white-space: nowrap;
 }
 
+/* Image with offset centering controls */
+.pet-img-offset-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.pet-img-center-preview {
+  position: relative;
+  width: 72px;
+  height: 72px;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  background: repeating-linear-gradient(
+    45deg,
+    #f8f8f8,
+    #f8f8f8 4px,
+    #efefef 4px,
+    #efefef 8px
+  );
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.pet-img-center-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.pet-img-center-empty {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 9px;
+  color: #ccc;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.pet-img-crosshair-h,
+.pet-img-crosshair-v {
+  position: absolute;
+  background: rgba(0,0,0,0.12);
+  pointer-events: none;
+}
+.pet-img-crosshair-h {
+  top: 50%;
+  left: 0; right: 0;
+  height: 1px;
+  transform: translateY(-50%);
+}
+.pet-img-crosshair-v {
+  left: 50%;
+  top: 0; bottom: 0;
+  width: 1px;
+  transform: translateX(-50%);
+}
+
+.pet-img-offset-inputs {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+.pet-img-offset-inputs label {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 11px;
+  color: #888;
+  font-weight: 600;
+}
+.pet-img-offset-inputs input {
+  width: 44px;
+  padding: 2px 4px;
+  font-size: 11px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  text-align: center;
+}
+
+/* Create form header toggle */
+.pet-create-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.pet-create-toggle {
+  font-size: 12px;
+  color: #888;
+  background: none;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 4px 10px;
+  cursor: pointer;
+  transition: color 0.1s, border-color 0.1s;
+}
+.pet-create-toggle:hover         { color: #333; border-color: #aaa; }
+.pet-create-toggle--open         { color: #111; border-color: #111; }
+
+/* Create form sections */
+.pet-create-form {
+  margin-top: 16px;
+}
+.pet-create-section {
+  padding: 14px 0;
+  border-top: 1px solid #f0f0f0;
+}
+.pet-create-section-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #aaa;
+  margin: 0 0 10px;
+}
+
+/* Ability multi-select dropdown + chips */
+.pet-ability-multiselect {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.pet-ability-dropdown {
+  width: 100%;
+  max-width: 400px;
+  padding: 6px 10px;
+  font-size: 13px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  background: #fff;
+  cursor: pointer;
+}
+.pet-ability-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.pet-ability-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 8px 3px 10px;
+  border-radius: 20px;
+  background: color-mix(in srgb, var(--rarity-color, #888) 12%, white);
+  border: 1px solid color-mix(in srgb, var(--rarity-color, #888) 30%, white);
+  color: var(--rarity-color, #555);
+  font-size: 12px;
+  font-weight: 600;
+}
+.pet-ability-chip-meta {
+  font-size: 10px;
+  font-weight: 400;
+  opacity: 0.7;
+}
+.pet-ability-chip-remove {
+  background: none;
+  border: none;
+  color: inherit;
+  opacity: 0.5;
+  cursor: pointer;
+  font-size: 10px;
+  padding: 0;
+  line-height: 1;
+  margin-left: 2px;
+}
+.pet-ability-chip-remove:hover { opacity: 1; }
+
 /* ── Mobile ── */
 @media (max-width: 900px) {
   .pet-variants-grid { grid-template-columns: repeat(3, 1fr); }

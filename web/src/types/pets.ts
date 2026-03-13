@@ -11,6 +11,8 @@ export interface PetCatalogItem {
   available_from: string | null
   available_until: string | null
   egg_asset_key:  string | null
+  egg_offset_x:   number
+  egg_offset_y:   number
   base_hunger:    number
   base_health:    number
   base_energy:    number
@@ -27,6 +29,8 @@ export interface PetVariant {
   asset_key:       string
   stat_multiplier: number
   drop_weight:     number
+  offset_x:        number
+  offset_y:        number
 }
 
 export interface PetAbility {

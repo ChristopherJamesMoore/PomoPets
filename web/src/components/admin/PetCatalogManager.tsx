@@ -80,29 +80,165 @@ function PetImageUpload({ storagePath, currentUrl, label, size = 64, onUploaded 
   )
 }
 
-// ── Rarity variant card ──────────────────────────────────────────────────────
+// ── Image upload with centering preview ──────────────────────────────────────
+interface ImageWithOffsetProps {
+  storagePath: string
+  url:         string
+  label:       string
+  offsetX:     number
+  offsetY:     number
+  size?:       number
+  onUploaded:  (url: string) => void
+  onChange:    (x: number, y: number) => void
+}
+
+function ImageWithOffset({
+  storagePath, url, label, offsetX, offsetY, size = 64, onUploaded, onChange,
+}: ImageWithOffsetProps) {
+  return (
+    <div className="pet-img-offset-wrap">
+      <PetImageUpload
+        storagePath={storagePath}
+        currentUrl={url}
+        label={label}
+        size={size}
+        onUploaded={onUploaded}
+      />
+      <div className="pet-img-center-preview" title="Centering preview — adjust X/Y to centre the subject">
+        {url
+          ? <img
+              src={url} alt={label}
+              className="pet-img-center-img"
+              style={{ transform: `translate(${offsetX}px, ${offsetY}px)` }}
+            />
+          : <span className="pet-img-center-empty">preview</span>
+        }
+        <div className="pet-img-crosshair-h" />
+        <div className="pet-img-crosshair-v" />
+      </div>
+      <div className="pet-img-offset-inputs">
+        <label>
+          X
+          <input
+            type="number" min={-80} max={80} value={offsetX}
+            onChange={e => onChange(Number(e.target.value), offsetY)}
+            onFocus={e => e.target.select()}
+          />
+        </label>
+        <label>
+          Y
+          <input
+            type="number" min={-80} max={80} value={offsetY}
+            onChange={e => onChange(offsetX, Number(e.target.value))}
+            onFocus={e => e.target.select()}
+          />
+        </label>
+      </div>
+    </div>
+  )
+}
+
+// ── Create-form variant state ─────────────────────────────────────────────────
+interface CreateVariantState {
+  url:        string
+  offsetX:    number
+  offsetY:    number
+  weight:     number
+  multiplier: number
+}
+
+function defaultVariants(): Record<PetRarity, CreateVariantState> {
+  return Object.fromEntries(
+    RARITIES.map(r => [r, {
+      url: '', offsetX: 0, offsetY: 0,
+      weight: DEFAULT_WEIGHTS[r], multiplier: DEFAULT_MULTIPLIERS[r],
+    }])
+  ) as Record<PetRarity, CreateVariantState>
+}
+
+// ── Create variant card (no individual save — part of the create form) ───────
+interface CreateVariantCardProps {
+  petId:    string
+  rarity:   PetRarity
+  value:    CreateVariantState
+  onChange: (rarity: PetRarity, state: CreateVariantState) => void
+}
+
+function CreateVariantCard({ petId, rarity, value, onChange }: CreateVariantCardProps) {
+  const color = RARITY_COLORS[rarity]
+  const set = (patch: Partial<CreateVariantState>) => onChange(rarity, { ...value, ...patch })
+
+  return (
+    <div className="pet-variant-card" style={{ '--rarity-color': color } as React.CSSProperties}>
+      <div className="pet-variant-rarity" style={{ color }}>{RARITY_LABELS[rarity]}</div>
+
+      <ImageWithOffset
+        storagePath={`pets/${petId}/${rarity}`}
+        url={value.url}
+        label={`${rarity} sprite`}
+        offsetX={value.offsetX}
+        offsetY={value.offsetY}
+        size={60}
+        onUploaded={url => set({ url })}
+        onChange={(x, y) => set({ offsetX: x, offsetY: y })}
+      />
+
+      <div className="pet-variant-fields">
+        <label>
+          Weight
+          <input
+            type="number" min={0} max={9999} value={value.weight}
+            onChange={e => set({ weight: Number(e.target.value) })}
+            onFocus={e => e.target.select()}
+          />
+        </label>
+        <label>
+          ×Stats
+          <input
+            type="number" min={0.1} max={10} step={0.05} value={value.multiplier}
+            onChange={e => set({ multiplier: Number(e.target.value) })}
+            onFocus={e => e.target.select()}
+          />
+        </label>
+      </div>
+    </div>
+  )
+}
+
+// ── Rarity variant card (edit form — has its own save button) ────────────────
 interface VariantCardProps {
   petId:   string
   rarity:  PetRarity
   variant: PetVariant | null
-  onSave:  (rarity: PetRarity, asset_key: string, drop_weight: number, stat_multiplier: number) => Promise<void>
+  onSave:  (
+    rarity:          PetRarity,
+    asset_key:       string,
+    drop_weight:     number,
+    stat_multiplier: number,
+    offset_x:        number,
+    offset_y:        number,
+  ) => Promise<void>
 }
 
 function VariantCard({ petId, rarity, variant, onSave }: VariantCardProps) {
   const [weight,  setWeight]  = useState(variant?.drop_weight     ?? DEFAULT_WEIGHTS[rarity])
   const [multi,   setMulti]   = useState(variant?.stat_multiplier ?? DEFAULT_MULTIPLIERS[rarity])
   const [url,     setUrl]     = useState(variant?.asset_key       ?? '')
+  const [offsetX, setOffsetX] = useState(variant?.offset_x       ?? 0)
+  const [offsetY, setOffsetY] = useState(variant?.offset_y       ?? 0)
   const [saving,  setSaving]  = useState(false)
 
   useEffect(() => {
     setWeight(variant?.drop_weight     ?? DEFAULT_WEIGHTS[rarity])
     setMulti(variant?.stat_multiplier  ?? DEFAULT_MULTIPLIERS[rarity])
     setUrl(variant?.asset_key          ?? '')
+    setOffsetX(variant?.offset_x       ?? 0)
+    setOffsetY(variant?.offset_y       ?? 0)
   }, [variant, rarity])
 
   const handleSave = async () => {
     setSaving(true)
-    await onSave(rarity, url, weight, multi)
+    await onSave(rarity, url, weight, multi, offsetX, offsetY)
     setSaving(false)
   }
 
@@ -112,12 +248,15 @@ function VariantCard({ petId, rarity, variant, onSave }: VariantCardProps) {
     <div className="pet-variant-card" style={{ '--rarity-color': color } as React.CSSProperties}>
       <div className="pet-variant-rarity" style={{ color }}>{RARITY_LABELS[rarity]}</div>
 
-      <PetImageUpload
+      <ImageWithOffset
         storagePath={`pets/${petId}/${rarity}`}
-        currentUrl={url}
+        url={url}
         label={`${rarity} sprite`}
+        offsetX={offsetX}
+        offsetY={offsetY}
         size={60}
         onUploaded={newUrl => setUrl(newUrl)}
+        onChange={(x, y) => { setOffsetX(x); setOffsetY(y) }}
       />
 
       <div className="pet-variant-fields">
@@ -167,6 +306,8 @@ function PetRowBody({ pet, variants, abilities, assignedAbilityIds, onUpdated }:
   const [availability, setAvailability] = useState<PetAvailability>(pet.availability)
   const [isActive,     setIsActive]     = useState(pet.is_active)
   const [eggUrl,       setEggUrl]       = useState(pet.egg_asset_key ?? '')
+  const [eggOffsetX,   setEggOffsetX]   = useState(pet.egg_offset_x ?? 0)
+  const [eggOffsetY,   setEggOffsetY]   = useState(pet.egg_offset_y ?? 0)
   const [saving,       setSaving]       = useState(false)
   const [saveMsg,      setSaveMsg]      = useState('')
 
@@ -188,6 +329,8 @@ function PetRowBody({ pet, variants, abilities, assignedAbilityIds, onUpdated }:
       availability,
       is_active:     isActive,
       egg_asset_key: eggUrl || null,
+      egg_offset_x:  eggOffsetX,
+      egg_offset_y:  eggOffsetY,
     }).eq('id', pet.id)
     setSaveMsg(error ? `Error: ${error.message}` : 'Saved!')
     setSaving(false)
@@ -195,19 +338,21 @@ function PetRowBody({ pet, variants, abilities, assignedAbilityIds, onUpdated }:
   }
 
   const handleSaveVariant = async (
-    rarity: PetRarity,
-    asset_key: string,
-    drop_weight: number,
+    rarity:          PetRarity,
+    asset_key:       string,
+    drop_weight:     number,
     stat_multiplier: number,
+    offset_x:        number,
+    offset_y:        number,
   ) => {
     const existing = variantMap[rarity]
     if (existing) {
       await supabase.from('pet_catalog_variants')
-        .update({ asset_key, drop_weight, stat_multiplier })
+        .update({ asset_key, drop_weight, stat_multiplier, offset_x, offset_y })
         .eq('id', existing.id)
     } else {
       await supabase.from('pet_catalog_variants')
-        .insert({ catalog_pet_id: pet.id, rarity, asset_key, drop_weight, stat_multiplier })
+        .insert({ catalog_pet_id: pet.id, rarity, asset_key, drop_weight, stat_multiplier, offset_x, offset_y })
     }
     onUpdated()
   }
@@ -294,12 +439,15 @@ function PetRowBody({ pet, variants, abilities, assignedAbilityIds, onUpdated }:
           {/* Egg image */}
           <div className="admin-form-field">
             <label>Egg Image</label>
-            <PetImageUpload
+            <ImageWithOffset
               storagePath={`pets/${pet.id}/egg`}
-              currentUrl={eggUrl}
+              url={eggUrl}
               label="egg"
+              offsetX={eggOffsetX}
+              offsetY={eggOffsetY}
               size={48}
               onUploaded={url => setEggUrl(url)}
+              onChange={(x, y) => { setEggOffsetX(x); setEggOffsetY(y) }}
             />
           </div>
         </div>
@@ -657,12 +805,31 @@ export default function PetCatalogManager() {
   const [draggedId,  setDraggedId]  = useState<string | null>(null)
   const [dragOverId, setDragOverId] = useState<string | null>(null)
 
-  // Create pet form
-  const [createName,    setCreateName]    = useState('')
-  const [createSpecies, setCreateSpecies] = useState('')
-  const [createCost,    setCreateCost]    = useState(100)
-  const [creating,      setCreating]      = useState(false)
-  const [createErr,     setCreateErr]     = useState('')
+  // Create form visibility
+  const [createOpen, setCreateOpen] = useState(false)
+
+  // Create form: basic fields
+  const [createId,           setCreateId]           = useState(() => crypto.randomUUID())
+  const [createName,         setCreateName]         = useState('')
+  const [createSpecies,      setCreateSpecies]      = useState('')
+  const [createDesc,         setCreateDesc]         = useState('')
+  const [createCost,         setCreateCost]         = useState(100)
+  const [createHatchHours,   setCreateHatchHours]   = useState(48)
+  const [createAvailability, setCreateAvailability] = useState<PetAvailability>('standard')
+
+  // Create form: egg image
+  const [createEggUrl,     setCreateEggUrl]     = useState('')
+  const [createEggOffsetX, setCreateEggOffsetX] = useState(0)
+  const [createEggOffsetY, setCreateEggOffsetY] = useState(0)
+
+  // Create form: rarity variants
+  const [createVariants, setCreateVariants] = useState<Record<PetRarity, CreateVariantState>>(defaultVariants)
+
+  // Create form: abilities
+  const [createAbilityIds, setCreateAbilityIds] = useState<string[]>([])
+
+  const [creating,   setCreating]   = useState(false)
+  const [createErr,  setCreateErr]  = useState('')
 
   const fetchAll = useCallback(async () => {
     setLoading(true)
@@ -699,6 +866,23 @@ export default function PetCatalogManager() {
 
   useEffect(() => { fetchAll() }, [fetchAll])
 
+  const resetCreateForm = () => {
+    setCreateId(crypto.randomUUID())
+    setCreateName('')
+    setCreateSpecies('')
+    setCreateDesc('')
+    setCreateCost(100)
+    setCreateHatchHours(48)
+    setCreateAvailability('standard')
+    setCreateEggUrl('')
+    setCreateEggOffsetX(0)
+    setCreateEggOffsetY(0)
+    setCreateVariants(defaultVariants())
+    setCreateAbilityIds([])
+    setCreateErr('')
+    setCreateOpen(false)
+  }
+
   const handleCreatePet = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!createName.trim() || !createSpecies.trim()) {
@@ -707,19 +891,71 @@ export default function PetCatalogManager() {
     }
     setCreateErr('')
     setCreating(true)
+
+    const petId    = createId
     const maxOrder = pets.reduce((m, p) => Math.max(m, p.sort_order), -1)
-    await supabase.from('pet_catalog').insert({
-      name:        createName.trim(),
-      species:     createSpecies.trim(),
-      coin_cost:   createCost,
-      sort_order:  maxOrder + 1,
-      base_hunger: 80,
-      base_health: 100,
-      base_energy: 80,
+
+    // 1 — Insert the pet row
+    const { error: petError } = await supabase.from('pet_catalog').insert({
+      id:            petId,
+      name:          createName.trim(),
+      description:   createDesc.trim() || null,
+      species:       createSpecies.trim(),
+      coin_cost:     createCost,
+      hatch_hours:   createHatchHours,
+      availability:  createAvailability,
+      sort_order:    maxOrder + 1,
+      base_hunger:   80,
+      base_health:   100,
+      base_energy:   80,
+      egg_asset_key: createEggUrl || null,
+      egg_offset_x:  createEggOffsetX,
+      egg_offset_y:  createEggOffsetY,
     })
-    setCreateName(''); setCreateSpecies(''); setCreateCost(100)
+
+    if (petError) {
+      setCreateErr(`Error: ${petError.message}`)
+      setCreating(false)
+      return
+    }
+
+    // 2 — Insert all 6 variant rows (even if no image yet — weights and multipliers are saved)
+    await supabase.from('pet_catalog_variants').insert(
+      RARITIES.map(r => ({
+        catalog_pet_id:  petId,
+        rarity:          r,
+        asset_key:       createVariants[r].url || null,
+        drop_weight:     createVariants[r].weight,
+        stat_multiplier: createVariants[r].multiplier,
+        offset_x:        createVariants[r].offsetX,
+        offset_y:        createVariants[r].offsetY,
+      }))
+    )
+
+    // 3 — Insert ability assignments
+    if (createAbilityIds.length > 0) {
+      await supabase.from('pet_catalog_abilities').insert(
+        createAbilityIds.map(abilityId => ({ catalog_pet_id: petId, ability_id: abilityId }))
+      )
+    }
+
+    resetCreateForm()
     await fetchAll()
     setCreating(false)
+  }
+
+  const handleVariantChange = (rarity: PetRarity, state: CreateVariantState) => {
+    setCreateVariants(prev => ({ ...prev, [rarity]: state }))
+  }
+
+  const addAbility = (id: string) => {
+    if (id && !createAbilityIds.includes(id)) {
+      setCreateAbilityIds(prev => [...prev, id])
+    }
+  }
+
+  const removeAbility = (id: string) => {
+    setCreateAbilityIds(prev => prev.filter(x => x !== id))
   }
 
   const handleDrop = async (targetId: string) => {
@@ -760,43 +996,183 @@ export default function PetCatalogManager() {
       {/* ── Pets sub-tab ── */}
       {subTab === 'pets' && (
         <>
+          {/* ── Add New Pet card ── */}
           <div className="admin-create-card">
-            <h3 className="admin-create-title">Add New Pet</h3>
-            {createErr && <p className="admin-form-error">{createErr}</p>}
-            <form onSubmit={handleCreatePet} className="admin-create-form">
-              <div className="admin-form-row">
-                <div className="admin-form-field admin-form-field--grow">
-                  <label>Pet Name *</label>
-                  <input
-                    type="text" value={createName}
-                    onChange={e => setCreateName(e.target.value)}
-                    maxLength={60} placeholder="e.g. Ember Fox" required
+            <div className="pet-create-header">
+              <h3 className="admin-create-title" style={{ margin: 0 }}>Add New Pet</h3>
+              <button
+                type="button"
+                className={`pet-create-toggle ${createOpen ? 'pet-create-toggle--open' : ''}`}
+                onClick={() => setCreateOpen(x => !x)}
+              >
+                {createOpen ? '▲ Collapse' : '▼ Expand'}
+              </button>
+            </div>
+
+            {createOpen && (
+              <form onSubmit={handleCreatePet} className="admin-create-form pet-create-form">
+                {createErr && <p className="admin-form-error">{createErr}</p>}
+
+                {/* ── Section 1: Basic info ── */}
+                <div className="pet-create-section">
+                  <p className="pet-create-section-label">Basic Info</p>
+                  <div className="admin-form-row">
+                    <div className="admin-form-field admin-form-field--grow">
+                      <label>Pet Name *</label>
+                      <input
+                        type="text" value={createName}
+                        onChange={e => setCreateName(e.target.value)}
+                        maxLength={60} placeholder="e.g. Ember Fox" required
+                      />
+                    </div>
+                    <div className="admin-form-field admin-form-field--grow">
+                      <label>Species *</label>
+                      <input
+                        type="text" value={createSpecies}
+                        onChange={e => setCreateSpecies(e.target.value)}
+                        maxLength={60} placeholder="e.g. Fox" required
+                      />
+                    </div>
+                    <div className="admin-form-field">
+                      <label>Coin Cost</label>
+                      <input
+                        type="number" min={0} value={createCost}
+                        onChange={e => setCreateCost(Number(e.target.value))}
+                        onFocus={e => e.target.select()}
+                      />
+                    </div>
+                    <div className="admin-form-field">
+                      <label>Hatch Hours</label>
+                      <input
+                        type="number" min={1} value={createHatchHours}
+                        onChange={e => setCreateHatchHours(Number(e.target.value))}
+                        onFocus={e => e.target.select()}
+                      />
+                    </div>
+                  </div>
+                  <div className="admin-form-row">
+                    <div className="admin-form-field admin-form-field--grow">
+                      <label>Description</label>
+                      <input
+                        type="text" value={createDesc}
+                        onChange={e => setCreateDesc(e.target.value)}
+                        maxLength={200} placeholder="Short description shown in shop"
+                      />
+                    </div>
+                    <div className="admin-form-field">
+                      <label>Availability</label>
+                      <select value={createAvailability} onChange={e => setCreateAvailability(e.target.value as PetAvailability)}>
+                        <option value="standard">Standard</option>
+                        <option value="limited">Limited</option>
+                        <option value="retired">Retired</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
+                {/* ── Section 2: Egg image ── */}
+                <div className="pet-create-section">
+                  <p className="pet-create-section-label">Egg Image</p>
+                  <p className="admin-muted" style={{ fontSize: 12, marginBottom: 10 }}>
+                    Upload the egg sprite. Use X/Y offsets to centre the subject in the preview.
+                  </p>
+                  <ImageWithOffset
+                    storagePath={`pets/${createId}/egg`}
+                    url={createEggUrl}
+                    label="egg"
+                    offsetX={createEggOffsetX}
+                    offsetY={createEggOffsetY}
+                    size={72}
+                    onUploaded={url => setCreateEggUrl(url)}
+                    onChange={(x, y) => { setCreateEggOffsetX(x); setCreateEggOffsetY(y) }}
                   />
                 </div>
-                <div className="admin-form-field admin-form-field--grow">
-                  <label>Species *</label>
-                  <input
-                    type="text" value={createSpecies}
-                    onChange={e => setCreateSpecies(e.target.value)}
-                    maxLength={60} placeholder="e.g. Fox" required
-                  />
+
+                {/* ── Section 3: Rarity variants ── */}
+                <div className="pet-create-section">
+                  <p className="pet-create-section-label">Rarity Variants</p>
+                  <p className="admin-muted" style={{ fontSize: 12, marginBottom: 10 }}>
+                    Upload a sprite for each rarity. Weights and multipliers are pre-filled with defaults — adjust as needed. All 6 variant rows are saved automatically when you add the pet.
+                  </p>
+                  <div className="pet-variants-grid">
+                    {RARITIES.map(r => (
+                      <CreateVariantCard
+                        key={r}
+                        petId={createId}
+                        rarity={r}
+                        value={createVariants[r]}
+                        onChange={handleVariantChange}
+                      />
+                    ))}
+                  </div>
                 </div>
-                <div className="admin-form-field">
-                  <label>Coin Cost</label>
-                  <input
-                    type="number" min={0} value={createCost}
-                    onChange={e => setCreateCost(Number(e.target.value))}
-                    onFocus={e => e.target.select()}
-                  />
+
+                {/* ── Section 4: Abilities ── */}
+                <div className="pet-create-section">
+                  <p className="pet-create-section-label">Assign Abilities</p>
+                  {abilities.length === 0 ? (
+                    <p className="admin-muted" style={{ fontSize: 13 }}>
+                      No abilities yet — create them in the Abilities tab first.
+                    </p>
+                  ) : (
+                    <div className="pet-ability-multiselect">
+                      <select
+                        value=""
+                        onChange={e => addAbility(e.target.value)}
+                        className="pet-ability-dropdown"
+                      >
+                        <option value="">+ Add ability…</option>
+                        {abilities
+                          .filter(a => !createAbilityIds.includes(a.id))
+                          .map(a => (
+                            <option key={a.id} value={a.id}>
+                              {a.name} — Lv {a.unlock_level} · {RARITY_LABELS[a.min_rarity]}
+                            </option>
+                          ))
+                        }
+                      </select>
+                      {createAbilityIds.length > 0 && (
+                        <div className="pet-ability-chips">
+                          {createAbilityIds.map(id => {
+                            const ability = abilities.find(a => a.id === id)
+                            if (!ability) return null
+                            return (
+                              <span
+                                key={id}
+                                className="pet-ability-chip"
+                                style={{ '--rarity-color': RARITY_COLORS[ability.min_rarity] } as React.CSSProperties}
+                              >
+                                {ability.name}
+                                <span className="pet-ability-chip-meta">
+                                  Lv{ability.unlock_level}
+                                </span>
+                                <button
+                                  type="button"
+                                  className="pet-ability-chip-remove"
+                                  onClick={() => removeAbility(id)}
+                                >
+                                  ✕
+                                </button>
+                              </span>
+                            )
+                          })}
+                        </div>
+                      )}
+                    </div>
+                  )}
                 </div>
-                <button
-                  type="submit" className="admin-create-btn"
-                  disabled={creating} style={{ alignSelf: 'flex-end' }}
-                >
-                  {creating ? '…' : '+ Add Pet'}
-                </button>
-              </div>
-            </form>
+
+                {/* ── Submit ── */}
+                <div style={{ display: 'flex', gap: 8, paddingTop: 4 }}>
+                  <button type="submit" className="admin-create-btn" disabled={creating}>
+                    {creating ? 'Creating…' : '+ Add Pet'}
+                  </button>
+                  <button type="button" className="admin-refresh-btn" onClick={resetCreateForm}>
+                    Cancel
+                  </button>
+                </div>
+              </form>
+            )}
           </div>
 
           {loading ? (
@@ -806,7 +1182,7 @@ export default function PetCatalogManager() {
           ) : (
             <div className="pet-list">
               <p className="admin-muted" style={{ fontSize: 12, margin: '0 0 8px' }}>
-                Drag rows to reorder. Click to expand and upload images per rarity.
+                Drag rows to reorder. Click to expand and edit.
               </p>
               {pets.map(pet => (
                 <PetRow
