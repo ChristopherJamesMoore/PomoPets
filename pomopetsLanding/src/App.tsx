@@ -7,6 +7,7 @@ import ProfileSetupPage from './pages/ProfileSetupPage'
 import GameHomePage from './pages/GameHomePage'
 import ShopPage     from './pages/ShopPage'
 import HatcheryPage from './pages/HatcheryPage'
+import PetsPage     from './pages/PetsPage'
 import HealthPage from './pages/HealthPage'
 import HabitsPage from './pages/HabitsPage'
 import PomodoroPage from './pages/PomodoroPage'
@@ -34,6 +35,7 @@ export default function App() {
           <Route path="/home"     element={<GameHomePage />} />
           <Route path="/shop"     element={<ShopPage />} />
           <Route path="/hatchery" element={<HatcheryPage />} />
+          <Route path="/pets"     element={<PetsPage />} />
           <Route path="/health"   element={<HealthPage />} />
           <Route path="/habits"   element={<HabitsPage />} />
           <Route path="/pomodoro" element={<PomodoroPage />} />

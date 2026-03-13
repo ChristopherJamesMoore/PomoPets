@@ -20,12 +20,13 @@ interface ActivePet {
 }
 
 const TILES = [
-  { to: '/shop',     emoji: '🏪', label: 'Shop',     sub: 'Buy eggs'       },
-  { to: '/hatchery', emoji: '🥚', label: 'Hatchery', sub: 'Watch eggs hatch' },
-  { to: '/pomodoro', emoji: '⏱️', label: 'Study',   sub: 'Pomodoro timer' },
-  { to: '/health',   emoji: '🩺', label: 'Health',  sub: 'Log your stats' },
-  { to: '/habits',   emoji: '✅', label: 'Habits',  sub: 'Daily streaks'  },
-  { to: '/settings', emoji: '⚙️', label: 'Profile', sub: 'Your account'   },
+  { to: '/shop',     emoji: '🏪', label: 'Shop',       sub: 'Buy eggs'         },
+  { to: '/hatchery', emoji: '🥚', label: 'Hatchery',   sub: 'Watch eggs hatch' },
+  { to: '/pets',     emoji: '🐾', label: 'Collection', sub: 'Your pets'        },
+  { to: '/pomodoro', emoji: '⏱️', label: 'Study',     sub: 'Pomodoro timer'   },
+  { to: '/health',   emoji: '🩺', label: 'Health',    sub: 'Log your stats'   },
+  { to: '/habits',   emoji: '✅', label: 'Habits',    sub: 'Daily streaks'    },
+  { to: '/settings', emoji: '⚙️', label: 'Profile',  sub: 'Your account'     },
 ]
 
 function StatBar({ label, value }: { label: string; value: number }) {
