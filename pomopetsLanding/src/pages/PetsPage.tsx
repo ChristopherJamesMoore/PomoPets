@@ -25,7 +25,7 @@ const RARITY_ORDER: PetRarity[] = ['prismatic', 'limited', 'legendary', 'rare', 
 type SortOption = 'rarity' | 'level' | 'acquired' | 'name'
 type FilterRarity = PetRarity | 'all'
 
-interface PetWithAbilities extends UserPet {
+interface PetWithAbilities extends Omit<UserPet, 'catalog_pet'> {
   catalog_pet: { name: string; species: string; description: string | null }
   abilities: PetAbility[]
 }
