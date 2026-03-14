@@ -303,13 +303,15 @@ function PetRowBody({ pet, variants, abilities, assignedAbilityIds, onUpdated }:
   const [baseHunger,   setBaseHunger]   = useState(pet.base_hunger)
   const [baseHealth,   setBaseHealth]   = useState(pet.base_health)
   const [baseEnergy,   setBaseEnergy]   = useState(pet.base_energy)
-  const [availability, setAvailability] = useState<PetAvailability>(pet.availability)
-  const [isActive,     setIsActive]     = useState(pet.is_active)
-  const [eggUrl,       setEggUrl]       = useState(pet.egg_asset_key ?? '')
-  const [eggOffsetX,   setEggOffsetX]   = useState(pet.egg_offset_x ?? 0)
-  const [eggOffsetY,   setEggOffsetY]   = useState(pet.egg_offset_y ?? 0)
-  const [saving,       setSaving]       = useState(false)
-  const [saveMsg,      setSaveMsg]      = useState('')
+  const [availability,   setAvailability]   = useState<PetAvailability>(pet.availability)
+  const [availableFrom,  setAvailableFrom]  = useState(pet.available_from  ? pet.available_from.slice(0, 16)  : '')
+  const [availableUntil, setAvailableUntil] = useState(pet.available_until ? pet.available_until.slice(0, 16) : '')
+  const [isActive,       setIsActive]       = useState(pet.is_active)
+  const [eggUrl,         setEggUrl]         = useState(pet.egg_asset_key ?? '')
+  const [eggOffsetX,     setEggOffsetX]     = useState(pet.egg_offset_x ?? 0)
+  const [eggOffsetY,     setEggOffsetY]     = useState(pet.egg_offset_y ?? 0)
+  const [saving,         setSaving]         = useState(false)
+  const [saveMsg,        setSaveMsg]        = useState('')
 
   const variantMap = Object.fromEntries(variants.map(v => [v.rarity, v])) as Record<PetRarity, PetVariant | undefined>
 
@@ -327,10 +329,12 @@ function PetRowBody({ pet, variants, abilities, assignedAbilityIds, onUpdated }:
       base_health:   baseHealth,
       base_energy:   baseEnergy,
       availability,
-      is_active:     isActive,
-      egg_asset_key: eggUrl || null,
-      egg_offset_x:  eggOffsetX,
-      egg_offset_y:  eggOffsetY,
+      available_from:  availableFrom  || null,
+      available_until: availableUntil || null,
+      is_active:       isActive,
+      egg_asset_key:   eggUrl || null,
+      egg_offset_x:    eggOffsetX,
+      egg_offset_y:    eggOffsetY,
     }).eq('id', pet.id)
     setSaveMsg(error ? `Error: ${error.message}` : 'Saved!')
     setSaving(false)
@@ -422,6 +426,27 @@ function PetRowBody({ pet, variants, abilities, assignedAbilityIds, onUpdated }:
             </select>
           </div>
         </div>
+
+        {availability === 'limited' && (
+          <div className="admin-form-row">
+            <div className="admin-form-field admin-form-field--grow">
+              <label>Release Date</label>
+              <input
+                type="datetime-local"
+                value={availableFrom}
+                onChange={e => setAvailableFrom(e.target.value)}
+              />
+            </div>
+            <div className="admin-form-field admin-form-field--grow">
+              <label>End Date</label>
+              <input
+                type="datetime-local"
+                value={availableUntil}
+                onChange={e => setAvailableUntil(e.target.value)}
+              />
+            </div>
+          </div>
+        )}
 
         <div className="admin-form-row">
           <div className="admin-form-field">
@@ -815,7 +840,9 @@ export default function PetCatalogManager() {
   const [createDesc,         setCreateDesc]         = useState('')
   const [createCost,         setCreateCost]         = useState(100)
   const [createHatchHours,   setCreateHatchHours]   = useState(48)
-  const [createAvailability, setCreateAvailability] = useState<PetAvailability>('standard')
+  const [createAvailability,   setCreateAvailability]   = useState<PetAvailability>('standard')
+  const [createAvailableFrom,  setCreateAvailableFrom]  = useState('')
+  const [createAvailableUntil, setCreateAvailableUntil] = useState('')
 
   // Create form: egg image
   const [createEggUrl,     setCreateEggUrl]     = useState('')
@@ -874,6 +901,8 @@ export default function PetCatalogManager() {
     setCreateCost(100)
     setCreateHatchHours(48)
     setCreateAvailability('standard')
+    setCreateAvailableFrom('')
+    setCreateAvailableUntil('')
     setCreateEggUrl('')
     setCreateEggOffsetX(0)
     setCreateEggOffsetY(0)
@@ -903,8 +932,10 @@ export default function PetCatalogManager() {
       species:       createSpecies.trim(),
       coin_cost:     createCost,
       hatch_hours:   createHatchHours,
-      availability:  createAvailability,
-      sort_order:    maxOrder + 1,
+      availability:    createAvailability,
+      available_from:  createAvailableFrom  || null,
+      available_until: createAvailableUntil || null,
+      sort_order:      maxOrder + 1,
       base_hunger:   80,
       base_health:   100,
       base_energy:   80,
@@ -1068,6 +1099,26 @@ export default function PetCatalogManager() {
                       </select>
                     </div>
                   </div>
+                  {createAvailability === 'limited' && (
+                    <div className="admin-form-row">
+                      <div className="admin-form-field admin-form-field--grow">
+                        <label>Release Date</label>
+                        <input
+                          type="datetime-local"
+                          value={createAvailableFrom}
+                          onChange={e => setCreateAvailableFrom(e.target.value)}
+                        />
+                      </div>
+                      <div className="admin-form-field admin-form-field--grow">
+                        <label>End Date</label>
+                        <input
+                          type="datetime-local"
+                          value={createAvailableUntil}
+                          onChange={e => setCreateAvailableUntil(e.target.value)}
+                        />
+                      </div>
+                    </div>
+                  )}
                 </div>
 
                 {/* ── Section 2: Egg image ── */}
