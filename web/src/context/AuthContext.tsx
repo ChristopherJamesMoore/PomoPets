@@ -9,6 +9,7 @@ export interface Profile {
   email: string | null
   avatar_url: string | null
   coins: number
+  theme: string
   created_at: string
   updated_at: string
   display_name_changed_at: string | null
@@ -40,10 +41,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const fetchProfile = useCallback(async (userId: string) => {
     const { data } = await supabase
       .from('profiles')
-      .select('id, display_name, email, avatar_url, coins, created_at, updated_at, display_name_changed_at')
+      .select('id, display_name, email, avatar_url, coins, theme, created_at, updated_at, display_name_changed_at')
       .eq('id', userId)
       .single()
-    setProfile((data as Profile) ?? null)
+    const p = (data as Profile) ?? null
+    setProfile(p)
+    document.documentElement.setAttribute('data-theme', p?.theme ?? 'rose')
   }, [])
 
   const refreshProfile = useCallback(async () => {

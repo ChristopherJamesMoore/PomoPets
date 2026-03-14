@@ -150,6 +150,35 @@ export default function SettingsPage() {
         </button>
       </form>
 
+      {/* ── Appearance ── */}
+      <div className="settings-card">
+        <h2 className="settings-section-title">Appearance</h2>
+        <div className="settings-theme-options">
+          {([
+            { id: 'rose', name: 'Rose', desc: 'Warm & cosy', bg: '#fdf6ee', surface: '#ffffff' },
+            { id: 'snow', name: 'Snow', desc: 'Clean & bright', bg: '#ffffff', surface: '#fdf6ee' },
+          ] as const).map(t => (
+            <button
+              key={t.id}
+              type="button"
+              className={`settings-theme-option${profile.theme === t.id ? ' settings-theme-option--active' : ''}`}
+              onClick={async () => {
+                document.documentElement.setAttribute('data-theme', t.id)
+                await supabase.from('profiles').update({ theme: t.id }).eq('id', profile.id)
+                await refreshProfile()
+              }}
+            >
+              <div className="settings-theme-swatch">
+                <div className="settings-theme-swatch-half" style={{ background: t.bg }} />
+                <div className="settings-theme-swatch-half" style={{ background: t.surface }} />
+              </div>
+              <span className="settings-theme-name">{t.name}</span>
+              <span className="settings-theme-desc">{t.desc}</span>
+            </button>
+          ))}
+        </div>
+      </div>
+
       {/* ── Account section ── */}
       <div className="settings-card">
         <h2 className="settings-section-title">Account</h2>

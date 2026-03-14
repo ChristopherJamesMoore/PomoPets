@@ -3,7 +3,7 @@ import GameNav from './GameNav'
 
 export default function GameLayout() {
   return (
-    <div style={{ minHeight: '100vh', background: '#fdf6ee' }}>
+    <div style={{ minHeight: '100vh', background: 'var(--color-bg)' }}>
       <GameNav />
       <main>
         <Outlet />

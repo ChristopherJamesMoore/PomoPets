@@ -37,9 +37,33 @@
   line-height: 1.5;
   font-weight: 400;
   color: #2d2d2d;
-  background-color: #fdf6ee;
+  background-color: var(--color-bg);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  /* ── Rose theme (default) ── */
+  --color-bg:       #fdf6ee;
+  --color-surface:  #ffffff;
+  --color-text:     #3C0008;
+  --color-pink:     #f5d0d6;
+  --color-muted:    #a08090;
+  --color-border:   #f0d8da;
+  --color-shadow:   rgba(60, 0, 8, 0.07);
+  --color-nav-bg:   rgba(253, 246, 238, 0.92);
+  --color-input-bg: #fdf6ee;
+}
+
+/* ── Snow theme ── */
+[data-theme="snow"] {
+  --color-bg:       #ffffff;
+  --color-surface:  #fdf6ee;
+  --color-text:     #3C0008;
+  --color-pink:     #f5d0d6;
+  --color-muted:    #888888;
+  --color-border:   #f0d8da;
+  --color-shadow:   rgba(0, 0, 0, 0.06);
+  --color-nav-bg:   rgba(255, 255, 255, 0.95);
+  --color-input-bg: #ffffff;
 }
 
 body {

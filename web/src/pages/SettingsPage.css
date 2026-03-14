@@ -22,7 +22,7 @@
   font-family: var(--font-display);
   font-size: clamp(1.5rem, 4vw, 2rem);
   font-weight: 900;
-  color: #3C0008;
+  color: var(--color-text);
   text-align: center;
   margin-bottom: 24px;
 }
@@ -40,11 +40,11 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  background: #fff;
-  border: 1.5px solid #f0d8da;
+  background: var(--color-surface);
+  border: 1.5px solid var(--color-border);
   border-radius: 18px;
   padding: 16px 16px;
-  box-shadow: 0 2px 10px rgba(60, 0, 8, 0.05);
+  box-shadow: 0 2px 10px var(--color-shadow);
 }
 
 .stat-chip-icon {
@@ -57,14 +57,14 @@
   font-family: var(--font-display);
   font-size: 15px;
   font-weight: 800;
-  color: #3C0008;
+  color: var(--color-text);
   line-height: 1.2;
 }
 
 .stat-chip-label {
   font-family: var(--font-body);
   font-size: 11px;
-  color: #a08090;
+  color: var(--color-muted);
   text-transform: uppercase;
   letter-spacing: 0.06em;
 }
@@ -72,10 +72,10 @@
 /* ── Card ── */
 
 .settings-card {
-  background: #fff;
-  border: 1.5px solid #f0d8da;
+  background: var(--color-surface);
+  border: 1.5px solid var(--color-border);
   border-radius: 24px;
-  box-shadow: 0 4px 24px rgba(60, 0, 8, 0.07);
+  box-shadow: 0 4px 24px var(--color-shadow);
   padding: 24px 24px;
   margin-bottom: 16px;
 }
@@ -84,7 +84,7 @@
   font-family: var(--font-display);
   font-size: 17px;
   font-weight: 900;
-  color: #3C0008;
+  color: var(--color-text);
   margin-bottom: 18px;
 }
 
@@ -113,7 +113,7 @@
   font-family: var(--font-display);
   font-size: 13px;
   font-weight: 700;
-  color: #3C0008;
+  color: var(--color-text);
   margin-bottom: 6px;
   padding-left: 2px;
 }
@@ -145,9 +145,9 @@
   width: 100%;
   height: 46px;
   padding: 0 16px;
-  border: 1.5px solid #e8d8da;
+  border: 1.5px solid var(--color-border);
   border-radius: 100px;
-  background: #fdf6ee;
+  background: var(--color-input-bg);
   font-family: var(--font-body);
   font-size: 14px;
   color: #2d2d2d;
@@ -157,8 +157,8 @@
   box-sizing: border-box;
 }
 
-.pill-input-sm:focus   { border-color: #3C0008; }
-.pill-input-sm:disabled { opacity: 0.5; cursor: not-allowed; background: #f5f0ee; }
+.pill-input-sm:focus    { border-color: var(--color-text); }
+.pill-input-sm:disabled { opacity: 0.5; cursor: not-allowed; background: var(--color-bg); }
 .pill-input-sm::placeholder { color: #bbb; }
 
 .field-hint-sm {
@@ -192,7 +192,7 @@
   height: 50px;
   border: none;
   border-radius: 100px;
-  background: #3C0008;
+  background: var(--color-text);
   color: #fff4e6;
   font-family: var(--font-display);
   font-size: 17px;
@@ -220,7 +220,7 @@
   justify-content: center;
   width: 100%;
   height: 48px;
-  border: 2px solid #e8d8da;
+  border: 2px solid var(--color-border);
   border-radius: 100px;
   background: transparent;
   color: #c05050;
@@ -234,6 +234,63 @@
 .settings-signout-btn:hover {
   background: #fde8e8;
   border-color: #c05050;
+}
+
+/* ── Theme switcher ── */
+
+.settings-theme-options {
+  display: flex;
+  gap: 12px;
+}
+
+.settings-theme-option {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 12px;
+  border: 2px solid var(--color-border);
+  border-radius: 16px;
+  background: none;
+  cursor: pointer;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  font-family: var(--font-body);
+}
+
+.settings-theme-option:hover {
+  border-color: var(--color-text);
+}
+
+.settings-theme-option--active {
+  border-color: var(--color-text);
+  box-shadow: 0 0 0 2px var(--color-text);
+}
+
+.settings-theme-swatch {
+  width: 100%;
+  height: 40px;
+  border-radius: 8px;
+  border: 1px solid rgba(0,0,0,0.08);
+  overflow: hidden;
+  display: flex;
+}
+
+.settings-theme-swatch-half {
+  flex: 1;
+  height: 100%;
+}
+
+.settings-theme-name {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--color-text);
+  font-family: var(--font-display);
+}
+
+.settings-theme-desc {
+  font-size: 11px;
+  color: var(--color-muted);
 }
 
 /* ── Mobile ── */

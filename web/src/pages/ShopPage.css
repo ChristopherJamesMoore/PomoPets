@@ -29,7 +29,7 @@
   font-family: var(--font-display);
   font-size: clamp(1.6rem, 4vw, 2.2rem);
   font-weight: 900;
-  color: #3C0008;
+  color: var(--color-text);
   margin: 0 0 4px;
 }
 
@@ -52,7 +52,7 @@
   font-family: var(--font-display);
   font-size: 15px;
   font-weight: 800;
-  color: #3C0008;
+  color: var(--color-text);
   background: #fff4e0;
   border: 1.5px solid #f0d8a0;
   border-radius: 100px;
@@ -63,14 +63,14 @@
   font-family: var(--font-body);
   font-size: 13px;
   color: #906878;
-  background: #fff;
-  border: 1.5px solid #f0d8da;
+  background: var(--color-surface);
+  border: 1.5px solid var(--color-border);
   border-radius: 100px;
   padding: 4px 12px;
   text-decoration: none;
   transition: background 0.15s, color 0.15s;
 }
-.shop-hatchery-link:hover { background: #f5d0d6; color: #3C0008; }
+.shop-hatchery-link:hover { background: #f5d0d6; color: var(--color-text); }
 
 /* ── Alerts ── */
 
@@ -96,7 +96,7 @@
   margin-bottom: 16px;
   text-align: center;
 }
-.shop-slots-warning a { color: #3C0008; font-weight: 700; }
+.shop-slots-warning a { color: var(--color-text); font-weight: 700; }
 
 /* ── Loading / empty ── */
 
@@ -127,10 +127,10 @@
 /* ── Egg card ── */
 
 .shop-card {
-  background: #fff;
-  border: 1.5px solid #f0d8da;
+  background: var(--color-surface);
+  border: 1.5px solid var(--color-border);
   border-radius: 24px;
-  box-shadow: 0 4px 20px rgba(60, 0, 8, 0.07);
+  box-shadow: 0 4px 20px var(--color-shadow);
   padding: 20px 16px 16px;
   display: flex;
   flex-direction: column;
@@ -141,7 +141,7 @@
 }
 .shop-card:hover {
   transform: translateY(-3px);
-  box-shadow: 0 8px 28px rgba(60, 0, 8, 0.12);
+  box-shadow: 0 8px 28px var(--color-shadow);
 }
 
 .shop-card--limited {
@@ -194,7 +194,7 @@
   font-family: var(--font-display);
   font-size: 18px;
   font-weight: 900;
-  color: #3C0008;
+  color: var(--color-text);
   text-align: center;
 }
 
@@ -234,14 +234,14 @@
   padding: 2px 0;
   transition: color 0.15s;
 }
-.shop-odds-toggle:hover { color: #3C0008; }
+.shop-odds-toggle:hover { color: var(--color-text); }
 
 .shop-odds {
   width: 100%;
   display: flex;
   flex-direction: column;
   gap: 3px;
-  background: #fdf6ee;
+  background: var(--color-bg);
   border-radius: 10px;
   padding: 8px 10px;
   border: 1px solid #f5d0d6;
@@ -287,11 +287,11 @@
   font-family: var(--font-display);
   font-size: 16px;
   font-weight: 800;
-  color: #3C0008;
+  color: var(--color-text);
 }
 
 .shop-buy-btn {
-  background: #3C0008;
+  background: var(--color-text);
   color: #fff4e6;
   font-family: var(--font-display);
   font-size: 14px;
@@ -322,7 +322,7 @@
   margin: 0;
 }
 .shop-buy-hint--warn { color: #906010; }
-.shop-buy-hint--warn a { color: #3C0008; font-weight: 700; }
+.shop-buy-hint--warn a { color: var(--color-text); font-weight: 700; }
 
 /* ── Mobile ── */
 
