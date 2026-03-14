@@ -1,5 +1,5 @@
 @keyframes fadeUp {
-  from { opacity: 0; transform: translateY(12px); }
+  from { opacity: 0; transform: translateY(14px); }
   to   { opacity: 1; transform: translateY(0); }
 }
 
@@ -7,72 +7,68 @@
   to { transform: rotate(360deg); }
 }
 
+@keyframes petPulse {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50%       { transform: translateY(-6px) scale(1.02); }
+}
+
+/* ── Page shell ── */
+
 .game-home {
-  max-width: 520px;
+  max-width: 920px;
   margin: 0 auto;
-  padding: 40px 20px 64px;
+  padding: 40px 32px 72px;
   animation: fadeUp 0.4s ease both;
 }
 
 .game-greeting {
   font-family: var(--font-display);
-  font-size: clamp(1.5rem, 4vw, 2rem);
+  font-size: clamp(1.5rem, 3vw, 2rem);
   font-weight: 900;
   color: var(--color-text);
-  text-align: center;
-  margin-bottom: 28px;
+  margin-bottom: 24px;
 }
 
-/* ── Pet House ── */
+/* ── Two-column body ── */
+
+.game-home-body {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 20px;
+  align-items: start;
+}
+
+/* ── Pet House (left) ── */
 
 .pet-house {
   background: var(--color-surface);
   border: 1.5px solid var(--color-border);
-  border-radius: 24px;
-  box-shadow: 0 4px 24px var(--color-shadow);
-  padding: 22px 24px;
-  margin-bottom: 24px;
+  border-radius: 28px;
+  box-shadow: 0 4px 28px var(--color-shadow);
+  padding: 28px 28px 24px;
+  min-height: 440px;
+  display: flex;
+  flex-direction: column;
 }
 
 .pet-house-label {
   font-family: var(--font-display);
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 700;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: #a06080;
-  margin-bottom: 18px;
+  color: var(--color-muted);
+  margin-bottom: 24px;
 }
 
-/* Empty / loading state */
+/* Loading state */
 
 .pet-house-state {
+  flex: 1;
   display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: 12px;
-  padding: 16px 0;
+  justify-content: center;
 }
-
-.pet-house-state p {
-  font-family: var(--font-body);
-  font-size: 15px;
-  color: #b09090;
-}
-
-.pet-house-btn {
-  display: inline-block;
-  padding: 10px 28px;
-  background: var(--color-text);
-  color: #fff4e6;
-  font-family: var(--font-display);
-  font-size: 15px;
-  font-weight: 700;
-  border-radius: 100px;
-  transition: opacity 0.15s;
-}
-
-.pet-house-btn:hover { opacity: 0.85; }
 
 .pet-house-emoji {
   font-size: 52px;
@@ -80,43 +76,127 @@
   display: block;
 }
 
-.pet-house-emoji.faded    { filter: grayscale(1); opacity: 0.3; }
-.pet-house-emoji.spinning { animation: spin 1.5s linear infinite; font-size: 32px; }
+.pet-house-emoji.faded    { filter: grayscale(1); opacity: 0.25; }
+.pet-house-emoji.spinning { animation: spin 1.5s linear infinite; font-size: 36px; }
 
-.pet-sprite {
-  width: 64px;
-  height: 64px;
-  object-fit: contain;
-  image-rendering: pixelated;
+/* Empty state */
+
+.pet-house-empty {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 12px;
+  padding: 16px;
 }
+
+.pet-house-empty-visual {
+  font-size: 72px;
+  line-height: 1;
+  filter: drop-shadow(0 4px 12px rgba(60, 0, 8, 0.12));
+  margin-bottom: 4px;
+}
+
+.pet-house-empty-title {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--color-text);
+}
+
+.pet-house-empty-text {
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: var(--color-muted);
+  max-width: 260px;
+  line-height: 1.5;
+}
+
+.pet-house-btn {
+  display: inline-block;
+  padding: 11px 28px;
+  background: var(--color-text);
+  color: #fff4e6;
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 700;
+  border-radius: 100px;
+  transition: opacity 0.15s, transform 0.1s;
+  margin-top: 4px;
+  box-shadow: 0 3px 0 rgba(0,0,0,0.15);
+}
+
+.pet-house-btn:hover  { opacity: 0.88; }
+.pet-house-btn:active { transform: translateY(2px); }
 
 /* Active pet */
 
 .pet-house-active {
+  flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 24px;
 }
 
 .pet-display {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 20px;
+}
+
+.pet-sprite-frame {
+  width: 110px;
+  height: 110px;
+  border-radius: 22px;
+  border: 2px solid;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.pet-sprite {
+  width: 86px;
+  height: 86px;
+  object-fit: contain;
+  image-rendering: pixelated;
+  animation: petPulse 4s ease-in-out infinite;
+}
+
+.pet-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }
 
 .pet-name {
   font-family: var(--font-display);
-  font-size: 20px;
+  font-size: 24px;
   font-weight: 900;
   color: var(--color-text);
+  line-height: 1.1;
 }
 
 .pet-meta {
   font-family: var(--font-body);
-  font-size: 12px;
-  color: #a08090;
+  font-size: 13px;
+  color: var(--color-muted);
   text-transform: capitalize;
-  margin-top: 3px;
+}
+
+.pet-rarity-tag {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: capitalize;
+  padding: 3px 10px;
+  border-radius: 100px;
+  margin-top: 2px;
 }
 
 /* Stat bars */
@@ -124,26 +204,27 @@
 .pet-stats {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 10px;
 }
 
 .stat-row {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
 }
 
 .stat-label {
-  width: 76px;
+  width: 58px;
   font-family: var(--font-body);
   font-size: 12px;
-  color: #906878;
+  font-weight: 600;
+  color: var(--color-muted);
   flex-shrink: 0;
 }
 
 .stat-track {
   flex: 1;
-  height: 8px;
+  height: 9px;
   background: var(--color-pink);
   border-radius: 100px;
   overflow: hidden;
@@ -152,14 +233,15 @@
 .stat-fill {
   height: 100%;
   border-radius: 100px;
-  transition: width 0.4s ease;
+  transition: width 0.5s ease;
 }
 
 .stat-val {
-  width: 26px;
-  font-family: var(--font-body);
-  font-size: 11px;
-  color: #a08090;
+  width: 28px;
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--color-muted);
   text-align: right;
   flex-shrink: 0;
 }
@@ -170,63 +252,113 @@
   font-weight: 700;
   color: var(--color-text);
   align-self: flex-end;
-  opacity: 0.7;
+  opacity: 0.6;
   transition: opacity 0.15s;
+  margin-top: auto;
 }
 
 .pet-manage-link:hover { opacity: 1; }
 
-/* ── Feature Grid ── */
+/* ── Nav tiles (right) ── */
 
-.feature-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 14px;
-}
-
-.feature-tile {
+.nav-tiles {
   display: flex;
   flex-direction: column;
+  gap: 8px;
+}
+
+.nav-tile {
+  display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 6px;
-  padding: 24px 16px;
+  gap: 14px;
+  padding: 13px 16px;
   background: var(--color-surface);
   border: 1.5px solid var(--color-border);
-  border-radius: 20px;
-  box-shadow: 0 2px 12px var(--color-shadow);
+  border-radius: 18px;
+  box-shadow: 0 2px 8px var(--color-shadow);
   text-decoration: none;
-  transition: transform 0.18s ease, box-shadow 0.18s ease;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s;
 }
 
-.feature-tile:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 6px 20px var(--color-shadow);
+.nav-tile:hover {
+  transform: translateX(4px);
+  border-color: var(--color-text);
+  box-shadow: 0 4px 16px var(--color-shadow);
 }
 
-.tile-emoji {
-  font-size: 32px;
+.nav-tile-icon {
+  font-size: 22px;
   line-height: 1;
-  margin-bottom: 4px;
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-bg);
+  border-radius: 12px;
+  flex-shrink: 0;
 }
 
-.tile-label {
+.nav-tile-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.nav-tile-label {
+  display: block;
   font-family: var(--font-display);
-  font-size: 17px;
+  font-size: 15px;
   font-weight: 800;
   color: var(--color-text);
+  line-height: 1.2;
 }
 
-.tile-sub {
+.nav-tile-sub {
+  display: block;
   font-family: var(--font-body);
-  font-size: 12px;
-  color: #a08090;
+  font-size: 11px;
+  color: var(--color-muted);
+  margin-top: 1px;
+}
+
+.nav-tile-arrow {
+  font-size: 20px;
+  color: var(--color-muted);
+  flex-shrink: 0;
+  transition: transform 0.15s, color 0.15s;
+  line-height: 1;
+}
+
+.nav-tile:hover .nav-tile-arrow {
+  transform: translateX(3px);
+  color: var(--color-text);
 }
 
 /* ── Mobile ── */
 
-@media (max-width: 480px) {
-  .game-home { padding: 28px 16px 48px; }
-  .feature-grid { gap: 10px; }
-  .feature-tile { padding: 20px 12px; }
+@media (max-width: 700px) {
+  .game-home { padding: 28px 16px 56px; }
+
+  .game-home-body {
+    grid-template-columns: 1fr;
+  }
+
+  .pet-house { min-height: 320px; }
+
+  .nav-tiles {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+
+  .nav-tile {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 14px;
+  }
+
+  .nav-tile:hover { transform: translateY(-2px); }
+
+  .nav-tile-arrow { display: none; }
 }
