@@ -3,14 +3,16 @@ import { Link } from 'react-router-dom'
 import '../App.css'
 
 export default function LandingPage() {
-  const titleSectionRef = useRef<HTMLElement>(null)
-  const bodySectionRef  = useRef<HTMLElement>(null)
+  const titleSectionRef   = useRef<HTMLElement>(null)
+  const bodySectionRef    = useRef<HTMLElement>(null)
+  const startedSectionRef = useRef<HTMLElement>(null)
 
   const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
     const top = e.currentTarget.scrollTop
     const vh  = e.currentTarget.clientHeight
     if (top > 0)        titleSectionRef.current?.classList.add('animate')
     if (top > vh * 1.2) bodySectionRef.current?.classList.add('animate')
+    if (top > vh * 2.2) startedSectionRef.current?.classList.add('animate')
   }
 
   return (
@@ -87,16 +89,21 @@ Every task, no matter how small, can help you achieve more and take care of your
         </div>
       </section>
 
-      <section className="how-it-started">
-        <div className="para">
-          <p> I struggle with chronic conditions and neurodiversity; more specifically, I struggle to manage my own social battery with studying and taking care of myself.
-
-            So  I designed something that combines my psychology degree, my love of animals, and coding and drawing.
-
-            The idea bloomed from looking up to my dad, as a software developer and role model for many years.  Despite managing chronic conditions himself, he always pushed through and showed up with so much love and passion.
-
+      {/* ── Section 4: How it started ── */}
+      <section className="how-it-started" ref={startedSectionRef}>
+        <span className="started-eyebrow">From the Heart</span>
+        <div className="started-body">
+          <p>
+            I struggle with chronic conditions and neurodiversity; more specifically, I struggle to manage my own social battery with studying and taking care of myself.
+          </p>
+          <p>
+            So I designed something that combines my psychology degree, my love of animals, and coding and drawing.
+          </p>
+          <p>
+            The idea bloomed from looking up to my dad, as a software developer and role model for many years. Despite managing chronic conditions himself, he always pushed through and showed up with so much love and passion.
+          </p>
+          <p>
             This game is dedicated to my dad, but also to everyone out there like me who hasn't quite found a solution. Even if you aren't like me, I hope this game brings you enjoyment and helps you stay motivated!
-
           </p>
         </div>
       </section>

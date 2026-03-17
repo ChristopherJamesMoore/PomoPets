@@ -341,6 +341,70 @@
   }
 }
 
+/* ── Section 4: How it started ── */
+.how-it-started {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 48px 72px;
+  background-color: var(--color-surface, #ffffff);
+  scroll-snap-align: start;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.started-eyebrow {
+  display: inline-block;
+  background: var(--color-pink, #f5d0d6);
+  color: var(--color-text, #3C0008);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 8px 18px;
+  border-radius: 100px;
+  margin-bottom: 32px;
+  opacity: 0;
+}
+
+.started-body {
+  max-width: 680px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.started-body p {
+  font-size: clamp(1rem, 1.5vw, 1.15rem);
+  color: var(--color-muted, #666);
+  line-height: 1.8;
+  margin: 0;
+  opacity: 0;
+}
+
+.how-it-started.animate .started-eyebrow {
+  animation: fadeUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.1s both;
+}
+
+.how-it-started.animate .started-body p:nth-of-type(1) {
+  animation: fadeUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.25s both;
+}
+
+.how-it-started.animate .started-body p:nth-of-type(2) {
+  animation: fadeUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.4s both;
+}
+
+.how-it-started.animate .started-body p:nth-of-type(3) {
+  animation: fadeUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.55s both;
+}
+
+.how-it-started.animate .started-body p:nth-of-type(4) {
+  animation: fadeUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.7s both;
+}
+
 /* ── Responsive ── */
 @media (max-width: 768px) {
   :root {
@@ -361,5 +425,11 @@
 
   .banner-reveal {
     width: 120vw;
+  }
+
+  .how-it-started {
+    padding: 48px 32px;
+    height: auto;
+    min-height: 100vh;
   }
 }
