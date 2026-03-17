@@ -51,6 +51,14 @@
   --color-shadow:   rgba(60, 0, 8, 0.07);
   --color-nav-bg:   rgba(253, 246, 238, 0.92);
   --color-input-bg: #fdf6ee;
+
+  /* Pastel accent card colors */
+  --color-card-lavender: #f0e6f6;
+  --color-card-cream:    #fdf5e6;
+  --color-card-pink:     #fde8ec;
+  --color-card-sage:     #e6f0e8;
+  --color-card-sky:      #e6ecf6;
+  --color-card-peach:    #fdeee6;
 }
 
 /* ── Snow theme ── */
@@ -64,6 +72,14 @@
   --color-shadow:   rgba(0, 0, 0, 0.06);
   --color-nav-bg:   rgba(255, 255, 255, 0.95);
   --color-input-bg: #ffffff;
+
+  /* Pastel accent card colors */
+  --color-card-lavender: #ede4f4;
+  --color-card-cream:    #faf2e2;
+  --color-card-pink:     #fae4e8;
+  --color-card-sage:     #e2ede4;
+  --color-card-sky:      #e2e8f4;
+  --color-card-peach:    #faebe2;
 }
 
 body {

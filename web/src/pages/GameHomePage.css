@@ -41,8 +41,8 @@
 /* ── Pet House (left) ── */
 
 .pet-house {
-  background: var(--color-surface);
-  border: 1.5px solid var(--color-border);
+  background: var(--color-card-lavender);
+  border: 1.5px solid color-mix(in srgb, var(--color-card-lavender) 50%, var(--color-border));
   border-radius: 28px;
   box-shadow: 0 4px 28px var(--color-shadow);
   padding: 28px 28px 24px;
@@ -225,7 +225,7 @@
 .stat-track {
   flex: 1;
   height: 9px;
-  background: var(--color-pink);
+  background: rgba(255, 255, 255, 0.5);
   border-radius: 100px;
   overflow: hidden;
 }
@@ -280,6 +280,14 @@
   transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s;
 }
 
+.nav-tile:nth-child(1) { background: var(--color-card-cream); }
+.nav-tile:nth-child(2) { background: var(--color-card-pink); }
+.nav-tile:nth-child(3) { background: var(--color-card-peach); }
+.nav-tile:nth-child(4) { background: var(--color-card-sage); }
+.nav-tile:nth-child(5) { background: var(--color-card-sky); }
+.nav-tile:nth-child(6) { background: var(--color-card-lavender); }
+.nav-tile:nth-child(7) { background: var(--color-card-cream); }
+
 .nav-tile:hover {
   transform: translateX(4px);
   border-color: var(--color-text);
@@ -294,7 +302,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--color-bg);
+  background: rgba(255, 255, 255, 0.6);
   border-radius: 12px;
   flex-shrink: 0;
 }

@@ -83,7 +83,7 @@
   font-family: var(--font-body);
   font-size: 14px;
   color: var(--color-text);
-  background: var(--color-surface);
+  background: rgba(255, 255, 255, 0.5);
   outline: none;
   box-sizing: border-box;
 }
@@ -103,7 +103,7 @@
   padding: 5px 14px;
   border-radius: 100px;
   border: 1.5px solid #f0d8da;
-  background: var(--color-surface);
+  background: rgba(255, 255, 255, 0.5);
   color: #a08090;
   cursor: pointer;
   transition: background 0.15s, color 0.15s, border-color 0.15s;
@@ -209,6 +209,13 @@
   box-shadow: 0 6px 20px rgba(60, 0, 8, 0.1);
 }
 
+.pets-card:nth-child(6n+1) { background: var(--color-card-lavender); }
+.pets-card:nth-child(6n+2) { background: var(--color-card-cream); }
+.pets-card:nth-child(6n+3) { background: var(--color-card-pink); }
+.pets-card:nth-child(6n+4) { background: var(--color-card-sage); }
+.pets-card:nth-child(6n+5) { background: var(--color-card-sky); }
+.pets-card:nth-child(6n+6) { background: var(--color-card-peach); }
+
 .pets-card--active {
   box-shadow: 0 0 0 2.5px var(--rarity-color, var(--color-text));
 }
@@ -288,7 +295,7 @@
 .pets-card-stat-row {
   width: 100%;
   height: 4px;
-  background: #f5d0d6;
+  background: rgba(255, 255, 255, 0.5);
   border-radius: 100px;
   overflow: hidden;
 }
@@ -330,7 +337,7 @@
   padding: 28px 20px 20px;
   border-bottom: 1.5px solid #f5e8ea;
   position: relative;
-  background: linear-gradient(160deg, #fff8f9 0%, #fff 60%);
+  background: linear-gradient(160deg, var(--color-card-lavender) 0%, var(--color-surface) 60%);
 }
 
 .pets-panel-sprite-wrap {
@@ -417,7 +424,7 @@
   align-items: center;
   gap: 12px;
   padding: 14px 20px;
-  background: var(--color-bg);
+  background: var(--color-card-cream);
   border-bottom: 1px solid #f5e8ea;
 }
 
@@ -448,7 +455,7 @@
 .pets-xp-track {
   flex: 1;
   height: 8px;
-  background: #f5d0d6;
+  background: rgba(255, 255, 255, 0.5);
   border-radius: 100px;
   overflow: hidden;
 }
@@ -509,7 +516,7 @@
 .pets-stat-track {
   flex: 1;
   height: 8px;
-  background: #f5d0d6;
+  background: rgba(255, 255, 255, 0.5);
   border-radius: 100px;
   overflow: hidden;
 }
@@ -556,8 +563,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: var(--color-bg);
-  border: 1px solid #f5d0d6;
+  background: var(--color-card-sage);
+  border: 1px solid color-mix(in srgb, var(--color-card-sage) 50%, var(--color-border));
   border-radius: 10px;
   padding: 8px 12px;
 }

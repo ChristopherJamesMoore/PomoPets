@@ -36,6 +36,26 @@
   margin-bottom: 16px;
 }
 
+.session-setup-card {
+  background: var(--color-card-lavender);
+}
+
+.pomodoro-timer-card {
+  background: var(--color-card-cream);
+}
+
+.task-list {
+  background: var(--color-card-sage);
+}
+
+.session-card:nth-child(odd) {
+  background: var(--color-card-pink);
+}
+
+.session-card:nth-child(even) {
+  background: var(--color-card-sky);
+}
+
 /* ── Session Setup ── */
 
 .session-setup-title {
@@ -64,7 +84,7 @@
   padding: 0 18px;
   border: 1.5px solid var(--color-border);
   border-radius: 100px;
-  background: var(--color-input-bg);
+  background: rgba(255, 255, 255, 0.5);
   font-family: var(--font-body);
   font-size: 15px;
   color: #2d2d2d;
@@ -180,7 +200,7 @@
   font-size: 14px;
   font-weight: 700;
   color: var(--color-text);
-  background: var(--color-pink);
+  background: var(--color-card-pink);
   padding: 4px 12px;
   border-radius: 100px;
 }
@@ -412,7 +432,7 @@
   align-items: center;
   gap: 10px;
   padding: 10px 12px;
-  background: var(--color-input-bg);
+  background: rgba(255, 255, 255, 0.5);
   border-radius: 12px;
   transition: opacity 0.2s;
 }

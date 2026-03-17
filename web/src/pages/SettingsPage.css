@@ -69,6 +69,9 @@
   letter-spacing: 0.06em;
 }
 
+.stat-chip:nth-child(1) { background: var(--color-card-cream); }
+.stat-chip:nth-child(2) { background: var(--color-card-sky); }
+
 /* ── Card ── */
 
 .settings-card {
@@ -79,6 +82,10 @@
   padding: 24px 24px;
   margin-bottom: 16px;
 }
+
+.settings-card:nth-of-type(1) { background: var(--color-card-lavender); }
+.settings-card:nth-of-type(2) { background: var(--color-card-peach); }
+.settings-card:nth-of-type(3) { background: var(--color-card-pink); }
 
 .settings-section-title {
   font-family: var(--font-display);
@@ -147,7 +154,7 @@
   padding: 0 16px;
   border: 1.5px solid var(--color-border);
   border-radius: 100px;
-  background: var(--color-input-bg);
+  background: rgba(255, 255, 255, 0.5);
   font-family: var(--font-body);
   font-size: 14px;
   color: #2d2d2d;
@@ -250,7 +257,7 @@
   align-items: center;
   gap: 8px;
   padding: 14px 12px;
-  border: 2px solid var(--color-border);
+  border: 2px solid rgba(255, 255, 255, 0.6);
   border-radius: 16px;
   background: none;
   cursor: pointer;
