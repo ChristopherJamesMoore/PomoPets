@@ -15,6 +15,7 @@ import SettingsPage from './pages/SettingsPage'
 import WaitlistPage from './pages/WaitlistPage'
 import VipJoinPage  from './pages/VipJoinPage'
 import AdminPage    from './pages/AdminPage'
+import ContactPage  from './pages/ContactPage'
 
 export default function App() {
   return (
@@ -23,6 +24,7 @@ export default function App() {
       <Route path="/"               element={<LandingPage />} />
       <Route path="/login"          element={<LoginPage />} />
       <Route path="/waitlist"       element={<WaitlistPage />} />
+      <Route path="/contact"        element={<ContactPage />} />
       <Route path="/join/:token"    element={<VipJoinPage />} />
       <Route path="/studio/:secret" element={<AdminPage />} />
 

@@ -35,7 +35,7 @@ export default function LandingPage() {
           <ul className="nav-links">
             <li><a href="#">Download</a></li>
             <li><a href="#">Pricing</a></li>
-            <li><a href="#">Contact</a></li>
+            <li><Link to="/contact">Contact</Link></li>
           </ul>
         </nav>
 

@@ -8,17 +8,19 @@ import UsersTable        from '../components/admin/UsersTable'
 import UserEditPanel     from '../components/admin/UserEditPanel'
 import AuditLogsTable    from '../components/admin/AuditLogsTable'
 import PetCatalogManager from '../components/admin/PetCatalogManager'
-import type { WaitlistEntry } from '../components/admin/WaitlistTable'
-import type { VipToken }      from '../components/admin/VipTokenManager'
-import type { AdminUser }     from '../components/admin/UsersTable'
-import type { AuditLog }      from '../components/admin/AuditLogsTable'
+import TicketsTable      from '../components/admin/TicketsTable'
+import type { WaitlistEntry }  from '../components/admin/WaitlistTable'
+import type { VipToken }       from '../components/admin/VipTokenManager'
+import type { AdminUser }      from '../components/admin/UsersTable'
+import type { AuditLog }       from '../components/admin/AuditLogsTable'
+import type { SupportTicket }  from '../components/admin/TicketsTable'
 import './AdminPage.css'
 
 const ADMIN_SECRET   = import.meta.env.VITE_ADMIN_SECRET   ?? ''
 const ADMIN_PASSWORD = import.meta.env.VITE_ADMIN_PASSWORD ?? ''
 const SESSION_KEY    = 'pomopets_admin_auth'
 
-type Tab = 'waitlist' | 'tokens' | 'users' | 'audit' | 'pets'
+type Tab = 'waitlist' | 'tokens' | 'users' | 'audit' | 'pets' | 'tickets'
 
 export default function AdminPage() {
   const { secret } = useParams<{ secret: string }>()
@@ -42,6 +44,7 @@ function AdminInner() {
   const [tokens,       setTokens]       = useState<VipToken[]>([])
   const [users,        setUsers]        = useState<AdminUser[]>([])
   const [auditLogs,    setAuditLogs]    = useState<AuditLog[]>([])
+  const [tickets,      setTickets]      = useState<SupportTicket[]>([])
   const [selectedUser, setSelectedUser] = useState<AdminUser | null>(null)
   const [loading,      setLoading]      = useState(false)
 
@@ -51,16 +54,18 @@ function AdminInner() {
 
   const fetchData = useCallback(async () => {
     setLoading(true)
-    const [{ data: wl }, { data: tk }, { data: us }, { data: al }] = await Promise.all([
+    const [{ data: wl }, { data: tk }, { data: us }, { data: al }, { data: st }] = await Promise.all([
       supabase.from('waitlist_entries').select('*').order('created_at', { ascending: false }),
       supabase.from('vip_tokens').select('*').order('created_at', { ascending: false }),
       supabase.from('profiles').select('id, display_name, email, avatar_url, coins, created_at').order('created_at', { ascending: false }),
       supabase.from('audit_logs').select('*, profiles(display_name, email)').order('created_at', { ascending: false }).limit(500),
+      supabase.from('support_tickets').select('*').order('created_at', { ascending: false }),
     ])
     setEntries((wl  as WaitlistEntry[]) ?? [])
     setTokens((tk   as VipToken[])      ?? [])
     setUsers((us    as AdminUser[])     ?? [])
     setAuditLogs((al as AuditLog[])     ?? [])
+    setTickets((st   as SupportTicket[]) ?? [])
     setLoading(false)
   }, [])
 
@@ -153,12 +158,12 @@ function AdminInner() {
         <AdminStats total={total} general={general} vip={vip} tokens={activeTokens} users={users.length} />
 
         <div className="admin-tabs">
-          {(['waitlist', 'tokens', 'users', 'audit', 'pets'] as Tab[]).map(t => {
+          {(['waitlist', 'tokens', 'users', 'audit', 'pets', 'tickets'] as Tab[]).map(t => {
             const labels: Record<Tab, string> = {
-              waitlist: 'Waitlist', tokens: 'VIP Tokens', users: 'Users', audit: 'Audit Logs', pets: 'Pets',
+              waitlist: 'Waitlist', tokens: 'VIP Tokens', users: 'Users', audit: 'Audit Logs', pets: 'Pets', tickets: 'Tickets',
             }
             const counts: Record<Tab, number> = {
-              waitlist: total, tokens: tokens.length, users: users.length, audit: auditLogs.length, pets: 0,
+              waitlist: total, tokens: tokens.length, users: users.length, audit: auditLogs.length, pets: 0, tickets: tickets.length,
             }
             return (
               <button
@@ -186,6 +191,7 @@ function AdminInner() {
         )}
         {tab === 'audit'    && <AuditLogsTable logs={auditLogs} onRefresh={fetchData} />}
         {tab === 'pets'     && <PetCatalogManager />}
+        {tab === 'tickets'  && <TicketsTable tickets={tickets} onRefresh={fetchData} />}
       </main>
 
       <UserEditPanel
