@@ -8,25 +8,37 @@ final class AuthViewModel {
     var isLoading = true
     var errorMessage: String?
     var successMessage: String?
+    var profile: Profile?
+    var userId: String?
+
+    var isProfileComplete: Bool {
+        guard let name = profile?.displayName.trimmingCharacters(in: .whitespaces) else { return false }
+        return !name.isEmpty
+    }
 
     private var authStateTask: Task<Void, Never>?
 
     init() {
-        // Check for existing session
-        if supabase.auth.currentSession != nil {
+        if let session = supabase.auth.currentSession {
             isAuthenticated = true
+            userId = session.user.id.uuidString
+            Task { await fetchProfile(userId: session.user.id.uuidString) }
         }
         isLoading = false
 
-        // Listen for auth state changes
         authStateTask = Task { [weak self] in
-            for await (event, _) in supabase.auth.authStateChanges {
+            for await (event, session) in supabase.auth.authStateChanges {
                 guard let self else { return }
                 switch event {
                 case .signedIn:
+                    let uid = session?.user.id.uuidString
+                    self.userId = uid
                     self.isAuthenticated = true
+                    if let uid { await self.fetchProfile(userId: uid) }
                 case .signedOut:
                     self.isAuthenticated = false
+                    self.userId = nil
+                    self.profile = nil
                 default:
                     break
                 }
@@ -34,9 +46,33 @@ final class AuthViewModel {
         }
     }
 
-    deinit {
-        authStateTask?.cancel()
+    deinit { authStateTask?.cancel() }
+
+    // MARK: – Profile
+
+    func fetchProfile(userId: String) async {
+        do {
+            let response: Profile = try await supabase
+                .from("profiles")
+                .select("id, display_name, email, avatar_url, coins, theme, egg_slots, created_at, updated_at, display_name_changed_at")
+                .eq("id", value: userId)
+                .single()
+                .execute()
+                .value
+            self.profile = response
+        } catch {
+            // Profile may not exist yet (new signup)
+            self.profile = nil
+        }
     }
+
+    func refreshProfile() async {
+        if let uid = userId {
+            await fetchProfile(userId: uid)
+        }
+    }
+
+    // MARK: – Auth
 
     func signIn(email: String, password: String) async {
         errorMessage = nil
@@ -82,5 +118,22 @@ final class AuthViewModel {
     func clearMessages() {
         errorMessage = nil
         successMessage = nil
+    }
+
+    // MARK: – Profile Setup
+
+    func setupProfile(displayName: String) async {
+        guard let uid = userId else { return }
+        errorMessage = nil
+        do {
+            try await supabase
+                .from("profiles")
+                .update(["display_name": displayName.trimmingCharacters(in: .whitespaces)])
+                .eq("id", value: uid)
+                .execute()
+            await fetchProfile(userId: uid)
+        } catch {
+            errorMessage = error.localizedDescription
+        }
     }
 }

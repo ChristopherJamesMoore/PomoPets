@@ -3,9 +3,14 @@ import { Link } from 'react-router-dom'
 import '../App.css'
 
 export default function LandingPage() {
-  const titleSectionRef   = useRef<HTMLElement>(null)
-  const bodySectionRef    = useRef<HTMLElement>(null)
-  const startedSectionRef = useRef<HTMLElement>(null)
+  const titleSectionRef    = useRef<HTMLElement>(null)
+  const bodySectionRef     = useRef<HTMLElement>(null)
+  const startedSectionRef  = useRef<HTMLElement>(null)
+  const featuresSectionRef = useRef<HTMLElement>(null)
+
+  const scrollTo = (ref: React.RefObject<HTMLElement | null>) => {
+    ref.current?.scrollIntoView({ behavior: 'smooth' })
+  }
 
   const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
     const top = e.currentTarget.scrollTop
@@ -13,6 +18,7 @@ export default function LandingPage() {
     if (top > 0)        titleSectionRef.current?.classList.add('animate')
     if (top > vh * 1.2) bodySectionRef.current?.classList.add('animate')
     if (top > vh * 2.2) startedSectionRef.current?.classList.add('animate')
+    if (top > vh * 3.2) featuresSectionRef.current?.classList.add('animate')
   }
 
   return (
@@ -22,7 +28,7 @@ export default function LandingPage() {
       <div className="fold">
         <nav className="navbar">
           <ul className="nav-links">
-            <li><a href="#">Features</a></li>
+            <li><a href="#features" onClick={e => { e.preventDefault(); scrollTo(featuresSectionRef) }}>Features</a></li>
             <li><a href="#">How It Works</a></li>
             <li><a href="#">Blog</a></li>
           </ul>
@@ -89,7 +95,45 @@ Every task, no matter how small, can help you achieve more and take care of your
         </div>
       </section>
 
-      {/* ── Section 4: How it started ── */}
+      {/* ── Section 4: Features ── */}
+      <section className="features-section" ref={featuresSectionRef}>
+        <span className="features-eyebrow">What You Get</span>
+        <h2 className="features-title">Everything You Need to<br /><span>Stay on Track</span></h2>
+        <div className="features-grid">
+          <div className="feature-card">
+            <span className="feature-icon">🍅</span>
+            <h3>Pomodoro Timer</h3>
+            <p>Built-in focus timer with customisable sessions. Study in short bursts, take proper breaks, and earn rewards for every minute.</p>
+          </div>
+          <div className="feature-card">
+            <span className="feature-icon">🥚</span>
+            <h3>Hatch & Collect</h3>
+            <p>Spend your earned coins on eggs in the shop. Hatch them to discover pets across six rarity tiers — from Common to Prismatic.</p>
+          </div>
+          <div className="feature-card">
+            <span className="feature-icon">🐾</span>
+            <h3>Grow Your Pets</h3>
+            <p>Your pets level up as you study. Feed them, care for them, and watch them grow — your productivity directly shapes their world.</p>
+          </div>
+          <div className="feature-card">
+            <span className="feature-icon">📊</span>
+            <h3>Track Your Progress</h3>
+            <p>See your study streaks, session history, and personal stats. Understand your patterns and celebrate your wins.</p>
+          </div>
+          <div className="feature-card">
+            <span className="feature-icon">🎨</span>
+            <h3>Hand-Drawn Art</h3>
+            <p>Every pet and asset is hand-drawn with love. No generative AI — just authentic, original artwork crafted for this game.</p>
+          </div>
+          <div className="feature-card">
+            <span className="feature-icon">📱</span>
+            <h3>Cross-Platform</h3>
+            <p>Available on Web, iOS, and Steam. Your progress syncs everywhere so you can study at your desk or on the go.</p>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Section 5: How it started ── */}
       <section className="how-it-started" ref={startedSectionRef}>
         <span className="started-eyebrow">From the Heart</span>
         <div className="started-body">
