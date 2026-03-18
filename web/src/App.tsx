@@ -14,8 +14,10 @@ import PomodoroPage from './pages/PomodoroPage'
 import SettingsPage from './pages/SettingsPage'
 import WaitlistPage from './pages/WaitlistPage'
 import VipJoinPage  from './pages/VipJoinPage'
-import AdminPage    from './pages/AdminPage'
-import ContactPage  from './pages/ContactPage'
+import AdminPage      from './pages/AdminPage'
+import ContactPage    from './pages/ContactPage'
+import GamesPage      from './pages/GamesPage'
+import TicTacToePage  from './pages/TicTacToePage'
 
 export default function App() {
   return (
@@ -40,8 +42,10 @@ export default function App() {
           <Route path="/pets"     element={<PetsPage />} />
           <Route path="/health"   element={<HealthPage />} />
           <Route path="/habits"   element={<HabitsPage />} />
-          <Route path="/pomodoro" element={<PomodoroPage />} />
-          <Route path="/settings" element={<SettingsPage />} />
+          <Route path="/pomodoro"          element={<PomodoroPage />} />
+          <Route path="/games"             element={<GamesPage />} />
+          <Route path="/games/tic-tac-toe" element={<TicTacToePage />} />
+          <Route path="/settings"          element={<SettingsPage />} />
         </Route>
       </Route>
     </Routes>

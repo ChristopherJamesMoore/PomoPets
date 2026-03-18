@@ -1,0 +1,258 @@
+.ttt-page {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 32px 24px 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.ttt-back-row {
+  width: 100%;
+  margin-bottom: 24px;
+}
+
+.ttt-back {
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-muted);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.ttt-back:hover { color: var(--color-primary); }
+
+/* ── Select Card ── */
+.ttt-select-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 24px;
+  padding: 48px 36px;
+  text-align: center;
+  width: 100%;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+}
+
+.ttt-select-title {
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--color-primary);
+  margin: 0 0 8px;
+}
+
+.ttt-select-sub {
+  font-family: var(--font-display);
+  font-size: 14px;
+  color: var(--color-muted);
+  margin: 0 0 28px;
+}
+
+.ttt-select-options {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+}
+
+.ttt-select-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  width: 120px;
+  padding: 24px 16px;
+  border: 2px solid var(--color-border);
+  border-radius: 16px;
+  background: var(--color-bg);
+  font-size: 36px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.ttt-select-btn span {
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+.ttt-select-sun:hover {
+  border-color: #e6a800;
+  background: var(--color-card-cream);
+}
+
+.ttt-select-moon:hover {
+  border-color: #40739e;
+  background: var(--color-card-sky);
+}
+
+/* ── Board Card ── */
+.ttt-board-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 24px;
+  padding: 24px;
+  width: 100%;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+}
+
+/* ── Turn Bar ── */
+.ttt-turn-bar {
+  display: flex;
+  position: relative;
+  background: var(--color-bg);
+  border-radius: 12px;
+  padding: 4px;
+  margin-bottom: 20px;
+}
+
+.ttt-turn-label {
+  flex: 1;
+  text-align: center;
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-muted);
+  padding: 10px 0;
+  position: relative;
+  z-index: 2;
+  transition: color 0.3s;
+}
+
+.ttt-turn-active {
+  color: var(--color-primary);
+}
+
+.ttt-turn-slider {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  width: calc(50% - 4px);
+  height: calc(100% - 8px);
+  background: var(--color-surface);
+  border-radius: 10px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+  transition: left 0.3s ease;
+  z-index: 1;
+}
+
+.ttt-turn-slider--right {
+  left: calc(50%);
+}
+
+/* ── Grid ── */
+.ttt-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.ttt-cell {
+  aspect-ratio: 1;
+  border: none;
+  border-radius: 14px;
+  background: var(--color-bg);
+  font-size: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.1s;
+}
+
+.ttt-cell:hover:not(:disabled) {
+  background: var(--color-card-lavender);
+  transform: scale(1.03);
+}
+
+.ttt-cell--filled {
+  cursor: default;
+  animation: ttt-pop 0.2s ease;
+}
+
+.ttt-cell:disabled {
+  cursor: default;
+}
+
+.ttt-sun { font-size: 36px; }
+.ttt-moon { font-size: 36px; }
+
+@keyframes ttt-pop {
+  0% { transform: scale(0.6); }
+  60% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+/* ── Result Card ── */
+.ttt-result-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 24px;
+  padding: 48px 36px;
+  text-align: center;
+  width: 100%;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+  animation: ttt-fade-in 0.4s ease;
+}
+
+@keyframes ttt-fade-in {
+  from { opacity: 0; transform: scale(0.92); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.ttt-result-icon {
+  font-size: 56px;
+  margin-bottom: 12px;
+}
+
+.ttt-result-text {
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--color-primary);
+  margin: 0 0 8px;
+}
+
+.ttt-result-sub {
+  font-family: var(--font-display);
+  font-size: 14px;
+  color: var(--color-muted);
+  margin: 0 0 8px;
+}
+
+.ttt-coin-reward {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 700;
+  color: #d4a017;
+  margin: 4px 0 16px;
+  animation: ttt-coin-bounce 0.6s ease;
+}
+
+@keyframes ttt-coin-bounce {
+  0% { opacity: 0; transform: translateY(10px); }
+  50% { transform: translateY(-6px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+.ttt-replay-btn {
+  margin-top: 20px;
+  padding: 12px 32px;
+  border: none;
+  border-radius: 100px;
+  background: var(--color-primary);
+  color: var(--color-primary-text);
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+.ttt-replay-btn:hover { opacity: 0.9; }
+
+@media (max-width: 480px) {
+  .ttt-page { padding: 20px 16px 60px; }
+  .ttt-select-card, .ttt-board-card, .ttt-result-card { padding: 24px 20px; }
+  .ttt-cell { font-size: 32px; border-radius: 10px; }
+  .ttt-sun, .ttt-moon { font-size: 28px; }
+}
