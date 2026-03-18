@@ -19,6 +19,7 @@ export default function LandingPage() {
     if (top > vh * 1.2) bodySectionRef.current?.classList.add('animate')
     if (top > vh * 2.2) startedSectionRef.current?.classList.add('animate')
     if (top > vh * 3.2) featuresSectionRef.current?.classList.add('animate')
+
   }
 
   return (
@@ -95,7 +96,26 @@ Every task, no matter how small, can help you achieve more and take care of your
         </div>
       </section>
 
-      {/* ── Section 4: Features ── */}
+      {/* ── Section 4: How it started ── */}
+      <section className="how-it-started" ref={startedSectionRef}>
+        <span className="started-eyebrow">From the Heart</span>
+        <div className="started-body">
+          <p>
+            I struggle with chronic conditions and neurodiversity; more specifically, I struggle to manage my own social battery with studying and taking care of myself.
+          </p>
+          <p>
+            So I designed something that combines my psychology degree, my love of animals, and coding and drawing.
+          </p>
+          <p>
+            The idea bloomed from looking up to my dad, as a software developer and role model for many years. Despite managing chronic conditions himself, he always pushed through and showed up with so much love and passion.
+          </p>
+          <p>
+            This game is dedicated to my dad, but also to everyone out there like me who hasn't quite found a solution. Even if you aren't like me, I hope this game brings you enjoyment and helps you stay motivated!
+          </p>
+        </div>
+      </section>
+
+      {/* ── Section 5: Features ── */}
       <section className="features-section" ref={featuresSectionRef}>
         <span className="features-eyebrow">What You Get</span>
         <h2 className="features-title">Everything You Need to<br /><span>Stay on Track</span></h2>
@@ -130,25 +150,6 @@ Every task, no matter how small, can help you achieve more and take care of your
             <h3>Cross-Platform</h3>
             <p>Available on Web, iOS, and Steam. Your progress syncs everywhere so you can study at your desk or on the go.</p>
           </div>
-        </div>
-      </section>
-
-      {/* ── Section 5: How it started ── */}
-      <section className="how-it-started" ref={startedSectionRef}>
-        <span className="started-eyebrow">From the Heart</span>
-        <div className="started-body">
-          <p>
-            I struggle with chronic conditions and neurodiversity; more specifically, I struggle to manage my own social battery with studying and taking care of myself.
-          </p>
-          <p>
-            So I designed something that combines my psychology degree, my love of animals, and coding and drawing.
-          </p>
-          <p>
-            The idea bloomed from looking up to my dad, as a software developer and role model for many years. Despite managing chronic conditions himself, he always pushed through and showed up with so much love and passion.
-          </p>
-          <p>
-            This game is dedicated to my dad, but also to everyone out there like me who hasn't quite found a solution. Even if you aren't like me, I hope this game brings you enjoyment and helps you stay motivated!
-          </p>
         </div>
       </section>
 
