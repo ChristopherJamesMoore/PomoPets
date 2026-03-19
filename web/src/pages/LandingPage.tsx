@@ -43,7 +43,7 @@ export default function LandingPage() {
           </div>
 
           <ul className="nav-links">
-            <li><a href="#" className="nav-coming-soon" onClick={e => e.preventDefault()}>Download <span className="coming-soon-badge">Coming Soon</span></a></li>
+            <li><a href="#" className="nav-disabled" onClick={e => e.preventDefault()}>Download</a></li>
             <li><a href="#">Pricing</a></li>
             <li><Link to="/contact">Contact</Link></li>
           </ul>
