@@ -49,6 +49,26 @@
   color: #3C0008;
 }
 
+.nav-coming-soon {
+  position: relative;
+  cursor: default !important;
+  opacity: 0.7;
+}
+
+.coming-soon-badge {
+  display: inline-block;
+  background: #f5d0d6;
+  color: #3C0008;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 2px 6px;
+  border-radius: 100px;
+  margin-left: 4px;
+  vertical-align: middle;
+}
+
 .nav-login-btn {
   display: inline-block;
   background: #3C0008;

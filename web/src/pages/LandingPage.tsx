@@ -33,7 +33,7 @@ export default function LandingPage() {
         <nav className="navbar">
           <ul className="nav-links">
             <li><a href="#features" onClick={e => { e.preventDefault(); scrollTo(featuresSectionRef) }}>Features</a></li>
-            <li><a href="#">How It Works</a></li>
+            <li><a href="#gallery" onClick={e => { e.preventDefault(); scrollTo(gallerySectionRef) }}>Gallery</a></li>
             <li><a href="#socials" onClick={e => { e.preventDefault(); scrollTo(socialsSectionRef) }}>Socials</a></li>
           </ul>
 
@@ -43,7 +43,7 @@ export default function LandingPage() {
           </div>
 
           <ul className="nav-links">
-            <li><a href="#">Download</a></li>
+            <li><a href="#" className="nav-coming-soon" onClick={e => e.preventDefault()}>Download <span className="coming-soon-badge">Coming Soon</span></a></li>
             <li><a href="#">Pricing</a></li>
             <li><Link to="/contact">Contact</Link></li>
           </ul>
