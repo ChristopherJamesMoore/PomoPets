@@ -7,6 +7,7 @@ export default function LandingPage() {
   const bodySectionRef     = useRef<HTMLElement>(null)
   const startedSectionRef  = useRef<HTMLElement>(null)
   const featuresSectionRef = useRef<HTMLElement>(null)
+  const gallerySectionRef  = useRef<HTMLElement>(null)
   const socialsSectionRef  = useRef<HTMLElement>(null)
 
   const scrollTo = (ref: React.RefObject<HTMLElement | null>) => {
@@ -20,7 +21,8 @@ export default function LandingPage() {
     if (top > vh * 1.2) bodySectionRef.current?.classList.add('animate')
     if (top > vh * 2.2) startedSectionRef.current?.classList.add('animate')
     if (top > vh * 3.2) featuresSectionRef.current?.classList.add('animate')
-    if (top > vh * 4.2) socialsSectionRef.current?.classList.add('animate')
+    if (top > vh * 4.2) gallerySectionRef.current?.classList.add('animate')
+    if (top > vh * 5.2) socialsSectionRef.current?.classList.add('animate')
   }
 
   return (
@@ -154,7 +156,27 @@ Every task, no matter how small, can help you achieve more and take care of your
         </div>
       </section>
 
-      {/* ── Section 6: Socials ── */}
+      {/* ── Section 6: Gallery ── */}
+      <section className="gallery-section" ref={gallerySectionRef}>
+        <span className="gallery-eyebrow">Sneak Peek</span>
+        <h2 className="gallery-title">Meet Some<br /><span>PomoPets</span></h2>
+        <div className="gallery-grid">
+          <div className="gallery-card">
+            <img src="/gallery/Screenshot 2026-03-19 at 16.19.03.png" alt="Turtle pet" />
+          </div>
+          <div className="gallery-card">
+            <img src="/gallery/Screenshot 2026-03-19 at 16.19.21.png" alt="Cow pet" />
+          </div>
+          <div className="gallery-card">
+            <img src="/gallery/Screenshot 2026-03-19 at 16.19.30.png" alt="Bat pet" />
+          </div>
+          <div className="gallery-card">
+            <img src="/gallery/Screenshot 2026-03-19 at 16.19.58.png" alt="Bat flying pet" />
+          </div>
+        </div>
+      </section>
+
+      {/* ── Section 7: Socials ── */}
       <section className="socials-section" ref={socialsSectionRef}>
         <span className="socials-eyebrow">Connect With Us</span>
         <h2 className="socials-title">Find Us<br /><span>Everywhere</span></h2>
@@ -162,9 +184,7 @@ Every task, no matter how small, can help you achieve more and take care of your
         <div className="socials-content">
           {/* Co-founder Linktree QR */}
           <div className="socials-qr-card">
-            <div className="socials-qr-placeholder">
-              <span>QR Code</span>
-            </div>
+            <img src="/linktr.png" alt="Linktree QR code" className="socials-qr-img" />
             <p className="socials-qr-label">Scan for Linktree</p>
           </div>
 

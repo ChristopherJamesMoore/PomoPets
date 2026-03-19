@@ -289,6 +289,8 @@
   height: auto;
   display: block;
   border-radius: 24px;
+  border: 3px solid #3C0008;
+  box-sizing: border-box;
 }
 
 .about-content {
@@ -520,7 +522,92 @@
   animation: fadeUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.7s both;
 }
 
-/* ── Section 6: Socials ── */
+/* ── Section 6: Gallery ── */
+.gallery-section {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 80px 72px;
+  background-color: #fdf6ee;
+  scroll-snap-align: start;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.gallery-eyebrow {
+  display: inline-block;
+  background: #f5d0d6;
+  color: #3C0008;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 8px 18px;
+  border-radius: 100px;
+  margin-bottom: 20px;
+  opacity: 0;
+}
+
+.gallery-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  font-weight: 800;
+  line-height: 1.15;
+  color: #1e1e1e;
+  margin: 0 0 48px;
+  opacity: 0;
+}
+
+.gallery-title span {
+  color: #3C0008;
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  max-width: 960px;
+  width: 100%;
+  opacity: 0;
+}
+
+.gallery-card {
+  background: #fff;
+  border: 1px solid #f0e0d6;
+  border-radius: 20px;
+  overflow: hidden;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.gallery-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(60, 0, 8, 0.08);
+}
+
+.gallery-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Gallery animations */
+.gallery-section.animate .gallery-eyebrow {
+  animation: fadeUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.1s both;
+}
+
+.gallery-section.animate .gallery-title {
+  animation: fadeUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.25s both;
+}
+
+.gallery-section.animate .gallery-grid {
+  animation: fadeUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.4s both;
+}
+
+/* ── Section 7: Socials ── */
 .socials-section {
   height: 100vh;
   display: flex;
@@ -578,18 +665,12 @@
   gap: 16px;
 }
 
-.socials-qr-placeholder {
+.socials-qr-img {
   width: 200px;
   height: 200px;
-  background: #fff;
-  border: 2px dashed #ccc;
   border-radius: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #aaa;
-  font-size: 16px;
-  font-weight: 600;
+  object-fit: contain;
+  display: block;
 }
 
 .socials-qr-label {
@@ -648,32 +729,121 @@
     --banner-height: clamp(135px, 25vh, 220px);
   }
 
+  /* Navbar: stack logo above links on mobile */
   .navbar {
-    padding: 20px 32px;
+    padding: 16px 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .nav-logo {
+    position: static;
+    transform: none;
+    order: -1;
+    width: 100%;
+    flex-direction: row;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .nav-logo-img {
+    width: 36px;
+    height: 36px;
+  }
+
+  .nav-logo-text {
+    font-size: 11px;
   }
 
   .nav-links {
-    gap: 24px;
+    gap: 16px;
+    padding: 0;
+    margin: 0;
   }
 
   .nav-links a {
-    font-size: 16px;
+    font-size: 14px;
+  }
+
+  /* Hero */
+  .hero {
+    padding: 8px 20px 140px;
+  }
+
+  .hero-title {
+    font-size: clamp(1.8rem, 7vw, 2.6rem);
+  }
+
+  .hero-subtitle {
+    font-size: clamp(0.9rem, 3.5vw, 1.05rem);
+    max-width: 90%;
+  }
+
+  .hero-ctas {
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .btn-primary,
+  .btn-outline {
+    font-size: 20px;
+    padding: 14px 36px;
   }
 
   .banner-reveal {
     width: 120vw;
   }
 
+  /* About title */
+  .about-title-section {
+    padding: 0 24px;
+  }
+
+  .about-title {
+    font-size: clamp(1.8rem, 7vw, 3rem);
+  }
+
+  /* About body */
+  .about-body-section {
+    flex-direction: column;
+    gap: 32px;
+    padding: 48px 24px;
+    height: auto;
+    min-height: 100vh;
+    overflow-y: auto;
+  }
+
+  .about-image {
+    width: 70%;
+    max-width: 300px;
+  }
+
+  .about-content {
+    gap: 16px;
+  }
+
+  /* How it started */
   .how-it-started {
-    padding: 48px 32px;
+    padding: 48px 24px;
     height: auto;
     min-height: 100vh;
   }
 
+  .started-body {
+    gap: 16px;
+  }
+
+  /* Features */
   .features-section {
     padding: 60px 24px;
     height: auto;
     min-height: 100vh;
+  }
+
+  .features-title {
+    margin-bottom: 32px;
   }
 
   .features-grid {
@@ -681,6 +851,28 @@
     max-width: 400px;
   }
 
+  .feature-card {
+    padding: 24px 20px;
+  }
+
+  /* Gallery */
+  .gallery-section {
+    padding: 60px 24px;
+    height: auto;
+    min-height: 100vh;
+  }
+
+  .gallery-title {
+    margin-bottom: 32px;
+  }
+
+  .gallery-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    max-width: 400px;
+  }
+
+  /* Socials */
   .socials-section {
     padding: 60px 24px;
     height: auto;
@@ -689,11 +881,54 @@
 
   .socials-content {
     flex-direction: column;
-    gap: 40px;
+    gap: 32px;
   }
 
-  .socials-qr-placeholder {
+  .socials-qr-img {
     width: 160px;
     height: 160px;
+  }
+
+  .social-link {
+    padding: 16px 24px;
+  }
+
+  .social-link svg {
+    width: 36px;
+    height: 36px;
+  }
+
+  .social-link span {
+    font-size: 17px;
+  }
+}
+
+/* ── Small phones ── */
+@media (max-width: 420px) {
+  .nav-links {
+    gap: 12px;
+  }
+
+  .nav-links a {
+    font-size: 12px;
+  }
+
+  .hero-title {
+    font-size: clamp(1.5rem, 8vw, 2rem);
+  }
+
+  .btn-primary,
+  .btn-outline {
+    font-size: 18px;
+    padding: 12px 28px;
+  }
+
+  .about-title {
+    font-size: clamp(1.5rem, 8vw, 2.2rem);
+  }
+
+  .gallery-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
   }
 }
